@@ -1,0 +1,65 @@
+:root {
+  --main-bg-color: 45, 53, 59;
+  --main-fg-color: 211, 198, 170;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  background: rgb(var(--main-bg-color));
+  color: rgb(var(--main-fg-color));
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  border: 1px solid rgb(var(--main-fg-color));
+  width: 80%;
+  max-width: 1000px;
+  position: relative;
+  display: flex;
+}
+
+.left-section {
+  height: 100%;
+}
+.image-container {
+  position: relative;
+  top: 10%;
+  width: 25%;
+  padding: 7%;
+}
+.image-wrapper {
+  position: relative;
+  width: 100%;
+}
+.image-wrapper:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 6%;
+  bottom: -5%;
+  left: -8%;
+  right: 8%;
+  border: 1px solid rgb(var(--main-fg-color));
+  z-index: 1;
+}
+
+.image {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+.date-wrapper {
+  font-family: Roboto, sans-serif;
+  font-weight: 900;
+}
