@@ -113,6 +113,7 @@ input {
 }
 
 .edge {
+  z-index: 20;
   border-top: var(--border);
   position: absolute;
 }
