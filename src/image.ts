@@ -12,11 +12,11 @@ async function waitForImage(img: HTMLImageElement): Promise<void> {
 async function positionImage(
   containerSize: CSSStyleDeclaration
 ): Promise<void> {
-  imgWrapper.style.transform = `translateY(calc(${containerSize.height}* -0.13))`;
+  imgWrapper.style.transform = `translateY(calc(${containerSize.height}* -0.10))`;
 }
 
 function sizeImage(containerSize: CSSStyleDeclaration): void {
-  imgWrapper.style.width = `calc(${containerSize.width} * 0.25)`;
+  imgWrapper.style.width = `calc(${containerSize.width} * 0.22)`;
 }
 
 export async function init() {
@@ -24,4 +24,9 @@ export async function init() {
   const containerSize = window.getComputedStyle(container);
   sizeImage(containerSize);
   positionImage(containerSize);
+
+  window.addEventListener("resize", () => {
+    sizeImage(containerSize);
+    positionImage(containerSize);
+  });
 }

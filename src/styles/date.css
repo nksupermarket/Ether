@@ -1,8 +1,7 @@
 .date-wrapper {
   font-family: Roboto, sans-serif;
   font-weight: 900;
-  font-size: 2em;
-  margin-top: 16%;
+  font-size: min(32.25px, 1.7vw);
 }
 .date {
   width: max-content;
@@ -10,7 +9,16 @@
 }
 
 .outline-date {
-  -webkit-text-stroke: 1px rgb(var(--main-fg-color));
+  /* -webkit-text-stroke: 0.6px rgb(var(--main-fg-color)); */
+  /* paint-order: stroke fill; */
+  text-shadow: -1px -1px 0 rgba(var(--main-fg-color), 0.25),
+    0 -1px 0 rgba(var(--main-fg-color), 0.25),
+    1px -1px 0 rgba(var(--main-fg-color), 0.25),
+    1px 0 0 rgba(var(--main-fg-color), 0.25),
+    1px 1px 0 rgba(var(--main-fg-color), 0.25),
+    0 1px 0 rgba(var(--main-fg-color), 0.25),
+    -1px 1px 0 rgba(var(--main-fg-color), 0.25),
+    -1px 0 0 rgba(var(--main-fg-color), 0.25);
   color: rgb(var(--main-bg-color));
   position: relative;
   top: -0.3em;

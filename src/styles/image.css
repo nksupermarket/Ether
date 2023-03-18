@@ -1,5 +1,5 @@
 .left-section {
-  padding: 0 7%;
+  padding: 0 5% 2.5% 6%;
   width: max-content;
 }
 
@@ -7,21 +7,45 @@
   position: relative;
 }
 
-.image-wrapper:after {
-  content: "";
+.image-border {
   display: block;
   position: absolute;
-  top: 6%;
+  top: 4%;
   bottom: -5%;
-  left: -8%;
-  right: 8%;
-  border: 1px solid rgb(var(--main-fg-color));
+  left: -6.5%;
+  right: 6.5%;
+  border: var(--border);
   z-index: 1;
+  overflow: hidden;
 }
 
+.image-border .squiggly {
+  width: 300%;
+  height: 200%;
+  bottom: 20em;
+  right: 20em;
+}
 .image {
   display: block;
   position: relative;
   width: 100%;
   z-index: 2;
+}
+
+.image-wrapper .edge {
+  width: 9%;
+  transform: rotate(-52deg);
+}
+.image-wrapper .edge:nth-of-type(1) {
+  bottom: -2.5%;
+  left: -7.5%;
+}
+.image-wrapper .edge:nth-of-type(2) {
+  bottom: -2.5%;
+  right: -1%;
+}
+.image-wrapper .edge:nth-of-type(3) {
+  top: 1.9%;
+  left: -7.4%;
+  transform: rotate(-41deg);
 }

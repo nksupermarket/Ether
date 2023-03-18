@@ -1,7 +1,7 @@
-import * as Date from "../src/date";
+import { TESTING } from "../src/date";
 
 describe("getDate", () => {
   it("spits out the date in the correct format", () => {
-    console.log(Date.getDate());
+    console.log(TESTING.getDate());
   });
 });

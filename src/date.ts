@@ -1,4 +1,6 @@
-export function getDate(): string {
+const dateWrappers = document.querySelectorAll(".date");
+
+function getDate(): string {
   const date = new Date();
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
@@ -28,5 +30,21 @@ export function getDate(): string {
     .replace(/AM|PM/, "")
     .trim();
   const formattedDate = `${dayOfWeek} ${month} ${dayOfMonth}  ${standardTime}`;
-  return formattedDate;
+  return formattedDate.toUpperCase();
 }
+
+function displayDate(formattedDate: string): void {
+  dateWrappers.forEach((el) => (el.textContent = formattedDate));
+}
+
+export function runClock() {
+  const formattedDate = getDate();
+  displayDate(formattedDate);
+  setInterval(() => {
+    const formattedDate = getDate();
+    if (formattedDate != dateWrappers[0].textContent)
+      displayDate(formattedDate);
+  }, 5000);
+}
+
+export const TESTING = { getDate };
