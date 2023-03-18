@@ -1,0 +1,27 @@
+.left-section {
+  padding: 0 7%;
+  width: max-content;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.image-wrapper:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 6%;
+  bottom: -5%;
+  left: -8%;
+  right: 8%;
+  border: 1px solid rgb(var(--main-fg-color));
+  z-index: 1;
+}
+
+.image {
+  display: block;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}

@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>New Tab</title>
-    <link rel="stylesheet" type="text/css" href="/src/style.css" />
+    <script defer src="src/main.ts" type="module"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,61 +13,61 @@
   </head>
 
   <body>
-    <div class="container">
+    <main class="container">
       <section class="left-section">
-        <div class="image-container">
-          <div class="image-wrapper">
-            <img
-              class="image"
-              src="./public/main-image.jpg"
-              alt="anime girl looking right"
-            />
+        <div class="image-wrapper">
+          <img
+            class="image"
+            src="./main-image.jpg"
+            alt="anime girl looking right"
+          />
+        </div>
+      </section>
+      <section class="right-section">
+        <section class="top-section">
+          <div class="date-wrapper">
+            <div class="main-date date"></div>
+            <div class="outline-date date"></div>
           </div>
+          <div class="input-wrapper"></div>
+        </section>
+        <div class="links-section">
+          <ul class="collection-links-container">
+            <li class="collection-links-wrapper">
+              <ul class="links-container">
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+              </ul>
+            </li>
+            <li class="collection-links-wrapper">
+              <ul class="links-container">
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+              </ul>
+            </li>
+            <li class="collection-links-wrapper">
+              <ul class="links-container">
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+              </ul>
+            </li>
+            <li class="collection-links-wrapper">
+              <ul class="links-container">
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+                <li class="link-wrapper"><a href="" class="link"></a></li>
+              </ul>
+            </li>
+          </ul>
         </div>
       </section>
-      <section class="top-section">
-        <div class="date-wrapper">
-          <div class="main-date"></div>
-          <div class="outline-date"></div>
-        </div>
-        <div class="input-wrapper"></div>
-      </section>
-      <div class="links-section">
-        <ul class="collection-links-container">
-          <li class="collection-links-wrapper">
-            <ul class="links-container">
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-            </ul>
-          </li>
-          <li class="collection-links-wrapper">
-            <ul class="links-container">
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-            </ul>
-          </li>
-          <li class="collection-links-wrapper">
-            <ul class="links-container">
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-            </ul>
-          </li>
-          <li class="collection-links-wrapper">
-            <ul class="links-container">
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-              <li class="link-wrapper"><a href="" class="link"></a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </div>
+    </main>
   </body>
 </html>

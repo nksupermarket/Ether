@@ -1,0 +1,17 @@
+.date-wrapper {
+  font-family: Roboto, sans-serif;
+  font-weight: 900;
+  font-size: 2em;
+  margin-top: 16%;
+}
+.date {
+  width: max-content;
+  white-space: pre;
+}
+
+.outline-date {
+  -webkit-text-stroke: 1px rgb(var(--main-fg-color));
+  color: rgb(var(--main-bg-color));
+  position: relative;
+  top: -0.3em;
+}

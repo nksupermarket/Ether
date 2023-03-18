@@ -15,6 +15,7 @@ body {
   display: grid;
   place-items: center;
   min-height: 100%;
+  font-size: 12px;
 }
 
 ul {
@@ -31,35 +32,4 @@ ul {
 
 .left-section {
   height: 100%;
-}
-.image-container {
-  position: relative;
-  top: 10%;
-  width: 25%;
-  padding: 7%;
-}
-.image-wrapper {
-  position: relative;
-  width: 100%;
-}
-.image-wrapper:after {
-  content: "";
-  display: block;
-  position: absolute;
-  top: 6%;
-  bottom: -5%;
-  left: -8%;
-  right: 8%;
-  border: 1px solid rgb(var(--main-fg-color));
-  z-index: 1;
-}
-
-.image {
-  position: relative;
-  width: 100%;
-  z-index: 2;
-}
-.date-wrapper {
-  font-family: Roboto, sans-serif;
-  font-weight: 900;
 }
