@@ -1,6 +1,10 @@
-const dateWrappers = document.querySelectorAll(".date");
-
-function getDate(): string {
+const dateWrappers = document.querySelectorAll(".rest_of_date_str");
+const dayWrapper = document.querySelectorAll(".day");
+type CurrDate = {
+  day: string;
+  formattedDate: string;
+};
+function getDate(): CurrDate {
   const date = new Date();
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const months = [
@@ -29,21 +33,32 @@ function getDate(): string {
     })
     .replace(/AM|PM/, "")
     .trim();
-  const formattedDate = `${dayOfWeek} ${month} ${dayOfMonth}  ${standardTime}`;
-  return formattedDate.toUpperCase();
+  const formattedDate =
+    ` ${month} ${dayOfMonth}  ${standardTime}`.toUpperCase();
+  return {
+    day: dayOfWeek.toUpperCase(),
+    formattedDate: formattedDate,
+  };
 }
 
 function displayDate(formattedDate: string): void {
   dateWrappers.forEach((el) => (el.textContent = formattedDate));
 }
 
+function displayDay(day: string): void {
+  dayWrapper.forEach((el) => (el.textContent = day));
+}
+
 export function runClock() {
-  const formattedDate = getDate();
-  displayDate(formattedDate);
+  const dateDetails = getDate();
+  displayDate(dateDetails.formattedDate);
+  displayDay(dateDetails.day);
   setInterval(() => {
-    const formattedDate = getDate();
-    if (formattedDate != dateWrappers[0].textContent)
-      displayDate(formattedDate);
+    const dateDetails = getDate();
+    if (dateDetails.formattedDate != dateWrappers[0].textContent) {
+      displayDate(dateDetails.formattedDate);
+      displayDay(dateDetails.day);
+    }
   }, 5000);
 }
 

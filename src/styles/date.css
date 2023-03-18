@@ -2,10 +2,22 @@
   font-family: Roboto, sans-serif;
   font-weight: 900;
   font-size: min(32.25px, 1.7vw);
-}
-.date {
+  position: relative;
   width: max-content;
+}
+
+.date {
   white-space: pre;
+  display: flex;
+}
+
+.main-date .day {
+  color: rgb(var(--accent-2));
+}
+.outline-date {
+  color: rgb(var(--main-bg-color));
+  position: relative;
+  top: -0.3em;
 }
 
 .outline-date {
@@ -19,7 +31,15 @@
     0 1px 0 rgba(var(--main-fg-color), 0.25),
     -1px 1px 0 rgba(var(--main-fg-color), 0.25),
     -1px 0 0 rgba(var(--main-fg-color), 0.25);
-  color: rgb(var(--main-bg-color));
-  position: relative;
-  top: -0.3em;
+}
+.outline-date .day {
+  text-shadow: -1px -1px 0 rgba(var(--accent-2), 0.5),
+    0 -1px 0 rgba(var(--accent-2), 0.5), 1px -1px 0 rgba(var(--accent-2), 0.5),
+    1px 0 0 rgba(var(--accent-2), 0.5), 1px 1px 0 rgba(var(--accent-2), 0.5),
+    0 1px 0 rgba(var(--accent-2), 0.5), -1px 1px 0 rgba(var(--accent-2), 0.5),
+    -1px 0 0 rgba(var(--accent-2), 0.5);
+}
+
+.date_str {
+  display: inline;
 }

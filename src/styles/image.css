@@ -1,5 +1,5 @@
 .left-section {
-  padding: 0 5% 2.5% 6%;
+  padding: 0 5% 1.8% 6%;
   width: max-content;
 }
 
@@ -10,7 +10,7 @@
 .image-border {
   display: block;
   position: absolute;
-  top: 4%;
+  top: 5%;
   bottom: -5%;
   left: -6.5%;
   right: 6.5%;
@@ -45,7 +45,6 @@
   right: -1%;
 }
 .image-wrapper .edge:nth-of-type(3) {
-  top: 1.9%;
-  left: -7.4%;
-  transform: rotate(-41deg);
+  top: 2.5%;
+  left: -7.9%;
 }
