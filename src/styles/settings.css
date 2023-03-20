@@ -72,7 +72,7 @@
   grid-template-columns: auto 1fr;
   column-gap: 1em;
   row-gap: 1em;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.8em;
 }
 .settings-form .input-wrapper {
   display: contents;

@@ -173,7 +173,7 @@ input:placeholder-shown {
 .outline-button .button-text {
   padding: 0.3em 0.9em;
   border: var(--border);
-  transform: translate(0.3em, -0.3em);
+  transform: translate(0em, 0em);
   background: rgb(var(--main-bg-color));
   position: relative;
   z-index: 2;
@@ -187,7 +187,7 @@ input:placeholder-shown {
   right: 0;
 }
 .outline-button:hover .button-text {
-  transform: translate(0em, 0em);
+  transform: translate(0.3em, -0.3em);
 }
 
 .underline-anime {
