@@ -1,12 +1,14 @@
-import { runClock } from "./date";
-import * as MainImage from "./image";
-import * as CollectionLinks from "./collectionLinks";
+import { runClock } from "./Date";
+import initImage from "./Image";
+import initLinks from "./collectionLinks";
+import initModal from "./Modal";
 import "./styles/style.css";
 
 async function init() {
-  await MainImage.init();
+  await initImage();
   runClock();
-  CollectionLinks.init();
+  initLinks();
+  initModal();
 }
 
 init();

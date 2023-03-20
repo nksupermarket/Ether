@@ -1,0 +1,79 @@
+#modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 99;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
+
+#settings {
+  width: 80%;
+  height: 80%;
+  backdrop-filter: blur(10px);
+  background: rgba(var(--main-bg-color), 0.8);
+  border: var(--border);
+  position: relative;
+  padding: 1vw 0;
+  box-sizing: border-box;
+}
+
+.settings-title {
+  margin: 1.5em 0;
+  font-family: "Roboto Mono", monospace;
+  color: rgb(var(--main-accent));
+}
+.close-button {
+  position: absolute;
+  top: 1vw;
+  right: 1vw;
+  width: 2vw;
+  height: 2vw;
+  padding: 1.5em;
+  box-sizing: content-box;
+}
+.close-button:before,
+.close-button:after {
+  position: absolute;
+  content: " ";
+  width: 1px;
+  height: calc(2vw + 1px);
+  bottom: 1.5em;
+  background: rgb(var(--main-fg-color));
+}
+
+.close-button:before {
+  transform: rotate(-45deg);
+}
+.close-button:after {
+  transform: rotate(45deg);
+}
+
+.settings-content {
+  margin: 0 auto;
+  width: 40%;
+  min-width: 400px;
+  max-width: 80%;
+}
+
+.settings-section {
+  width: 100%;
+}
+
+.settings-section-title {
+  color: rgb(var(--accent-1));
+}
+
+.settings-form {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1em;
+  row-gap: 1em;
+  margin-bottom: 1.5em;
+}
+.settings-form .input-wrapper {
+  display: contents;
+}

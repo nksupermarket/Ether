@@ -36,18 +36,18 @@
 }
 
 .links-section .edge {
-  width: 3.8%;
-  transform: rotate(-49deg);
+  width: 4%;
+  transform: rotate(-52deg);
   display: none;
 }
 .links-section .edge:nth-of-type(1) {
   display: block;
-  top: -3.9%;
-  left: -0.7%;
+  top: -4.6%;
+  left: -0.9%;
 }
 .links-section .edge:nth-of-type(2) {
   display: block;
-  bottom: 4%;
+  bottom: 3.9%;
   right: -3.1%;
 }
 .links-section .edge:nth-of-type(3) {
@@ -60,7 +60,7 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  column-gap: 7%;
+  column-gap: 11%;
   z-index: 2;
   position: relative;
   box-sizing: border-box;
@@ -69,18 +69,55 @@
 
 .collection-links-wrapper {
   display: flex;
+  padding-left: 0.7em;
+  overflow: hidden;
   flex-direction: column;
   row-gap: 0.5vw;
 }
 
 .collection-title {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 80%;
+}
+
+.collection-links-wrapper:nth-of-type(1) .collection-title {
   color: rgb(var(--accent-1));
+}
+.collection-links-wrapper:nth-of-type(2) .collection-title {
+  color: rgb(var(--accent-2));
+}
+.collection-links-wrapper:nth-of-type(3) .collection-title {
+  color: rgb(var(--accent-3));
+}
+.collection-links-wrapper:nth-of-type(4) .collection-title {
+  color: rgb(var(--accent-4));
 }
 
 .links-container {
   display: flex;
   flex-direction: column;
   row-gap: 0.3vw;
+  position: relative;
+}
+.links-container:before {
+  position: absolute;
+  content: "";
+  top: 0;
+  bottom: 0;
+  left: -0.7em;
+}
+.collection-links-wrapper:nth-of-type(1) .links-container:before {
+  border-left: 3px solid rgb(var(--accent-1));
+}
+.collection-links-wrapper:nth-of-type(2) .links-container:before {
+  border-left: 3px solid rgb(var(--accent-2));
+}
+.collection-links-wrapper:nth-of-type(3) .links-container:before {
+  border-left: 3px solid rgb(var(--accent-3));
+}
+.collection-links-wrapper:nth-of-type(4) .links-container:before {
+  border-left: 3px solid rgb(var(--accent-4));
 }
 
 .link-wrapper.inactive {
@@ -89,6 +126,31 @@
   pointer-events: none;
 }
 
-.link-wrapper:not(.inactive):hover .link {
-  text-decoration: underline;
+.link {
+  width: 100%;
+  display: block;
+}
+.link-text {
+  position: relative;
+}
+.link-wrapper:not(.inactive) .link-text:after {
+  content: "";
+  transition: transform 0.1s ease-out;
+  position: absolute;
+  bottom: -0.1em;
+  left: -0.7em;
+  width: 100%;
+  height: 0.5em;
+  background-color: rgb(var(--main-accent));
+  z-index: -1;
+  transform: translateX(-100%);
+}
+.link-wrapper:not(.inactive):focus .link-text:after,
+.link-wrapper:not(.inactive) .link:focus-visible .link-text:after,
+.link-wrapper:not(.inactive):hover .link-text:after {
+  transform: translateX(0);
+}
+.link-wrapper:not(.inactive) .link:focus-visible {
+  border: none;
+  outline: none;
 }

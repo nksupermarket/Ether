@@ -1,4 +1,4 @@
-import { TESTING } from "../src/date";
+import { TESTING } from "../src/Date";
 
 describe("getDate", () => {
   it("spits out the date in the correct format", () => {

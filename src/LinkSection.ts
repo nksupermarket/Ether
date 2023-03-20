@@ -1,4 +1,5 @@
 import { EMPTY_LINK } from "./CONSTANTS";
+import DomRender from "./DomRender";
 
 const allSections: LinkSection[] = [];
 type Link = {
@@ -38,7 +39,12 @@ export class LinkSection {
 
     for (let i = 0; i < linkElements.length; i++) {
       linkElements[i].href = this.links[i].href;
-      linkElements[i].textContent = this.links[i].displayText;
+      linkElements[i].append(
+        DomRender.textNode({
+          text: this.links[i].displayText,
+          classes: ["link-text"],
+        })
+      );
 
       if (this.links[i].displayText === EMPTY_LINK)
         linkElements[i].parentElement?.classList.add("inactive");

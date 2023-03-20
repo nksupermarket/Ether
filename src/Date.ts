@@ -33,10 +33,9 @@ function getDate(): CurrDate {
     })
     .replace(/AM|PM/, "")
     .trim();
-  const formattedDate =
-    ` ${month} ${dayOfMonth}  ${standardTime}`.toUpperCase();
+  const formattedDate = ` ${month} ${dayOfMonth}  ${standardTime}`;
   return {
-    day: dayOfWeek.toUpperCase(),
+    day: dayOfWeek,
     formattedDate: formattedDate,
   };
 }

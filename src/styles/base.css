@@ -1,8 +1,11 @@
 :root {
   --main-bg-color: 45, 53, 59;
   --main-fg-color: 211, 198, 170;
+  --main-accent: 138, 44, 32;
   --accent-1: 167, 192, 128;
-  --accent-2: 138, 44, 32;
+  --accent-2: 230, 126, 128;
+  --accent-3: 127, 187, 179;
+  --accent-4: 214, 153, 182;
   --border: 1px solid rgb(var(--main-fg-color));
 }
 html,
@@ -32,6 +35,12 @@ body {
     font-size: 16px;
   }
 }
+
+h2,
+h3 {
+  font-family: "Roboto", sans-serif;
+}
+
 ul {
   list-style: none;
   padding: 0;
@@ -57,6 +66,23 @@ input {
   margin: 0;
 }
 
+input[type="text"] {
+  padding-bottom: 1.3%;
+  border-bottom: 1px solid rgba(var(--main-fg-color), 0.5);
+}
+
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
 .container {
   width: 80%;
   padding-bottom: 5%;
@@ -80,6 +106,7 @@ input {
 }
 
 .search-form {
+  width: 100%;
   margin-bottom: 1.7%;
   margin-left: 5%;
   width: 100%;
@@ -90,8 +117,6 @@ input {
   position: absolute;
   bottom: 0;
   width: 100%;
-  padding-bottom: 1.3%;
-  border-bottom: 1px solid rgba(var(--main-fg-color), 0.5);
 }
 
 /* hero pattern by Steve Schoger from https://heropatterns.com/ */
@@ -116,4 +141,71 @@ input {
   z-index: 20;
   border-top: var(--border);
   position: absolute;
+}
+
+.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+button[name="settings"] {
+  position: absolute;
+  bottom: 2vw;
+  right: 2vw;
+  filter: brightness(0.5);
+}
+button[name="settings"]:hover {
+  filter: brightness(1);
+}
+
+input:placeholder-shown {
+  font-style: italic;
+  font-weight: 200;
+}
+
+.btn-ctn {
+  display: flex;
+  column-gap: 2em;
+}
+.outline-button {
+  position: relative;
+}
+.outline-button .button-text {
+  padding: 0.3em 0.9em;
+  border: var(--border);
+  transform: translate(0.3em, -0.3em);
+  background: rgb(var(--main-bg-color));
+  position: relative;
+  z-index: 2;
+}
+.outline-button .border {
+  border: var(--border);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+.outline-button:hover .button-text {
+  transform: translate(0em, 0em);
+}
+
+.underline-anime {
+  position: relative;
+  overflow: hidden;
+}
+.underline-anime:after {
+  content: "";
+  transition: transform 0.1s ease-out;
+  position: absolute;
+  bottom: 0.3em;
+  left: -0.7em;
+  width: 100%;
+  height: 0.5em;
+  background-color: rgb(var(--main-accent));
+  z-index: -1;
+  transform: translateX(-100%);
+}
+.underline-anime:hover:after {
+  transform: translateX(0);
 }

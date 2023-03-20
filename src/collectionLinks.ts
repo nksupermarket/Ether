@@ -1,7 +1,7 @@
 import { LINKS } from "./DEFAULTS";
 import { LinkSection } from "./LinkSection";
 
-export function init() {
+export default function init() {
   const wrapperElements = document.querySelectorAll(
     ".collection-links-wrapper"
   );

@@ -56,8 +56,8 @@ const TOOLS_LINKS = {
       href: "https://www.figma.com/",
     },
     {
-      displayText: "HackerNews",
-      href: "https://news.ycombinator.com/",
+      displayText: "ChatGPT",
+      href: "https://chat.openai.com/",
     },
     {
       displayText: "Shopify",
