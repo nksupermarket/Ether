@@ -1,7 +1,7 @@
 import { EMPTY_LINK } from "./CONSTANTS";
 
 export type Link = {
-  displayText: string;
+  "display text": string;
   href: string;
 };
 export type LinkGroupDetails = {
@@ -12,19 +12,19 @@ const SOCIAL_LINKS = {
   title: "Socials",
   links: [
     {
-      displayText: "Instagram",
+      "display text": "Instagram",
       href: "https://www.instagram.com/",
     },
     {
-      displayText: "Twitter",
+      "display text": "Twitter",
       href: "https://twitter.com/",
     },
     {
-      displayText: "Facebook",
+      "display text": "Facebook",
       href: "https://www.facebook.com/",
     },
     {
-      displayText: "Reddit",
+      "display text": "Reddit",
       href: "https://www.reddit.com/",
     },
   ],
@@ -34,19 +34,19 @@ const REDDIT_LINKS = {
   title: "Reddit",
   links: [
     {
-      displayText: "UnixPorn",
+      "display text": "UnixPorn",
       href: "https://www.reddit.com/r/unixporn/",
     },
     {
-      displayText: "Startpages",
+      "display text": "Startpages",
       href: "https://www.reddit.com/r/startpages/",
     },
     {
-      displayText: "NBA",
+      "display text": "NBA",
       href: "https://www.reddit.com/r/nba/",
     },
     {
-      displayText: "Neovim",
+      "display text": "Neovim",
       href: "https://www.reddit.com/r/neovim/",
     },
   ],
@@ -56,19 +56,19 @@ const TOOLS_LINKS = {
   title: "Tools",
   links: [
     {
-      displayText: "Github",
+      "display text": "Github",
       href: "https://github.com/",
     },
     {
-      displayText: "Figma",
+      "display text": "Figma",
       href: "https://www.figma.com/",
     },
     {
-      displayText: "ChatGPT",
+      "display text": "ChatGPT",
       href: "https://chat.openai.com/",
     },
     {
-      displayText: "Shopify",
+      "display text": "Shopify",
       href: "https://www.shopify.com/",
     },
   ],
@@ -78,19 +78,19 @@ const FAVORITES_LINKS = {
   title: "Favorites",
   links: [
     {
-      displayText: EMPTY_LINK,
+      "display text": EMPTY_LINK,
       href: "",
     },
     {
-      displayText: EMPTY_LINK,
+      "display text": EMPTY_LINK,
       href: "",
     },
     {
-      displayText: EMPTY_LINK,
+      "display text": EMPTY_LINK,
       href: "",
     },
     {
-      displayText: EMPTY_LINK,
+      "display text": EMPTY_LINK,
       href: "",
     },
   ],

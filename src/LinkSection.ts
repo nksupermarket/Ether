@@ -38,12 +38,12 @@ export class LinkSection {
       linkElements[i].href = this.links[i].href;
       linkElements[i].append(
         DomRender.textNode({
-          text: this.links[i].displayText,
+          text: this.links[i]["display text"],
           classes: ["link-text"],
         })
       );
 
-      if (this.links[i].displayText === EMPTY_LINK)
+      if (this.links[i]["display text"] === EMPTY_LINK)
         linkElements[i].parentElement?.classList.add("inactive");
     }
   }
@@ -67,9 +67,9 @@ export class LinkSection {
       const textNode = el.querySelector(".link-text");
       if (!textNode)
         throw new Error("something went wrong rendering your link");
-      textNode.textContent = this.links[i].displayText;
+      textNode.textContent = this.links[i]["display text"];
 
-      if (this.links[i].displayText === EMPTY_LINK)
+      if (this.links[i]["display text"] === EMPTY_LINK)
         linkElements[i].parentElement?.classList.add("inactive");
     });
   }

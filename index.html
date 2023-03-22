@@ -111,8 +111,8 @@
         </div>
       </section>
     </main>
-    <!-- <div id="modal" class="hide"> -->
-    <div id="modal">
+    <div id="modal" class="hide">
+      <!-- <div id="modal"> -->
       <div id="settings">
         <h2 class="settings-title settings-width">s e t t i n g s</h2>
         <div class="settings-width settings-content">
@@ -169,11 +169,11 @@
               <form action="" class="" name="links">
                 <ul>
                   <li class="link-group">
-                    <header>
+                    <header class="accordion-closed">
                       <input type="text" class="link-group-title" />
                       <button type="button" class="edit-button">edit</button>
                     </header>
-                    <ul class="link-group-links">
+                    <ul class="link-group-links accordion">
                       <li class="link-details input-group">
                         <div class="input-wrapper">
                           <label for=""></label><input type="text" />
@@ -211,7 +211,27 @@
                 </ul>
               </form>
               <div class="btn-ctn">
-                <button type="submit" for="theme" class="outline-button">
+                <button type="submit" for="links" class="outline-button">
+                  <div class="button-text">Save</div>
+                  <div class="border"></div>
+                </button>
+                <button
+                  type="button"
+                  aria-label="reset"
+                  class="underline-anime"
+                >
+                  Reset
+                </button>
+                <div class="hide msg"></div>
+              </div>
+            </section>
+            <section id="link-settings" class="settings-section">
+              <h3 class="settings-section-title">keybinds</h3>
+              <form action="" class="" name="keybinds">
+                <textarea></textarea>
+              </form>
+              <div class="btn-ctn">
+                <button type="submit" for="keybinds" class="outline-button">
                   <div class="button-text">Save</div>
                   <div class="border"></div>
                 </button>

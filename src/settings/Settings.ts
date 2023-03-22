@@ -53,6 +53,16 @@ export default function init({
   });
 
   getEnoughNodesForData(links.length, "form[name='links'] > ul .link-group");
+  document
+    .querySelectorAll("form[name='links'] > ul .link-group > header")
+    .forEach((el) =>
+      el.addEventListener("click", function toggleAccordion(e) {
+        const currTarget = e.currentTarget as HTMLElement;
+        const accordion = currTarget.nextElementSibling as HTMLElement;
+        accordion.classList.toggle("accordion");
+        el.classList.toggle("accordion-closed");
+      })
+    );
   const linkSection = new SettingsSection({
     title: "links",
     state: links,

@@ -69,7 +69,10 @@ export default class SettingsSection implements Component {
   }
 
   rerender() {
-    this.children.forEach((child) => child.rerender(this.state));
+    this.children.forEach((child, i) => {
+      if (Array.isArray(this.state)) child.render(this.state[i]);
+      else child.render(this.state);
+    });
   }
 
   reset() {
