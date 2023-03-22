@@ -1,11 +1,11 @@
-import { LINKS } from "./DEFAULTS";
+import { LinkGroupDetails } from "./DEFAULTS";
 import { LinkSection } from "./LinkSection";
 
-export default function init() {
+export default function init(data: LinkGroupDetails[]) {
   const wrapperElements = document.querySelectorAll(
     ".collection-links-wrapper"
   );
-  LINKS.forEach((sectionData, i) => {
+  return data.map((sectionData, i) => {
     const linkSection = new LinkSection(
       wrapperElements[i] as HTMLElement,
       sectionData.title,
@@ -13,5 +13,6 @@ export default function init() {
     );
 
     linkSection.display();
+    return linkSection;
   });
 }

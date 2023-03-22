@@ -121,7 +121,6 @@
 }
 
 .link-wrapper.inactive {
-  align-self: center;
   width: max-content;
   pointer-events: none;
 }

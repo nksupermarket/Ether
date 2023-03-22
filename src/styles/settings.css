@@ -17,19 +17,17 @@
   background: rgba(var(--main-bg-color), 0.8);
   border: var(--border);
   position: relative;
-  padding: 1vw 0;
+  padding: 4em;
   box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.settings-title {
-  margin: 1.5em 0;
-  font-family: "Roboto Mono", monospace;
-  color: rgb(var(--main-accent));
-}
 .close-button {
   position: absolute;
-  top: 1vw;
-  right: 1vw;
+  top: calc(4em - 1.5em);
+  right: calc(4em - 1.5em);
   width: 2vw;
   height: 2vw;
   padding: 1.5em;
@@ -52,28 +50,62 @@
   transform: rotate(45deg);
 }
 
-.settings-content {
+.settings-width {
   margin: 0 auto;
   width: 40%;
   min-width: 400px;
   max-width: 80%;
 }
 
+.settings-title {
+  margin: 0 auto 1.5em auto;
+  font-family: "Roboto Mono", monospace;
+  color: rgb(var(--main-accent));
+}
+
+.settings-content {
+  flex-grow: 1;
+  position: relative;
+  height: 100%;
+  overflow: scroll;
+}
+.scroller {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0 2em;
+}
+
 .settings-section {
   width: 100%;
 }
-
+.settings-section:not(:first-of-type) {
+  margin-top: 3em;
+}
+.settings-section:first-of-type .settings-title {
+  margin-top: 0;
+}
 .settings-section-title {
   color: rgb(var(--accent-1));
+  margin-top: 0;
 }
 
-.settings-form {
+.input-group {
   display: grid;
   grid-template-columns: auto 1fr;
   column-gap: 1em;
   row-gap: 1em;
   margin-bottom: 1.8em;
 }
-.settings-form .input-wrapper {
+.input-group .input-wrapper {
   display: contents;
+}
+
+.link-group header {
+  background: rgb(var(--main-bg-color));
+  padding: 1em;
+  margin-bottom: 1em;
 }

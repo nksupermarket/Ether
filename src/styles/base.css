@@ -165,6 +165,7 @@ input:placeholder-shown {
 
 .btn-ctn {
   display: flex;
+  align-items: center;
   column-gap: 2em;
 }
 .outline-button {

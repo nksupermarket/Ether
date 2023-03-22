@@ -1,4 +1,4 @@
-import SettingsSection from "../src/SettingsSection";
+import SettingsSection from "../src/settings/SettingsSection";
 import DomRender from "../src/DomRender";
 
 const TEST_KEY = "test-input";

@@ -1,5 +1,13 @@
 import { EMPTY_LINK } from "./CONSTANTS";
 
+export type Link = {
+  displayText: string;
+  href: string;
+};
+export type LinkGroupDetails = {
+  title: string;
+  links: Link[];
+};
 const SOCIAL_LINKS = {
   title: "Socials",
   links: [
@@ -88,4 +96,9 @@ const FAVORITES_LINKS = {
   ],
 };
 
-export const LINKS = [SOCIAL_LINKS, REDDIT_LINKS, TOOLS_LINKS, FAVORITES_LINKS];
+export const DEFAULT_LINKS: LinkGroupDetails[] = [
+  SOCIAL_LINKS,
+  REDDIT_LINKS,
+  TOOLS_LINKS,
+  FAVORITES_LINKS,
+];

@@ -111,53 +111,121 @@
         </div>
       </section>
     </main>
-    <div id="modal" class="hide">
-      <!-- <div id="modal" > -->
+    <!-- <div id="modal" class="hide"> -->
+    <div id="modal">
       <div id="settings">
-        <div class="settings-content">
-          <h2 class="settings-title">s e t t i n g s</h2>
-          <section id="theme-settings" class="settings-section">
-            <h3 class="settings-section-title">theme</h3>
-            <form action="" class="settings-form">
-              <div class="input-wrapper">
-                <label for="bg-color">background color</label
-                ><input type="text" id="bg-color" />
+        <h2 class="settings-title settings-width">s e t t i n g s</h2>
+        <div class="settings-width settings-content">
+          <div class="scroller">
+            <section id="theme-settings" class="settings-section">
+              <h3 class="settings-section-title">theme</h3>
+              <form action="" class="input-group" name="theme">
+                <div class="input-wrapper">
+                  <label for="bg-color">background color</label
+                  ><input type="text" id="bg-color" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="fg-color">foreground color</label
+                  ><input type="text" id="fg-color" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="main-accent-color">main accent color</label
+                  ><input type="text" id="main-accent-color" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="accent-color-1">accent color 1</label
+                  ><input type="text" id="accent-color-1" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="accent-color-2">accent color 2</label
+                  ><input type="text" id="accent-color-2" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="accent-color-3">accent color 3</label
+                  ><input type="text" id="accent-color-3" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="accent-color-4">accent color 4</label
+                  ><input type="text" id="accent-color-4" />
+                </div>
+              </form>
+              <div class="btn-ctn">
+                <button type="submit" for="theme" class="outline-button">
+                  <div class="button-text">Save</div>
+                  <div class="border"></div>
+                </button>
+                <button
+                  type="button"
+                  aria-label="reset"
+                  class="underline-anime"
+                >
+                  Reset
+                </button>
+                <div class="hide msg"></div>
               </div>
-              <div class="input-wrapper">
-                <label for="fg-color">foreground color</label
-                ><input type="text" id="fg-color" />
+            </section>
+            <section id="link-settings" class="settings-section">
+              <h3 class="settings-section-title">links</h3>
+              <form action="" class="" name="links">
+                <ul>
+                  <li class="link-group">
+                    <header>
+                      <input type="text" class="link-group-title" />
+                      <button type="button" class="edit-button">edit</button>
+                    </header>
+                    <ul class="link-group-links">
+                      <li class="link-details input-group">
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                      </li>
+                      <li class="link-details input-group">
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                      </li>
+                      <li class="link-details input-group">
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                      </li>
+                      <li class="link-details input-group">
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                        <div class="input-wrapper">
+                          <label for=""></label><input type="text" />
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </form>
+              <div class="btn-ctn">
+                <button type="submit" for="theme" class="outline-button">
+                  <div class="button-text">Save</div>
+                  <div class="border"></div>
+                </button>
+                <button
+                  type="button"
+                  aria-label="reset"
+                  class="underline-anime"
+                >
+                  Reset
+                </button>
+                <div class="hide msg"></div>
               </div>
-              <div class="input-wrapper">
-                <label for="main-accent-color">main accent color</label
-                ><input type="text" id="main-accent-color" />
-              </div>
-              <div class="input-wrapper">
-                <label for="accent-color-1">accent color 1</label
-                ><input type="text" id="accent-color-1" />
-              </div>
-              <div class="input-wrapper">
-                <label for="accent-color-2">accent color 2</label
-                ><input type="text" id="accent-color-2" />
-              </div>
-              <div class="input-wrapper">
-                <label for="accent-color-3">accent color 3</label
-                ><input type="text" id="accent-color-3" />
-              </div>
-              <div class="input-wrapper">
-                <label for="accent-color-4">accent color 4</label
-                ><input type="text" id="accent-color-4" />
-              </div>
-            </form>
-            <div class="btn-ctn">
-              <button type="submit" class="outline-button">
-                <div class="button-text">Save</div>
-                <div class="border"></div>
-              </button>
-              <button type="button" aria-label="reset" class="underline-anime">
-                Reset
-              </button>
-            </div>
-          </section>
+            </section>
+          </div>
         </div>
         <button class="close-button"></button>
       </div>
