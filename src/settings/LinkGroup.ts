@@ -30,19 +30,43 @@ export default class LinkGroup implements Component {
   }
 
   render(values: LinkGroupDetails) {
-    const titleEl = this.wrapperEl.querySelector(
+    const titleInputEl = this.wrapperEl.querySelector(
       "header input"
     ) as HTMLInputElement;
-    titleEl.value = values.title;
+    titleInputEl.value = values.title;
+    titleInputEl.addEventListener("input", (e) => {
+      this.updateTitle(e);
+      this.rerender(values);
+    });
+    const titleEl = this.wrapperEl.querySelector(
+      "header span.link-group-title"
+    ) as HTMLElement;
+    titleEl.textContent = values.title;
 
+    const editButton = this.wrapperEl.querySelector("header .edit-button");
+    const toggleEditMode = (e: Event) => {
+      e.stopPropagation();
+      this.wrapperEl.querySelector(".display-mode")?.classList.toggle("hide");
+      this.wrapperEl.querySelector(".edit-mode")?.classList.toggle("hide");
+    };
+    editButton?.addEventListener("click", toggleEditMode);
+
+    const doneButton = this.wrapperEl.querySelector("header .done-button");
+    doneButton?.addEventListener("click", (e) => {
+      toggleEditMode(e);
+    });
     this.children.forEach((child, i) => child.render(values.links[i]));
   }
 
   rerender(values: LinkGroupDetails) {
-    const titleEl = this.wrapperEl.querySelector(
+    const titleInputEl = this.wrapperEl.querySelector(
       "header input"
     ) as HTMLInputElement;
-    titleEl.value = values.title;
+    titleInputEl.value = values.title;
+    const titleEl = this.wrapperEl.querySelector(
+      "header span.link-group-title"
+    ) as HTMLElement;
+    titleEl.textContent = values.title;
 
     this.children.forEach((child, i) => child.rerender(values.links[i]));
   }

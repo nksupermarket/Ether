@@ -1,11 +1,10 @@
-import initKeyBinds from "./KeyBinds";
+import initKeyBinds, { generateKeybinds, updateKeybinds } from "./KeyBinds";
 import { runClock } from "./Date";
-import initLinks from "./collectionLinks";
 import initModal from "./Modal";
 import { convertCssRgbToHex } from "./colors";
 import { DEFAULT_LINKS, LinkGroupDetails } from "./DEFAULTS";
 import "./styles/style.css";
-import { LinkSection } from "./LinkSection";
+import { displayLinkSection, updateLinkSection } from "./LinkSection";
 import { EMPTY_LINK } from "./CONSTANTS";
 import { StringKeyObj } from "../types/interfaces";
 
@@ -54,19 +53,7 @@ function getKeyBinds(): StringKeyObj {
   const lsItem = localStorage.getItem("keybinds");
   if (lsItem) return JSON.parse(lsItem);
 
-  const allLinks = links.map((group) => group.links).flat();
-  const defaultKeybinds = allLinks.reduce((acc, curr) => {
-    if (!curr["display text"] || curr["display text"] === EMPTY_LINK)
-      return acc;
-    let i = 0;
-    let key = curr["display text"][i];
-    while (key in acc && i < curr["display text"].length - 1) {
-      i++;
-      key = curr["display text"][i];
-    }
-    if (!(key in acc)) acc[key] = curr.href;
-    return acc;
-  }, {} as StringKeyObj);
+  const defaultKeybinds = generateKeybinds(DEFAULT_LINKS);
   localStorage.setItem("keybinds", JSON.stringify(defaultKeybinds));
   return defaultKeybinds;
 }
@@ -74,19 +61,26 @@ function getKeyBinds(): StringKeyObj {
 let theme = getTheme();
 let links = getLinks();
 let keybinds = getKeyBinds();
-let linkSections: LinkSection[] = [];
+let linkSections = document.querySelectorAll(
+  ".collection-links-wrapper"
+) as NodeListOf<HTMLElement>;
 
 function init() {
   runClock();
-  linkSections = initLinks(links);
+  linkSections.forEach((section, i) => displayLinkSection(section, links[i]));
   initKeyBinds(keybinds);
   initModal({
     links,
+    keybinds,
     theme,
     onSaveTheme: () => {},
     onSaveLinks: () => {
       links = getLinks();
-      links.forEach((link, i) => linkSections[i].update(link));
+      links.forEach((link, i) => updateLinkSection(linkSections[i], link));
+    },
+    onSaveKeybinds: () => {
+      keybinds = getKeyBinds();
+      updateKeybinds(keybinds);
     },
   });
 }

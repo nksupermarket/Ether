@@ -1,17 +1,16 @@
 import { Component } from "./settingsTypes";
-import { StringKeyObj } from "../../types/interfaces";
 
-type SettingsSectionProps = {
+type SettingsSectionProps<T> = {
   title: string;
-  state: StringKeyObj | StringKeyObj[];
+  state: T;
   sectionEl: HTMLElement;
   children: Component[];
   onSave: () => void;
 };
-export default class SettingsSection implements Component {
+export default class SettingsSection<T> implements Component {
   readonly title: string;
-  state: StringKeyObj[] | StringKeyObj;
-  private _defaultState: StringKeyObj[] | StringKeyObj;
+  state: T;
+  private _defaultState: T;
   readonly sectionEl: HTMLElement;
   children: Component[];
   onSave: () => void;
@@ -22,7 +21,7 @@ export default class SettingsSection implements Component {
     sectionEl,
     children,
     onSave,
-  }: SettingsSectionProps) {
+  }: SettingsSectionProps<T>) {
     this.title = title;
     this.state = state;
     this._defaultState = JSON.parse(JSON.stringify(state));
@@ -39,7 +38,7 @@ export default class SettingsSection implements Component {
 
   displaySuccessMsg() {
     const msgEl = this.sectionEl.querySelector(".msg") as HTMLElement;
-    msgEl.textContent = `success, your ${this.title} settings have been saved`;
+    msgEl.textContent = `success, your ${this.title} have been saved`;
     msgEl.classList.remove("hide");
     setTimeout(() => {
       msgEl.classList.add("hide");
@@ -70,8 +69,8 @@ export default class SettingsSection implements Component {
 
   rerender() {
     this.children.forEach((child, i) => {
-      if (Array.isArray(this.state)) child.render(this.state[i]);
-      else child.render(this.state);
+      if (Array.isArray(this.state)) child.rerender(this.state[i]);
+      else child.rerender(this.state);
     });
   }
 

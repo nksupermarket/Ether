@@ -1,76 +1,58 @@
 import { EMPTY_LINK } from "./CONSTANTS";
-import { Link, LinkGroupDetails } from "./DEFAULTS";
+import { LinkGroupDetails } from "./DEFAULTS";
 import DomRender from "./DomRender";
 
-const allSections: LinkSection[] = [];
-export class LinkSection {
-  wrapper: HTMLElement;
-  title: string;
-  links: Link[];
+export function displayLinkSection(
+  wrapper: HTMLElement,
+  linkGroupDetails: LinkGroupDetails
+) {
+  const titleElement = wrapper.querySelector(
+    ".collection-title"
+  ) as HTMLElement;
+  titleElement.textContent = linkGroupDetails.title;
 
-  constructor(wrapperEl: HTMLElement, title: string, links: Link[]) {
-    this.wrapper = wrapperEl;
-    this.title = title;
-    this.links = links;
+  const linkElements = wrapper.querySelectorAll(
+    ".link"
+  ) as NodeListOf<HTMLLinkElement>;
+  if (linkElements.length != linkGroupDetails.links.length)
+    throw new Error("missing link element or link data");
 
-    const matchingSection = allSections.find(
-      (section) => section.wrapper === wrapperEl
+  for (let i = 0; i < linkElements.length; i++) {
+    linkElements[i].href = linkGroupDetails.links[i].href;
+    linkElements[i].append(
+      DomRender.textNode({
+        text: linkGroupDetails.links[i]["display text"],
+        classes: ["link-text"],
+      })
     );
-    if (!matchingSection) {
-      allSections.push(this);
-      return this;
-    } else return matchingSection;
+
+    if (linkGroupDetails.links[i]["display text"] === EMPTY_LINK)
+      linkElements[i].parentElement?.classList.add("inactive");
   }
+}
 
-  display() {
-    const titleElement = this.wrapper.querySelector(
-      ".collection-title"
-    ) as HTMLElement;
-    titleElement.textContent = this.title;
+export function updateLinkSection(
+  wrapper: HTMLElement,
+  linkGroupDetails: LinkGroupDetails
+) {
+  const titleElement = wrapper.querySelector(
+    ".collection-title"
+  ) as HTMLElement;
+  titleElement.textContent = linkGroupDetails.title;
 
-    const linkElements = this.wrapper.querySelectorAll(
-      ".link"
-    ) as NodeListOf<HTMLLinkElement>;
-    if (linkElements.length != this.links.length)
-      throw new Error("missing link element or link data");
+  const linkElements = wrapper.querySelectorAll(
+    ".link"
+  ) as NodeListOf<HTMLLinkElement>;
+  if (linkElements.length != linkGroupDetails.links.length)
+    throw new Error("missing link element or link data");
+  linkElements.forEach((el, i) => {
+    el.href = linkGroupDetails.links[i].href;
 
-    for (let i = 0; i < linkElements.length; i++) {
-      linkElements[i].href = this.links[i].href;
-      linkElements[i].append(
-        DomRender.textNode({
-          text: this.links[i]["display text"],
-          classes: ["link-text"],
-        })
-      );
+    const textNode = el.querySelector(".link-text");
+    if (!textNode) throw new Error("something went wrong rendering your link");
+    textNode.textContent = linkGroupDetails.links[i]["display text"];
 
-      if (this.links[i]["display text"] === EMPTY_LINK)
-        linkElements[i].parentElement?.classList.add("inactive");
-    }
-  }
-
-  update(linkGroupDetails: LinkGroupDetails) {
-    this.title = linkGroupDetails.title;
-    this.links = linkGroupDetails.links;
-    const titleElement = this.wrapper.querySelector(
-      ".collection-title"
-    ) as HTMLElement;
-    titleElement.textContent = this.title;
-
-    const linkElements = this.wrapper.querySelectorAll(
-      ".link"
-    ) as NodeListOf<HTMLLinkElement>;
-    if (linkElements.length != this.links.length)
-      throw new Error("missing link element or link data");
-    linkElements.forEach((el, i) => {
-      el.href = this.links[i].href;
-
-      const textNode = el.querySelector(".link-text");
-      if (!textNode)
-        throw new Error("something went wrong rendering your link");
-      textNode.textContent = this.links[i]["display text"];
-
-      if (this.links[i]["display text"] === EMPTY_LINK)
-        linkElements[i].parentElement?.classList.add("inactive");
-    });
-  }
+    if (linkGroupDetails.links[i]["display text"] === EMPTY_LINK)
+      linkElements[i].parentElement?.classList.add("inactive");
+  });
 }

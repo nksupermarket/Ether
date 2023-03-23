@@ -2,13 +2,17 @@ import InputGroup from "./InputGroup";
 import LinkGroup from "./LinkGroup";
 import SettingsSection from "./SettingsSection";
 import { Link, LinkGroupDetails } from "../DEFAULTS";
-import { Theme } from "../../types/interfaces";
+import { StringKeyObj, Theme } from "../../types/interfaces";
+import { generateKeybinds } from "../KeyBinds";
+import { Component } from "./settingsTypes";
 
 export type InitSettingsProps = {
   links: LinkGroupDetails[];
   theme: Theme;
+  keybinds: StringKeyObj;
   onSaveTheme: () => void;
   onSaveLinks: () => void;
+  onSaveKeybinds: () => void;
 };
 function getEnoughNodesForData(dataCount: number, selectorToCount: string) {
   let els = document.querySelectorAll(
@@ -32,8 +36,10 @@ function getEnoughNodesForData(dataCount: number, selectorToCount: string) {
 export default function init({
   links,
   theme,
+  keybinds,
   onSaveTheme,
   onSaveLinks,
+  onSaveKeybinds,
 }: InitSettingsProps) {
   const themeSection = new SettingsSection({
     title: "theme",
@@ -84,6 +90,63 @@ export default function init({
     onSave: onSaveLinks,
   });
 
-  const sections = [themeSection, linkSection];
+  function formatObject(obj: { [key: string]: string }): string {
+    const entries = Object.entries(obj)
+      .map(([key, value]) => `${key}: ${value}`)
+      .join("\n");
+
+    return `${entries}`;
+  }
+
+  const keybindSection = new SettingsSection({
+    title: "keybinds",
+    state: keybinds,
+    sectionEl: document.getElementById("keybind-settings") as HTMLElement,
+    children: [
+      {
+        render: function (this: Component, state) {
+          const sectionEl = document.getElementById(
+            "keybind-settings"
+          ) as HTMLElement;
+          const textarea = sectionEl.querySelector(
+            "#keybind-settings textarea"
+          ) as HTMLTextAreaElement;
+          textarea.value = formatObject(state);
+          textarea.addEventListener("input", (e: Event) => {
+            const target = e.target as HTMLTextAreaElement;
+            function convertStringToObj(str: string): StringKeyObj {
+              return str.split("\n").reduce((acc, curr) => {
+                if (!curr.includes(":")) return acc;
+                const [key, ...rest] = curr.split(":");
+                const value = rest.join(":");
+                acc[key.trim()] = value.trim();
+                return acc;
+              }, {} as StringKeyObj);
+            }
+            keybindSection.state = convertStringToObj(target.value);
+          });
+
+          sectionEl
+            .querySelector("button[data-role='generate keybinds']")
+            ?.addEventListener("click", () => {
+              const links = JSON.parse(localStorage.getItem("links") || "");
+              if (!links) return;
+              const keybinds = generateKeybinds(links);
+              keybindSection.state = keybinds;
+              this.rerender(keybinds);
+            });
+        },
+        rerender: (state) => {
+          console.log(state);
+          const textarea = document.querySelector(
+            "#keybind-settings textarea"
+          ) as HTMLTextAreaElement;
+          textarea.value = formatObject(state);
+        },
+      },
+    ],
+    onSave: onSaveKeybinds,
+  });
+  const sections = [themeSection, linkSection, keybindSection];
   sections.forEach((section) => section.render());
 }

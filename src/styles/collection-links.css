@@ -130,6 +130,11 @@
   display: block;
 }
 .link-text {
+  display: inline-block;
+  max-width: 6em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   position: relative;
 }
 .link-wrapper:not(.inactive) .link-text:after {
