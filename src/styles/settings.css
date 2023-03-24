@@ -56,7 +56,7 @@
 
 .settings-width {
   margin: 0 auto;
-  width: 40%;
+  width: 50%;
   min-width: 400px;
   max-width: 80%;
 }
@@ -84,8 +84,15 @@
 }
 
 .settings-section {
+  padding-right: 3em;
+  box-sizing: border-box;
   width: 100%;
 }
+
+.settings-section:last-of-type {
+  padding-bottom: 25vh;
+}
+
 .settings-section form {
   margin-bottom: 1.8em;
 }
@@ -129,11 +136,29 @@
 .link-group header svg {
   display: block;
 }
-.link-group .display-mode,
+.link-group .left,
 .link-group .edit-mode {
   display: flex;
   align-items: center;
   column-gap: 1em;
+}
+.link-group .display-mode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-details {
+  border-bottom: 1px solid rgba(var(--main-fg-color), 0.5);
+  margin-bottom: 0;
+  padding-top: 1.8em;
+  padding-bottom: 1.8em;
+}
+.link-details:last-of-type {
+  border-bottom: none;
+}
+.link-details:first-of-type {
+  padding-top: 0;
 }
 
 .link-group-links {
@@ -152,4 +177,14 @@
 
 .settings-content button[data-role="generate keybinds"] {
   margin-bottom: 1.8em;
+}
+
+label[for="file-input"] .button-text {
+  padding: 0.6em 0.9em;
+}
+
+.settings-section .settings-content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2em;
 }

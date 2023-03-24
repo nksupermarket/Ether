@@ -6,18 +6,22 @@ const settingsBtn = document.querySelector("button[name=settings]");
 const settings = document.getElementById("settings");
 
 function close() {
-  modal?.classList.add("hide");
+  modal?.classList.add("removed");
 }
 function open() {
-  modal?.classList.remove("hide");
+  modal?.classList.remove("removed");
 }
 
+let firstOpen = true;
 export default function init(props: InitSettingsProps) {
   settings?.addEventListener("click", (e) => e.stopPropagation());
   closeBtn?.addEventListener("click", close);
   modal?.addEventListener("click", close);
   settingsBtn?.addEventListener("click", () => {
     open();
-    initSettings(props);
+    if (firstOpen) {
+      initSettings(props);
+      firstOpen = false;
+    }
   });
 }

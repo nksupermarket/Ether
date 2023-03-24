@@ -10,9 +10,11 @@ export type InitSettingsProps = {
   links: LinkGroupDetails[];
   theme: Theme;
   keybinds: StringKeyObj;
+  image: string;
   onSaveTheme: () => void;
   onSaveLinks: () => void;
   onSaveKeybinds: () => void;
+  onSaveImage: () => void;
 };
 function getEnoughNodesForData(dataCount: number, selectorToCount: string) {
   let els = document.querySelectorAll(
@@ -40,6 +42,7 @@ export default function init({
   onSaveTheme,
   onSaveLinks,
   onSaveKeybinds,
+  onSaveImage,
 }: InitSettingsProps) {
   const themeSection = new SettingsSection({
     title: "theme",
@@ -137,7 +140,6 @@ export default function init({
             });
         },
         rerender: (state) => {
-          console.log(state);
           const textarea = document.querySelector(
             "#keybind-settings textarea"
           ) as HTMLTextAreaElement;
@@ -147,6 +149,67 @@ export default function init({
     ],
     onSave: onSaveKeybinds,
   });
-  const sections = [themeSection, linkSection, keybindSection];
+
+  const imageSection = new SettingsSection<File | null>({
+    title: "image",
+    state: null,
+    sectionEl: document.getElementById("image-settings") as HTMLElement,
+    children: [
+      {
+        render: function () {
+          const sectionEl = document.getElementById(
+            "image-settings"
+          ) as HTMLElement;
+          const input = sectionEl.querySelector(
+            "input[type='file']"
+          ) as HTMLElement;
+          input.addEventListener("change", (e) => {
+            const target = e.target as HTMLInputElement;
+            if (!target.files) return;
+
+            const file = target.files[0];
+
+            const label = sectionEl.querySelector(
+              "label .button-text"
+            ) as HTMLElement;
+            label.textContent = file.name;
+
+            imageSection.state = file;
+          });
+        },
+        rerender: function () {
+          const sectionEl = document.getElementById(
+            "image-settings"
+          ) as HTMLElement;
+          const label = sectionEl.querySelector(
+            "label .button-text"
+          ) as HTMLElement;
+          label.textContent = "Choose your image";
+        },
+      },
+    ],
+    onSave: onSaveImage,
+    saveState: function (this: SettingsSection<File | null>) {
+      if (this.state === null) return;
+      const reader = new FileReader();
+
+      reader.addEventListener("load", () => {
+        localStorage.setItem("image", `url(${reader.result})` as string);
+        onSaveImage();
+        this.rerender();
+      });
+
+      reader.readAsDataURL(this.state);
+      this.displaySuccessMsg();
+    },
+  });
+
+  // const miscSettings = new SettingsSection({
+  //     title:"search",
+  //     state: "https://www.google.com/search"
+  //         sectionEl:
+  // })
+
+  const sections = [themeSection, linkSection, keybindSection, imageSection];
   sections.forEach((section) => section.render());
 }

@@ -29,11 +29,7 @@
     <main class="container">
       <section class="left-section">
         <div class="image-wrapper">
-          <img
-            class="image"
-            src="./main-image.jpg"
-            alt="anime girl looking right"
-          />
+          <div class="image" alt="anime girl looking right"></div>
           <div class="edge"></div>
           <div class="edge"></div>
           <div class="edge"></div>
@@ -135,7 +131,7 @@
         </div>
       </section>
     </main>
-    <div id="modal" class="hide">
+    <div id="modal" class="removed">
       <!-- <div id="modal"> -->
       <div id="settings">
         <h2 class="settings-title settings-width">s e t t i n g s</h2>
@@ -195,20 +191,35 @@
                   <li class="link-group">
                     <header class="accordion-closed">
                       <div class="display-mode">
-                        <span class="link-group-title"></span>
-                        <button type="button" class="edit-button">
+                        <div class="left">
+                          <span class="link-group-title"></span>
+                          <button type="button" class="edit-button">
+                            <svg
+                              xmlns="http://www.w4.org/2000/svg"
+                              height="1.5em"
+                              viewBox="0 96 960 960"
+                              width="1.5em"
+                              fill="currentColor"
+                            >
+                              <path
+                                d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                        <div class="right">
                           <svg
-                            xmlns="http://www.w4.org/2000/svg"
+                            xmlns="http://www.w3.org/2000/svg"
                             height="1.5em"
                             viewBox="0 96 960 960"
                             width="1.5em"
                             fill="currentColor"
                           >
                             <path
-                              d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"
+                              d="M480 711 240 471l43-43 197 198 197-197 43 43-240 239Z"
                             />
                           </svg>
-                        </button>
+                        </div>
                       </div>
                       <div class="hide edit-mode">
                         <input type="text" class="link-group-title" />
@@ -301,6 +312,79 @@
                   Reset
                 </button>
                 <div class="hide msg"></div>
+              </div>
+            </section>
+            <section id="image-settings" class="settings-section">
+              <h3 class="settings-section-title">image</h3>
+              <form action="" name="image">
+                <div class="input-wrapper">
+                  <label for="file-input" class="outline-button">
+                    <div class="button-text">Choose your image</div>
+                    <div class="border"></div> </label
+                  ><input type="file" id="file-input" name="image" />
+                </div>
+              </form>
+              <div class="btn-ctn">
+                <button type="submit" for="keybinds" class="outline-button">
+                  <div class="button-text">Save</div>
+                  <div class="border"></div>
+                </button>
+                <button
+                  type="button"
+                  aria-label="reset"
+                  class="underline-anime"
+                >
+                  Reset
+                </button>
+                <div class="hide msg"></div>
+              </div>
+            </section>
+            <section id="misc-settings" class="settings-section">
+              <div class="settings-content">
+                <h3 class="settings-section-title">misc</h3>
+                <div class="input-wrapper">
+                  <label for="">Default search engine:</label>
+                  <select name="search-engine" id="search-engine-form">
+                    <option value="https://www.google.com/search">
+                      Google
+                    </option>
+                    <option value="https://www.duckduckgo.com/search">
+                      DuckDuckGo
+                    </option>
+                  </select>
+                </div>
+                <div class="link-wrapper">
+                  <a href="" class="underline link"
+                    >Copy current config to clipboard</a
+                  >
+                </div>
+                <div class="link-wrapper">
+                  <a href="" class="underline link">Reset to defaults</a>
+                </div>
+                <div class="form-wrapper">
+                  <h4>import custom config</h4>
+                  <form action="" class="" name="import config">
+                    <textarea></textarea>
+                  </form>
+                  <div class="btn-ctn">
+                    <button
+                      type="submit"
+                      for="import config"
+                      class="outline-button"
+                    >
+                      <div class="button-text">Save</div>
+                      <div class="border"></div>
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="reset"
+                      class="underline-anime"
+                    >
+                      Reset
+                    </button>
+                    <div class="hide msg"></div>
+                  </div>
+                </div>
               </div>
             </section>
           </div>

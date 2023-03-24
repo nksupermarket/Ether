@@ -6,6 +6,7 @@
 
 .image-wrapper {
   position: relative;
+  aspect-ratio: 69/100;
 }
 
 .image-border {
@@ -27,10 +28,13 @@
   right: 20em;
 }
 .image {
-  display: block;
-  position: relative;
-  width: 100%;
+  background-image: url(/public/main-image.jpg);
+  background-size: auto;
+  aspect-ratio: 69/100;
   z-index: 2;
+  position: relative;
+  background-position: center;
+  background-size: cover;
 }
 
 .image-wrapper .edge {

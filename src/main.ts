@@ -1,37 +1,12 @@
-import initKeyBinds, { generateKeybinds, updateKeybinds } from "./KeyBinds";
+import initKeyBinds, { getKeyBinds, updateKeybinds } from "./KeyBinds";
 import { runClock } from "./Date";
 import initModal from "./Modal";
-import { convertCssRgbToHex } from "./colors";
 import { DEFAULT_LINKS, LinkGroupDetails } from "./DEFAULTS";
 import "./styles/style.css";
 import { displayLinkSection, updateLinkSection } from "./LinkSection";
 import { EMPTY_LINK } from "./CONSTANTS";
-import { StringKeyObj } from "../types/interfaces";
-
-function getTheme() {
-  const lsItem = localStorage.getItem("theme");
-  if (lsItem) return JSON.parse(lsItem);
-
-  const cssVariables = window.getComputedStyle(document.documentElement);
-  const defaultTheme = {
-    "bg color": convertCssRgbToHex(
-      cssVariables.getPropertyValue("--main-bg-color")
-    ),
-    "fg color": convertCssRgbToHex(
-      cssVariables.getPropertyValue("--main-fg-color")
-    ),
-    "main accent": convertCssRgbToHex(
-      cssVariables.getPropertyValue("--main-accent")
-    ),
-    "accent 1": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-1")),
-    "accent 2": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-2")),
-    "accent 3": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-3")),
-    "accent 4": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-4")),
-  };
-
-  localStorage.setItem("theme", JSON.stringify(defaultTheme));
-  return defaultTheme;
-}
+import { getTheme, setTheme } from "./Theme";
+import { getImage, updateImage } from "./Image";
 
 function getLinks(): LinkGroupDetails[] {
   const lsItem = localStorage.getItem("links");
@@ -49,18 +24,12 @@ function getLinks(): LinkGroupDetails[] {
   return DEFAULT_LINKS;
 }
 
-function getKeyBinds(): StringKeyObj {
-  const lsItem = localStorage.getItem("keybinds");
-  if (lsItem) return JSON.parse(lsItem);
-
-  const defaultKeybinds = generateKeybinds(DEFAULT_LINKS);
-  localStorage.setItem("keybinds", JSON.stringify(defaultKeybinds));
-  return defaultKeybinds;
-}
-
 let theme = getTheme();
+setTheme(theme);
 let links = getLinks();
 let keybinds = getKeyBinds();
+let image = getImage();
+updateImage(image);
 let linkSections = document.querySelectorAll(
   ".collection-links-wrapper"
 ) as NodeListOf<HTMLElement>;
@@ -73,7 +42,11 @@ function init() {
     links,
     keybinds,
     theme,
-    onSaveTheme: () => {},
+    image,
+    onSaveTheme: () => {
+      theme = getTheme();
+      setTheme(theme);
+    },
     onSaveLinks: () => {
       links = getLinks();
       links.forEach((link, i) => updateLinkSection(linkSections[i], link));
@@ -81,6 +54,10 @@ function init() {
     onSaveKeybinds: () => {
       keybinds = getKeyBinds();
       updateKeybinds(keybinds);
+    },
+    onSaveImage: () => {
+      image = getImage();
+      updateImage(image);
     },
   });
 }

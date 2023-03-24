@@ -1,11 +1,19 @@
 import { StringKeyObj } from "../types/interfaces";
 import { EMPTY_LINK } from "./CONSTANTS";
-import { LinkGroupDetails } from "./DEFAULTS";
+import { DEFAULT_LINKS, LinkGroupDetails } from "./DEFAULTS";
 
 type KeyBind = {
   [key: string]: string;
 };
 
+export function getKeyBinds(): KeyBind {
+  const lsItem = localStorage.getItem("keybinds");
+  if (lsItem) return JSON.parse(lsItem);
+
+  const defaultKeybinds = generateKeybinds(DEFAULT_LINKS);
+  localStorage.setItem("keybinds", JSON.stringify(defaultKeybinds));
+  return defaultKeybinds;
+}
 function generateKeybindEvent(keybinds: KeyBind): (e: KeyboardEvent) => void {
   const keys = Object.keys(keybinds);
   return (e) => {

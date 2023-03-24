@@ -6,6 +6,7 @@ type SettingsSectionProps<T> = {
   sectionEl: HTMLElement;
   children: Component[];
   onSave: () => void;
+  saveState?: () => void;
 };
 export default class SettingsSection<T> implements Component {
   readonly title: string;
@@ -21,6 +22,7 @@ export default class SettingsSection<T> implements Component {
     sectionEl,
     children,
     onSave,
+    saveState,
   }: SettingsSectionProps<T>) {
     this.title = title;
     this.state = state;
@@ -28,6 +30,7 @@ export default class SettingsSection<T> implements Component {
     this.sectionEl = sectionEl;
     this.children = children;
     this.onSave = onSave;
+    if (saveState) this.saveState = saveState;
   }
 
   saveState() {
