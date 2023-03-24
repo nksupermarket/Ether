@@ -6,17 +6,29 @@ type LinkGroupProps = {
   wrapperEl: HTMLElement;
   updateTitle: (e: Event) => void;
   updateLink: (e: Event, elIndex: number) => void;
+  getState: () => LinkGroupDetails;
+  id: string;
 };
 export default class LinkGroup implements Component {
   wrapperEl: HTMLElement;
   updateTitle: (e: Event) => void;
   updateLink: (e: Event, elIndex: number) => void;
   children: InputGroup[];
+  getState: () => LinkGroupDetails;
+  id: string;
 
-  constructor({ wrapperEl, updateLink, updateTitle }: LinkGroupProps) {
+  constructor({
+    wrapperEl,
+    updateLink,
+    updateTitle,
+    getState,
+    id,
+  }: LinkGroupProps) {
     this.wrapperEl = wrapperEl;
     this.updateLink = updateLink;
     this.updateTitle = updateTitle;
+    this.getState = getState;
+    this.id = id;
     const linkEls = this.wrapperEl.querySelectorAll(".link-details");
     this.children = Array.from(linkEls).map(
       (el, i) =>
@@ -25,23 +37,26 @@ export default class LinkGroup implements Component {
           updateState: (e: Event) => {
             updateLink(e, i);
           },
+          getState: () => getState().links[i],
+          id: this.id + i.toString(),
         })
     );
   }
 
-  render(values: LinkGroupDetails) {
+  render() {
+    const state = this.getState();
     const titleInputEl = this.wrapperEl.querySelector(
       "header input"
     ) as HTMLInputElement;
-    titleInputEl.value = values.title;
+    titleInputEl.value = state.title;
     titleInputEl.addEventListener("input", (e) => {
       this.updateTitle(e);
-      this.rerender(values);
+      this.rerender();
     });
     const titleEl = this.wrapperEl.querySelector(
       "header span.link-group-title"
     ) as HTMLElement;
-    titleEl.textContent = values.title;
+    titleEl.textContent = state.title;
 
     const editButton = this.wrapperEl.querySelector("header .edit-button");
     const toggleEditMode = (e: Event) => {
@@ -55,19 +70,20 @@ export default class LinkGroup implements Component {
     doneButton?.addEventListener("click", (e) => {
       toggleEditMode(e);
     });
-    this.children.forEach((child, i) => child.render(values.links[i]));
+    this.children.forEach((child) => child.render());
   }
 
-  rerender(values: LinkGroupDetails) {
+  rerender() {
+    const state = this.getState();
     const titleInputEl = this.wrapperEl.querySelector(
       "header input"
     ) as HTMLInputElement;
-    titleInputEl.value = values.title;
+    titleInputEl.value = state.title;
     const titleEl = this.wrapperEl.querySelector(
       "header span.link-group-title"
     ) as HTMLElement;
-    titleEl.textContent = values.title;
+    titleEl.textContent = state.title;
 
-    this.children.forEach((child, i) => child.rerender(values.links[i]));
+    this.children.forEach((child) => child.rerender());
   }
 }

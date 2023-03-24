@@ -323,6 +323,16 @@
                     <div class="border"></div> </label
                   ><input type="file" id="file-input" name="image" />
                 </div>
+                <div class="input-group">
+                  <div class="input-wrapper">
+                    <label for="background-pos-x">Background position x</label
+                    ><input type="text" id="background-pos-x" />
+                  </div>
+                  <div class="input-wrapper">
+                    <label for="background-pos-y">Background position y</label
+                    ><input type="text" id="background-pos-y" />
+                  </div>
+                </div>
               </form>
               <div class="btn-ctn">
                 <button type="submit" for="keybinds" class="outline-button">
@@ -340,10 +350,10 @@
               </div>
             </section>
             <section id="misc-settings" class="settings-section">
+              <h3 class="settings-section-title">misc</h3>
               <div class="settings-content">
-                <h3 class="settings-section-title">misc</h3>
                 <div class="input-wrapper">
-                  <label for="">Default search engine:</label>
+                  <label for="search-engine-form">Default search engine:</label>
                   <select name="search-engine" id="search-engine-form">
                     <option value="https://www.google.com/search">
                       Google
@@ -354,12 +364,12 @@
                   </select>
                 </div>
                 <div class="link-wrapper">
-                  <a href="" class="underline link"
+                  <a href="" class="underline-link link"
                     >Copy current config to clipboard</a
                   >
                 </div>
                 <div class="link-wrapper">
-                  <a href="" class="underline link">Reset to defaults</a>
+                  <a href="" class="underline-link link">Reset to defaults</a>
                 </div>
                 <div class="form-wrapper">
                   <h4>import custom config</h4>

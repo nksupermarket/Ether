@@ -3,14 +3,16 @@ import LinkGroup from "./LinkGroup";
 import SettingsSection from "./SettingsSection";
 import { Link, LinkGroupDetails } from "../DEFAULTS";
 import { StringKeyObj, Theme } from "../../types/interfaces";
+import { Optional } from "../../types/types";
 import { generateKeybinds } from "../KeyBinds";
 import { Component } from "./settingsTypes";
+import { ImageState } from "../Image";
 
 export type InitSettingsProps = {
   links: LinkGroupDetails[];
   theme: Theme;
   keybinds: StringKeyObj;
-  image: string;
+  imageState: ImageState;
   onSaveTheme: () => void;
   onSaveLinks: () => void;
   onSaveKeybinds: () => void;
@@ -39,6 +41,7 @@ export default function init({
   links,
   theme,
   keybinds,
+  imageState,
   onSaveTheme,
   onSaveLinks,
   onSaveKeybinds,
@@ -54,8 +57,9 @@ export default function init({
         updateState: (e: Event) => {
           const target = e.target as HTMLInputElement;
           const key = target.name as keyof Theme;
-          theme[key] = target.value;
+          themeSection.state[key] = target.value;
         },
+        getState: (): StringKeyObj => themeSection.state,
       }),
     ],
     onSave: onSaveTheme,
@@ -68,6 +72,8 @@ export default function init({
       el.addEventListener("click", function toggleAccordion(e) {
         const currTarget = e.currentTarget as HTMLElement;
         const accordion = currTarget.nextElementSibling as HTMLElement;
+        const displayEl = el.querySelector(".display-mode");
+        if (displayEl?.classList.contains("hide")) return;
         accordion.classList.toggle("accordion");
         el.classList.toggle("accordion-closed");
       })
@@ -88,6 +94,8 @@ export default function init({
             const target = e.target as HTMLInputElement;
             links[i].title = target.value;
           },
+          getState: (): LinkGroupDetails => linkSection.state[i],
+          id: i.toString(),
         })
     ),
     onSave: onSaveLinks,
@@ -150,9 +158,12 @@ export default function init({
     onSave: onSaveKeybinds,
   });
 
-  const imageSection = new SettingsSection<File | null>({
+  interface ImageStateBuffer extends Omit<ImageState, "image"> {
+    image: File | null;
+  }
+  const imageSection = new SettingsSection<ImageStateBuffer>({
     title: "image",
-    state: null,
+    state: { ...imageState, image: null },
     sectionEl: document.getElementById("image-settings") as HTMLElement,
     children: [
       {
@@ -174,7 +185,7 @@ export default function init({
             ) as HTMLElement;
             label.textContent = file.name;
 
-            imageSection.state = file;
+            imageSection.state.image = file;
           });
         },
         rerender: function () {
@@ -187,6 +198,25 @@ export default function init({
           label.textContent = "Choose your image";
         },
       },
+      new InputGroup({
+        wrapperEl: document.querySelector(
+          "#image-settings .input-group"
+        ) as HTMLElement,
+        updateState: (e: Event) => {
+          const target = e.target as HTMLInputElement;
+          const key = target.name as keyof ImageStateBuffer;
+          if (key === "image") return;
+          imageSection.state[key] = target.value;
+        },
+        getState: (): Optional<ImageStateBuffer, "image"> => {
+          const state: Optional<ImageStateBuffer, "image"> = {
+            ...imageSection.state,
+          };
+          delete state.image;
+          return state;
+        },
+        id: "a",
+      }),
     ],
     onSave: onSaveImage,
     saveState: function (this: SettingsSection<File | null>) {

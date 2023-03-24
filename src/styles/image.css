@@ -33,7 +33,8 @@
   aspect-ratio: 69/100;
   z-index: 2;
   position: relative;
-  background-position: center;
+  background-position-x: 50%;
+  background-position-y: 50%;
   background-size: cover;
 }
 

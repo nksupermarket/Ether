@@ -38,6 +38,7 @@ export function setTheme(theme: Theme): void {
   const entries = Object.entries(theme);
 
   for (const [key, value] of entries) {
+    console.log(key);
     switch (key) {
       case "bg color": {
         document.documentElement.style.setProperty(
@@ -81,19 +82,31 @@ export function setTheme(theme: Theme): void {
         break;
       }
       case "accent 1": {
-        document.documentElement.style.setProperty("accent-1", hexToRgb(value));
+        document.documentElement.style.setProperty(
+          "--accent-1",
+          hexToRgb(value)
+        );
         break;
       }
       case "accent 2": {
-        document.documentElement.style.setProperty("accent-2", hexToRgb(value));
+        document.documentElement.style.setProperty(
+          "--accent-2",
+          hexToRgb(value)
+        );
         break;
       }
       case "accent 3": {
-        document.documentElement.style.setProperty("accent-3", hexToRgb(value));
+        document.documentElement.style.setProperty(
+          "--accent-3",
+          hexToRgb(value)
+        );
         break;
       }
       case "accent 4": {
-        document.documentElement.style.setProperty("accent-4", hexToRgb(value));
+        document.documentElement.style.setProperty(
+          "--accent-4",
+          hexToRgb(value)
+        );
         break;
       }
     }

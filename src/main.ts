@@ -28,8 +28,8 @@ let theme = getTheme();
 setTheme(theme);
 let links = getLinks();
 let keybinds = getKeyBinds();
-let image = getImage();
-updateImage(image);
+let imageState = getImage();
+updateImage(imageState);
 let linkSections = document.querySelectorAll(
   ".collection-links-wrapper"
 ) as NodeListOf<HTMLElement>;
@@ -42,7 +42,7 @@ function init() {
     links,
     keybinds,
     theme,
-    image,
+    imageState,
     onSaveTheme: () => {
       theme = getTheme();
       setTheme(theme);
@@ -56,8 +56,8 @@ function init() {
       updateKeybinds(keybinds);
     },
     onSaveImage: () => {
-      image = getImage();
-      updateImage(image);
+      imageState = getImage();
+      updateImage(imageState);
     },
   });
 }

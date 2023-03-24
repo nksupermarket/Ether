@@ -13,7 +13,7 @@
 #settings {
   width: 80%;
   height: 80%;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(70px);
   background: rgba(var(--main-bg-color), 0.8);
   border: var(--border);
   position: relative;
@@ -182,9 +182,13 @@
 label[for="file-input"] .button-text {
   padding: 0.6em 0.9em;
 }
+form[name="image"] .input-group {
+  margin-top: 1.8em;
+}
 
 .settings-section .settings-content {
   display: flex;
   flex-direction: column;
-  row-gap: 2em;
+  row-gap: 1.8em;
+  overflow: visible;
 }

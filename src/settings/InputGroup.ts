@@ -1,18 +1,26 @@
+import { StringKeyObj } from "../../types/interfaces";
 import { Component } from "./settingsTypes";
 
 type InputGroupProps = {
   wrapperEl: HTMLElement;
+  getState: () => StringKeyObj;
   updateState: (e: Event) => void;
+  id: string;
 };
 export default class InputGroup implements Component {
   wrapperEl: HTMLElement;
   updateState: (e: Event) => void;
+  private readonly getState: () => StringKeyObj;
+  private readonly id: string;
 
-  constructor({ wrapperEl, updateState }: InputGroupProps) {
+  constructor({ wrapperEl, updateState, getState, id }: InputGroupProps) {
     this.wrapperEl = wrapperEl;
     this.updateState = updateState.bind(this);
+    this.getState = getState;
+    this.id = id;
   }
-  render(state: { [key: string]: string }) {
+  render() {
+    const state = this.getState();
     const fields = this.wrapperEl.querySelectorAll(".input-wrapper");
 
     const entries = Object.entries(state);
@@ -22,8 +30,10 @@ export default class InputGroup implements Component {
       const label = fields[i].querySelector("label") as HTMLLabelElement;
       const input = fields[i].querySelector("input") as HTMLInputElement;
       const [name, value] = entries[i];
+      const labelFor = `${this.id}-${name.replace(" ", "-")}`;
       label.textContent = name;
-      label.setAttribute("for", name);
+      label.setAttribute("for", labelFor);
+      input.id = labelFor;
       input.name = name;
       input.value = value as string;
 
@@ -31,7 +41,8 @@ export default class InputGroup implements Component {
     }
   }
 
-  rerender(state: { [key: string]: string }) {
+  rerender() {
+    const state = this.getState();
     const fields = this.wrapperEl.querySelectorAll(".input-wrapper");
 
     const entries = Object.entries(state);

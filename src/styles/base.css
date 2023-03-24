@@ -260,6 +260,9 @@ input:placeholder-shown {
   max-height: 0;
 }
 
-.underline {
+.link-wrapper .underline-link {
+  width: max-content;
+}
+.underline-link {
   text-decoration: underline;
 }
