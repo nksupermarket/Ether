@@ -1,13 +1,14 @@
 import { ZodError } from "zod";
-import { isArrayofObjects, isObject, trimKeyValues } from "../helpers";
-import { displayMsg } from "./Settings";
+import { StringKeyObj } from "../../types/interfaces";
+import DomRender from "../DomRender";
+import { isArrayofObjects, isObject, trimKeyValues } from "../utils/helpers";
 import { Component, StatefulComponent } from "./settingsTypes";
 
 type SettingsSectionProps<T> = {
   title: string;
   state: T;
   sectionEl: HTMLElement;
-  onSave: () => void;
+  onSave: (data: any) => void;
   render: () => void;
   rerender: () => void;
 };
@@ -39,11 +40,11 @@ export default class SettingsSection<T> implements StatefulComponent<T> {
 
   save() {
     try {
-      if (isObject(this.state)) trimKeyValues(this.state);
+      if (this.state && isObject(this.state)) trimKeyValues(this.state);
       else if (typeof this.state === "string")
         this.state = this.state.trim() as unknown as T;
       else if (isArrayofObjects(this.state))
-        this.state.forEach((obj) => trimKeyValues(obj));
+        this.state.forEach((obj: StringKeyObj) => trimKeyValues(obj));
 
       this.onSave(this.state);
       this._defaultState = this.state;
@@ -56,6 +57,8 @@ export default class SettingsSection<T> implements StatefulComponent<T> {
         let msg = "";
         e.issues.forEach((error) => (msg += `\n${error.message}`));
         this.displayFailedMsg(msg);
+      } else if (error.message === "The quota has been exceeded.") {
+        this.displayFailedMsg("The image is too large.");
       } else this.displayFailedMsg(error.message || undefined);
 
       this.sectionEl.classList.add("error");
@@ -65,7 +68,7 @@ export default class SettingsSection<T> implements StatefulComponent<T> {
   displayFailedMsg(msg?: string) {
     const msgEl = this.sectionEl.querySelector(".msg") as HTMLElement;
     msg = msg || "failed, localStorage is turned off or full";
-    displayMsg(msgEl, msg);
+    DomRender.displayMsg(msgEl, msg);
   }
 
   hideMsg() {
@@ -75,7 +78,7 @@ export default class SettingsSection<T> implements StatefulComponent<T> {
 
   displaySuccessMsg() {
     const msgEl = this.sectionEl.querySelector(".msg") as HTMLElement;
-    displayMsg(msgEl, `successfully saved your ${this.title}`);
+    DomRender.displayMsg(msgEl, `successfully saved your ${this.title}`);
     setTimeout(() => {
       msgEl.classList.add("hide");
     }, 3000);
@@ -92,6 +95,7 @@ export default class SettingsSection<T> implements StatefulComponent<T> {
 interface SettingsSectionWithChildrenProps<T>
   extends Omit<SettingsSectionProps<T>, "render" | "rerender"> {
   children: Component[];
+  save?: () => void;
 }
 export class SettingsSectionWithChildren<T> extends SettingsSection<T> {
   readonly title: string;

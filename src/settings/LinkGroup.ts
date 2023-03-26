@@ -1,4 +1,4 @@
-import { LinkGroupDetails } from "../DEFAULT_LINKS";
+import { LinkGroupDetails } from "../data/DEFAULT_LINKS";
 import InputGroup from "./InputGroup";
 import { Component } from "./settingsTypes";
 

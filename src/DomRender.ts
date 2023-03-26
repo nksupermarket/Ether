@@ -59,5 +59,10 @@ class DomRender {
     wrapper.append(input);
     return wrapper;
   }
+
+  displayMsg(msgEl: HTMLElement, msg: string) {
+    msgEl.textContent = msg;
+    msgEl.classList.remove("hide");
+  }
 }
 export default new DomRender();

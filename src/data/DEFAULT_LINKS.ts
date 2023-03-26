@@ -1,27 +1,5 @@
-import { z } from "zod";
-import { EMPTY_LINK } from "./CONSTANTS";
-
-export type Link = {
-  "display text": string;
-  href: string;
-};
-export type LinkGroupDetails = {
-  title: string;
-  links: [Link, Link, Link, Link];
-};
-const LinkSchema = z.object({
-  "display text": z.string(),
-  href: z.string(),
-});
-const LinkGroupSchema = z
-  .object({
-    title: z.string(),
-    links: z.array(LinkSchema).length(4, "each link group must have 4 links"),
-  })
-  .strict();
-export const LinksSchema = z
-  .array(LinkGroupSchema)
-  .length(4, "4 link groups are required");
+import { EMPTY_LINK } from "../CONSTANTS";
+import { LinkGroupDetails } from "../Links";
 
 const SOCIAL_LINKS: LinkGroupDetails = {
   title: "Socials",

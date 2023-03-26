@@ -1,4 +1,4 @@
-const everforest = {
+const everforest_dark = {
   theme: {
     "bg color": "#2d353b",
     "fg color": "#d3c6aa",
@@ -13,6 +13,24 @@ const everforest = {
     image: "url(/main-image.jpg)",
     "position x": "50%",
     "position y": "50%",
+  },
+};
+
+const everforest_light = {
+  theme: {
+    "bg color": "#fdf6e3",
+    "fg color": "#5c6a72",
+    "main accent": "#3a94c5",
+    "accent 1": "#93b259",
+    "accent 2": "#e66868",
+    "accent 3": "#dfa000",
+    "accent 4": "#35a77c",
+    "panel opacity": 0.9,
+  },
+  image: {
+    image: "url(/wallhaven-5gz6l3.jpg)",
+    "position x": "50%",
+    "position y": "0%",
   },
 };
 const bw = {
@@ -88,7 +106,8 @@ const catppuccin = {
 };
 
 export default {
-  everforest,
+  everforest_dark,
+  everforest_light,
   catppuccin,
   gruvbox,
   nord,

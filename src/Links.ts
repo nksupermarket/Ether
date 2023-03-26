@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { EMPTY_LINK } from "./CONSTANTS";
-import { DEFAULT_LINKS } from "./DEFAULT_LINKS";
+import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import DomRender from "./DomRender";
 
 export type Link = {

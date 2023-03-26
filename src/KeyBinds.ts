@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { StringKeyObj } from "../types/interfaces";
 import { EMPTY_LINK } from "./CONSTANTS";
-import { DEFAULT_LINKS } from "./DEFAULT_LINKS";
+import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import { LinkGroupDetails } from "./Links";
 
-type KeyBind = {
+export type KeyBind = {
   [key: string]: string;
 };
 

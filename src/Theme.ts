@@ -1,4 +1,4 @@
-import { convertCssRgbToHex, hexToRgb } from "./colors";
+import { convertCssRgbToHex, hexToRgb } from "./utils/colors";
 import { z } from "zod";
 
 export type Theme = {
@@ -101,7 +101,6 @@ export function setTheme(theme: Theme): void {
         const hex = value as string;
 
         const newUrl = url.replace(/%23([0-9a-fA-F]{6})/, `%23${hex.slice(1)}`);
-        console.log(newUrl);
         if (newUrl === url) break;
         linkBoxBg.style.setProperty("background-image", newUrl);
         break;
