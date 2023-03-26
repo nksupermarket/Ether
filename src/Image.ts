@@ -17,7 +17,7 @@ const ImageStateSchema = z.object({
 
 const imageEl = document.querySelector(".image") as HTMLElement;
 export function getImage(): ImageState {
-  const lsItem = localStorage.getItem("imageState");
+  const lsItem = localStorage.getItem("image");
   if (lsItem) return JSON.parse(lsItem);
 
   const imageStyle = window.getComputedStyle(imageEl);
@@ -32,7 +32,6 @@ export function getImage(): ImageState {
 }
 
 export function updateImage(imageState: ImageState) {
-  imageEl.style.setProperty("background-image", imageState.image);
   imageEl.style.setProperty("background-image", imageState.image);
   imageEl.style.setProperty("background-position-x", imageState["position x"]);
   imageEl.style.setProperty("background-position-y", imageState["position y"]);

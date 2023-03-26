@@ -1,9 +1,13 @@
 let singleton: undefined | DomRender;
 
-type TextNodeDetails = {
+interface TextNodeDetails {
   text?: string;
   classes?: string[];
-};
+}
+
+interface OptionDetails extends TextNodeDetails {
+  value: string;
+}
 
 type FieldDetails = {
   wrapperClasses?: string[];
@@ -24,9 +28,17 @@ class DomRender {
 
   textNode(details: TextNodeDetails): HTMLSpanElement {
     const span = document.createElement("span");
-    span.textContent = details.text || null;
+    span.textContent = details.text || "";
     if (details.classes) span.classList.add(...details.classes);
     return span;
+  }
+
+  option(details: OptionDetails): HTMLOptionElement {
+    const option = document.createElement("option");
+    option.textContent = details.text || "";
+    option.value = details.value;
+    if (details.classes) option.classList.add(...details.classes);
+    return option;
   }
 
   field(details: FieldDetails): HTMLDivElement {

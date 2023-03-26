@@ -9,10 +9,11 @@ export type Theme = {
   "accent 2": string;
   "accent 3": string;
   "accent 4": string;
+  "panel opacity": number;
 };
 
 const hex = z.custom((val) => {
-  return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(val as string);
+  return /^#([A-Fa-f0-9]{6})$/.test(val as string);
 }, "Encounted invalid hex code");
 const ThemeSchema = z
   .object({
@@ -23,6 +24,10 @@ const ThemeSchema = z
     "accent 2": hex,
     "accent 3": hex,
     "accent 4": hex,
+    "panel opacity": z
+      .number()
+      .min(0, "Panel opacity must be between 0 and 1.")
+      .max(1, "Panel opacity must be between 0 and 1."),
   })
   .strict("Encounted unknown theme variable");
 
@@ -45,6 +50,7 @@ export function getTheme(): Theme {
     "accent 2": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-2")),
     "accent 3": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-3")),
     "accent 4": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-4")),
+    "panel opacity": 0.3,
   };
 
   localStorage.setItem("theme", JSON.stringify(defaultTheme));
@@ -64,23 +70,21 @@ export function setTheme(theme: Theme): void {
       case "bg color": {
         document.documentElement.style.setProperty(
           "--main-bg-color",
-          hexToRgb(value)
+          hexToRgb(value as string)
         );
         break;
       }
       case "fg color": {
         document.documentElement.style.setProperty(
           "--main-fg-color",
-          hexToRgb(value)
+          hexToRgb(value as string)
         );
         const imageBoxBg = document.querySelector(
           ".image-border .squiggly"
         ) as HTMLElement;
         const url = window.getComputedStyle(imageBoxBg).backgroundImage;
-        const newUrl = url.replace(
-          /%23([0-9a-fA-F]{6})/,
-          `%23${value.slice(1)}`
-        );
+        const hex = value as string;
+        const newUrl = url.replace(/%23([0-9a-fA-F]{6})/, `%23${hex.slice(1)}`);
         if (newUrl === url) continue;
         imageBoxBg.style.setProperty("background-image", newUrl);
         break;
@@ -88,16 +92,16 @@ export function setTheme(theme: Theme): void {
       case "main accent": {
         document.documentElement.style.setProperty(
           "--main-accent",
-          hexToRgb(value)
+          hexToRgb(value as string)
         );
         const linkBoxBg = document.querySelector(
           ".links-section .squiggly"
         ) as HTMLElement;
         const url = window.getComputedStyle(linkBoxBg).backgroundImage;
-        const newUrl = url.replace(
-          /%23([0-9a-fA-F]{6})/,
-          `%23${value.slice(1)}`
-        );
+        const hex = value as string;
+
+        const newUrl = url.replace(/%23([0-9a-fA-F]{6})/, `%23${hex.slice(1)}`);
+        console.log(newUrl);
         if (newUrl === url) break;
         linkBoxBg.style.setProperty("background-image", newUrl);
         break;
@@ -105,30 +109,39 @@ export function setTheme(theme: Theme): void {
       case "accent 1": {
         document.documentElement.style.setProperty(
           "--accent-1",
-          hexToRgb(value)
+          hexToRgb(value as string)
         );
         break;
       }
       case "accent 2": {
         document.documentElement.style.setProperty(
           "--accent-2",
-          hexToRgb(value)
+          hexToRgb(value as string)
         );
         break;
       }
       case "accent 3": {
         document.documentElement.style.setProperty(
           "--accent-3",
-          hexToRgb(value)
+          hexToRgb(value as string)
         );
         break;
       }
       case "accent 4": {
         document.documentElement.style.setProperty(
           "--accent-4",
-          hexToRgb(value)
+          hexToRgb(value as string)
         );
         break;
+      }
+      case "panel opacity": {
+        const panel = document.querySelector(
+          ".links-section .border"
+        ) as HTMLElement;
+        panel?.style.setProperty(
+          "background",
+          `rgba(var(--main-bg-color), ${value})`
+        );
       }
     }
   }

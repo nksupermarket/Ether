@@ -13,7 +13,6 @@
   </head>
 
   <body>
-    <div class="triangle"></div>
     <button name="settings">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -28,6 +27,8 @@
       </svg>
     </button>
     <main class="container">
+      <div class="triangle"></div>
+      <div class="triangle"></div>
       <section class="left-section">
         <div class="image-wrapper">
           <div class="image" alt="anime girl looking right"></div>
@@ -256,6 +257,12 @@ l43 -17 -4 23 c-258 1206 -288 1361 -288 1477 0 101 17 186 49 249 55 107 174
           <div class="scroller">
             <section id="theme-settings" class="settings-section">
               <h3 class="settings-section-title">theme</h3>
+              <div class="input-wrapper">
+                <label for="load theme">Load theme</label>
+                <select name="load theme">
+                  <option value="custom">Custom</option>
+                </select>
+              </div>
               <form action="" class="input-group" name="theme">
                 <div class="input-wrapper">
                   <label for="bg-color">background color</label
@@ -284,6 +291,16 @@ l43 -17 -4 23 c-258 1206 -288 1361 -288 1477 0 101 17 186 49 249 55 107 174
                 <div class="input-wrapper">
                   <label for="accent-color-4">accent color 4</label
                   ><input type="text" id="accent-color-4" />
+                </div>
+                <div class="input-wrapper">
+                  <label for="">panel opacity</label
+                  ><input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    id="panel-opacity"
+                  />
                 </div>
               </form>
               <div class="btn-ctn">
@@ -495,30 +512,26 @@ l43 -17 -4 23 c-258 1206 -288 1361 -288 1477 0 101 17 186 49 249 55 107 174
                     >Reset to defaults</a
                   >
                 </div>
-                <div class="form-wrapper">
-                  <h4>import json</h4>
-                  <form action="" class="" name="import json">
-                    <textarea></textarea>
-                  </form>
-                  <div class="btn-ctn">
-                    <button
-                      type="submit"
-                      for="import json"
-                      class="outline-button"
-                    >
-                      <div class="button-text">Save</div>
-                      <div class="border"></div>
-                    </button>
-                    <button
-                      type="button"
-                      aria-label="reset"
-                      class="underline-anime"
-                    >
-                      Reset
-                    </button>
-                    <div class="hide msg"></div>
-                  </div>
-                </div>
+              </div>
+            </section>
+            <section id="json-settings" class="settings-section">
+              <h3 class="settings-section-title">import json</h3>
+              <form action="" class="" name="import json">
+                <textarea></textarea>
+              </form>
+              <div class="btn-ctn">
+                <button type="submit" for="import json" class="outline-button">
+                  <div class="button-text">Save</div>
+                  <div class="border"></div>
+                </button>
+                <button
+                  type="button"
+                  aria-label="reset"
+                  class="underline-anime"
+                >
+                  Reset
+                </button>
+                <div class="hide msg"></div>
               </div>
             </section>
           </div>

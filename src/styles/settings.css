@@ -108,6 +108,10 @@
   margin-top: 0;
 }
 
+#theme-settings select {
+  margin-bottom: 1.2em;
+}
+
 .input-group {
   display: grid;
   grid-template-columns: auto 1fr;
