@@ -1,4 +1,4 @@
-import { LinkGroupDetails } from "../DEFAULTS";
+import { LinkGroupDetails } from "../DEFAULT_LINKS";
 import InputGroup from "./InputGroup";
 import { Component } from "./settingsTypes";
 
@@ -38,7 +38,7 @@ export default class LinkGroup implements Component {
             updateLink(e, i);
           },
           getState: () => getState().links[i],
-          id: this.id + i.toString(),
+          id: this.id + "-" + i.toString(),
         })
     );
   }

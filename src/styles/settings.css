@@ -54,6 +54,7 @@
   transform: rotate(45deg);
 }
 
+.scroller > section,
 .settings-width {
   margin: 0 auto;
   width: 50%;

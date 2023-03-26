@@ -28,7 +28,7 @@
   right: 20em;
 }
 .image {
-  background-image: url(/public/main-image.jpg);
+  background-image: url(/main-image.jpg);
   background-size: auto;
   aspect-ratio: 69/100;
   z-index: 2;
@@ -42,7 +42,7 @@
   width: 9%;
   transform: rotate(-52deg);
 }
-.image-wrapper .edge:nth-of-type(1) {
+.image-wrapper .edge:nth-of-type(4) {
   bottom: -2.5%;
   left: -7.5%;
 }

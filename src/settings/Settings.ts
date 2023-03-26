@@ -1,22 +1,25 @@
 import InputGroup from "./InputGroup";
 import LinkGroup from "./LinkGroup";
-import SettingsSection from "./SettingsSection";
-import { Link, LinkGroupDetails } from "../DEFAULTS";
+import SettingsSection, {
+  SettingsSectionWithChildren,
+} from "./SettingsSection";
+import { Link, LinkGroupDetails, saveLinks } from "../Links";
 import { StringKeyObj, Theme } from "../../types/interfaces";
 import { Optional } from "../../types/types";
-import { generateKeybinds } from "../KeyBinds";
-import { Component } from "./settingsTypes";
-import { ImageState } from "../Image";
+import { generateKeybinds, refreshKeybinds, saveKeybinds } from "../KeyBinds";
+import { Component, StatefulComponent } from "./settingsTypes";
+import { ImageState, refreshImage, saveImageState } from "../Image";
+import { refreshSearch, saveSearch, SearchEngine } from "../Search";
+import { refreshTheme, saveTheme } from "../Theme";
+import { refreshLinks } from "../Links";
+import LocalStorage from "../LocalStorage";
 
 export type InitSettingsProps = {
   links: LinkGroupDetails[];
   theme: Theme;
   keybinds: StringKeyObj;
   imageState: ImageState;
-  onSaveTheme: () => void;
-  onSaveLinks: () => void;
-  onSaveKeybinds: () => void;
-  onSaveImage: () => void;
+  search: SearchEngine;
 };
 function getEnoughNodesForData(dataCount: number, selectorToCount: string) {
   let els = document.querySelectorAll(
@@ -37,17 +40,18 @@ function getEnoughNodesForData(dataCount: number, selectorToCount: string) {
   }
 }
 
+export function displayMsg(msgEl: HTMLElement, msg: string) {
+  msgEl.textContent = msg;
+  msgEl.classList.remove("hide");
+}
 export default function init({
   links,
   theme,
   keybinds,
   imageState,
-  onSaveTheme,
-  onSaveLinks,
-  onSaveKeybinds,
-  onSaveImage,
+  search,
 }: InitSettingsProps) {
-  const themeSection = new SettingsSection({
+  const themeSection = new SettingsSectionWithChildren({
     title: "theme",
     state: theme,
     sectionEl: document.getElementById("theme-settings") as HTMLElement,
@@ -60,9 +64,13 @@ export default function init({
           themeSection.state[key] = target.value;
         },
         getState: (): StringKeyObj => themeSection.state,
+        id: "theme",
       }),
     ],
-    onSave: onSaveTheme,
+    onSave: () => {
+      saveTheme(themeSection.state);
+      refreshTheme();
+    },
   });
 
   getEnoughNodesForData(links.length, "form[name='links'] > ul .link-group");
@@ -78,7 +86,7 @@ export default function init({
         el.classList.toggle("accordion-closed");
       })
     );
-  const linkSection = new SettingsSection({
+  const linkSection = new SettingsSectionWithChildren({
     title: "links",
     state: links,
     sectionEl: document.getElementById("link-settings") as HTMLElement,
@@ -95,46 +103,39 @@ export default function init({
             links[i].title = target.value;
           },
           getState: (): LinkGroupDetails => linkSection.state[i],
-          id: i.toString(),
+          id: "group-" + i.toString(),
         })
     ),
-    onSave: onSaveLinks,
+    onSave: () => {
+      saveLinks(linkSection.state);
+      refreshLinks();
+    },
   });
 
-  function formatObject(obj: { [key: string]: string }): string {
-    const entries = Object.entries(obj)
-      .map(([key, value]) => `${key}: ${value}`)
-      .join("\n");
-
-    return `${entries}`;
-  }
-
-  const keybindSection = new SettingsSection({
+  const keybindSection = new SettingsSectionWithChildren({
     title: "keybinds",
     state: keybinds,
     sectionEl: document.getElementById("keybind-settings") as HTMLElement,
     children: [
       {
-        render: function (this: Component, state) {
+        render: function (this: Component) {
           const sectionEl = document.getElementById(
             "keybind-settings"
           ) as HTMLElement;
           const textarea = sectionEl.querySelector(
             "#keybind-settings textarea"
           ) as HTMLTextAreaElement;
-          textarea.value = formatObject(state);
+          textarea.value = JSON.stringify(keybinds, null, 2);
           textarea.addEventListener("input", (e: Event) => {
             const target = e.target as HTMLTextAreaElement;
-            function convertStringToObj(str: string): StringKeyObj {
-              return str.split("\n").reduce((acc, curr) => {
-                if (!curr.includes(":")) return acc;
-                const [key, ...rest] = curr.split(":");
-                const value = rest.join(":");
-                acc[key.trim()] = value.trim();
-                return acc;
-              }, {} as StringKeyObj);
+            try {
+              keybindSection.state = JSON.parse(target.value);
+              keybindSection.hideMsg();
+              keybindSection.sectionEl.classList.remove("error");
+            } catch (e) {
+              keybindSection.sectionEl.classList.add("error");
+              keybindSection.displayFailedMsg("Invalid json");
             }
-            keybindSection.state = convertStringToObj(target.value);
           });
 
           sectionEl
@@ -144,60 +145,65 @@ export default function init({
               if (!links) return;
               const keybinds = generateKeybinds(links);
               keybindSection.state = keybinds;
-              this.rerender(keybinds);
+              this.rerender();
             });
         },
-        rerender: (state) => {
+        rerender: () => {
           const textarea = document.querySelector(
             "#keybind-settings textarea"
           ) as HTMLTextAreaElement;
-          textarea.value = formatObject(state);
+          textarea.value = JSON.stringify(keybinds, null, 2);
         },
       },
     ],
-    onSave: onSaveKeybinds,
+    onSave: () => {
+      saveKeybinds(keybindSection.state);
+      refreshKeybinds();
+    },
   });
 
   interface ImageStateBuffer extends Omit<ImageState, "image"> {
     image: File | null;
   }
-  const imageSection = new SettingsSection<ImageStateBuffer>({
+  const imageSection = new SettingsSectionWithChildren<ImageStateBuffer>({
     title: "image",
     state: { ...imageState, image: null },
     sectionEl: document.getElementById("image-settings") as HTMLElement,
     children: [
-      {
-        render: function () {
-          const sectionEl = document.getElementById(
-            "image-settings"
-          ) as HTMLElement;
-          const input = sectionEl.querySelector(
-            "input[type='file']"
-          ) as HTMLElement;
-          input.addEventListener("change", (e) => {
-            const target = e.target as HTMLInputElement;
-            if (!target.files) return;
+      (function ImageFileInput(): Component {
+        return {
+          render: function () {
+            const sectionEl = document.getElementById(
+              "image-settings"
+            ) as HTMLElement;
+            const input = sectionEl.querySelector(
+              "input[type='file']"
+            ) as HTMLElement;
+            input.addEventListener("change", (e) => {
+              const target = e.target as HTMLInputElement;
+              if (!target.files) return;
 
-            const file = target.files[0];
+              const file = target.files[0];
 
+              const label = sectionEl.querySelector(
+                "label .button-text"
+              ) as HTMLElement;
+              label.textContent = file.name;
+
+              imageSection.state.image = file;
+            });
+          },
+          rerender: function () {
+            const sectionEl = document.getElementById(
+              "image-settings"
+            ) as HTMLElement;
             const label = sectionEl.querySelector(
               "label .button-text"
             ) as HTMLElement;
-            label.textContent = file.name;
-
-            imageSection.state.image = file;
-          });
-        },
-        rerender: function () {
-          const sectionEl = document.getElementById(
-            "image-settings"
-          ) as HTMLElement;
-          const label = sectionEl.querySelector(
-            "label .button-text"
-          ) as HTMLElement;
-          label.textContent = "Choose your image";
-        },
-      },
+            label.textContent = "Choose your image";
+          },
+        };
+      })(),
       new InputGroup({
         wrapperEl: document.querySelector(
           "#image-settings .input-group"
@@ -208,7 +214,7 @@ export default function init({
           if (key === "image") return;
           imageSection.state[key] = target.value;
         },
-        getState: (): Optional<ImageStateBuffer, "image"> => {
+        getState: (): Omit<ImageStateBuffer, "image"> => {
           const state: Optional<ImageStateBuffer, "image"> = {
             ...imageSection.state,
           };
@@ -218,28 +224,200 @@ export default function init({
         id: "a",
       }),
     ],
-    onSave: onSaveImage,
-    saveState: function (this: SettingsSection<File | null>) {
-      if (this.state === null) return;
+    onSave: function (this: SettingsSection<ImageStateBuffer>) {
+      if (this.state.image === null) {
+        const state = { ...this.state, image: imageState.image };
+        saveImageState(state);
+        refreshImage();
+        return;
+      }
+
+      const fileExtension = this.state.image.name.match(/\.[0-9a-z]+$/i);
+      const imageFileExtensions = ["jpg", "png", "webp", "gif", "svg"];
+      if (!fileExtension || !imageFileExtensions.includes(fileExtension[0]))
+        throw new Error("Not a valid image");
+
       const reader = new FileReader();
 
       reader.addEventListener("load", () => {
-        localStorage.setItem("image", `url(${reader.result})` as string);
-        onSaveImage();
-        this.rerender();
+        try {
+          const imageState = { ...this.state, image: `url(${reader.result})` };
+          saveImageState(imageState);
+          this.displaySuccessMsg();
+          refreshImage();
+          this.rerender();
+        } catch (e) {
+          this.displayFailedMsg();
+        }
       });
 
-      reader.readAsDataURL(this.state);
-      this.displaySuccessMsg();
+      reader.readAsDataURL(this.state.image);
     },
   });
 
-  // const miscSettings = new SettingsSection({
-  //     title:"search",
-  //     state: "https://www.google.com/search"
-  //         sectionEl:
-  // })
+  const importJSONSettings = new SettingsSection<string>({
+    title: "json",
+    sectionEl: document.querySelector(
+      "#misc-settings .form-wrapper"
+    ) as HTMLElement,
+    state: "",
+    render: function (this: SettingsSection<string>) {
+      const wrapperEl = document.querySelector("#misc-settings .form-wrapper");
+      const textarea = wrapperEl?.querySelector(
+        "form[name='import json'] textarea"
+      ) as HTMLTextAreaElement;
+      textarea.value = this.state;
+      textarea?.addEventListener("input", (e) => {
+        const target = e.target as HTMLTextAreaElement;
+        this.state = target.value;
+      });
 
-  const sections = [themeSection, linkSection, keybindSection, imageSection];
+      this.sectionEl
+        .querySelector("button[type='submit']")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          this.save();
+        });
+
+      const resetButton = this.sectionEl.querySelector(
+        "button[aria-label='reset']"
+      );
+      resetButton?.addEventListener("click", () => {
+        this.reset();
+        this.rerender();
+      });
+    },
+    rerender: function () {
+      const wrapperEl = document.querySelector("#misc-settings form-wrapper");
+      const textarea = wrapperEl?.querySelector(
+        ".form[name='import json'] textarea"
+      ) as HTMLTextAreaElement;
+      textarea.value = importJSONSettings.state;
+    },
+    onSave: function (this: SettingsSection<string>) {
+      const jsonStrWithoutNewlines = this.state.replace(/[\n\r]+/g, "");
+      const configObj = JSON.parse(jsonStrWithoutNewlines);
+      for (const [key, value] of Object.entries(configObj)) {
+        switch (key) {
+          case "theme": {
+            saveTheme(value);
+            refreshTheme();
+            break;
+          }
+          case "links": {
+            saveLinks(value);
+            refreshLinks();
+            break;
+          }
+          case "image": {
+            saveImageState(value);
+            refreshImage();
+            break;
+          }
+          case "keybinds": {
+            saveKeybinds(value);
+            refreshKeybinds();
+            break;
+          }
+          case "search": {
+            saveSearch(value);
+            refreshSearch();
+            break;
+          }
+          default: {
+            throw new Error(`${key} is an invalid option`);
+          }
+        }
+      }
+    },
+  });
+
+  const miscSettings: Component = {
+    render: function (this: Component) {
+      if (Array.isArray(this.children))
+        this.children.forEach((child) => child.render());
+      else this.children?.render();
+    },
+    rerender: function (this: Component) {
+      if (Array.isArray(this.children))
+        this.children.forEach((child) => child.rerender());
+      else this.children?.rerender();
+    },
+    children: [
+      (function SearchSettings() {
+        return {
+          title: "search",
+          state: search,
+          sectionEl: document.getElementById("misc-settings") as HTMLElement,
+          render: function () {
+            const searchEngineSelect = this.sectionEl?.querySelector(
+              "select[name='search-engine']"
+            ) as HTMLSelectElement;
+            searchEngineSelect.addEventListener("change", (e) => {
+              const select = e.target as HTMLSelectElement;
+              saveSearch(select.value as SearchEngine);
+              refreshSearch();
+            });
+
+            const options = searchEngineSelect.querySelectorAll("option");
+            options.forEach((o) => {
+              if (o.value === this.state) o.setAttribute("selected", "true");
+            });
+          },
+          rerender: function () {
+            const searchEngineSelect = this.sectionEl?.querySelector(
+              "select[name='search-engine']"
+            ) as HTMLSelectElement;
+            const options = searchEngineSelect.querySelectorAll("option");
+            options.forEach((o) => {
+              if (o.value === this.state) o.setAttribute("selected", "true");
+            });
+          },
+        };
+      })() as StatefulComponent<SearchEngine>,
+      (function LinkButtons() {
+        return {
+          render: () => {
+            const sectionEl = document.getElementById("misc-settings");
+            const resetDefaultsLink = sectionEl?.querySelector(
+              "a[data-role='reset to defaults']"
+            );
+            resetDefaultsLink?.addEventListener("click", () => {
+              localStorage.clear();
+              location.reload();
+            });
+
+            const copyConfigLink = sectionEl?.querySelector(
+              "a[data-role='copy config']"
+            );
+            copyConfigLink?.addEventListener("click", (e) => {
+              e.preventDefault();
+              navigator.clipboard.writeText(LocalStorage.format());
+              const msgEl = copyConfigLink?.parentElement?.querySelector(
+                ".msg"
+              ) as HTMLElement;
+              displayMsg(
+                msgEl,
+                "your config has been copied to your clipboard"
+              );
+              setTimeout(() => {
+                msgEl.classList.add("hide");
+              }, 3000);
+            });
+          },
+          rerender: () => {},
+        };
+      })(),
+      importJSONSettings,
+    ],
+  };
+
+  const sections = [
+    themeSection,
+    linkSection,
+    keybindSection,
+    imageSection,
+    miscSettings,
+  ];
   sections.forEach((section) => section.render());
 }

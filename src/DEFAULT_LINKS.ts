@@ -1,3 +1,4 @@
+import { z } from "zod";
 import { EMPTY_LINK } from "./CONSTANTS";
 
 export type Link = {
@@ -6,9 +7,23 @@ export type Link = {
 };
 export type LinkGroupDetails = {
   title: string;
-  links: Link[];
+  links: [Link, Link, Link, Link];
 };
-const SOCIAL_LINKS = {
+const LinkSchema = z.object({
+  "display text": z.string(),
+  href: z.string(),
+});
+const LinkGroupSchema = z
+  .object({
+    title: z.string(),
+    links: z.array(LinkSchema).length(4, "each link group must have 4 links"),
+  })
+  .strict();
+export const LinksSchema = z
+  .array(LinkGroupSchema)
+  .length(4, "4 link groups are required");
+
+const SOCIAL_LINKS: LinkGroupDetails = {
   title: "Socials",
   links: [
     {
@@ -30,7 +45,7 @@ const SOCIAL_LINKS = {
   ],
 };
 
-const REDDIT_LINKS = {
+const REDDIT_LINKS: LinkGroupDetails = {
   title: "Reddit",
   links: [
     {
@@ -52,7 +67,7 @@ const REDDIT_LINKS = {
   ],
 };
 
-const TOOLS_LINKS = {
+const TOOLS_LINKS: LinkGroupDetails = {
   title: "Tools",
   links: [
     {
@@ -74,7 +89,7 @@ const TOOLS_LINKS = {
   ],
 };
 
-const FAVORITES_LINKS = {
+const FAVORITES_LINKS: LinkGroupDetails = {
   title: "Favorites",
   links: [
     {

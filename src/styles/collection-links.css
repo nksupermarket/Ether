@@ -35,22 +35,18 @@
 }
 
 .links-section .edge {
-  width: 4%;
-  transform: rotate(-52deg);
-  display: none;
+  width: 3.8%;
+  transform: rotate(-50deg);
 }
 .links-section .edge:nth-of-type(1) {
-  display: block;
-  top: -4.6%;
-  left: -0.9%;
+  top: -3.9%;
+  left: -0.7%;
 }
 .links-section .edge:nth-of-type(2) {
-  display: block;
   bottom: 3.9%;
   right: -3.1%;
 }
 .links-section .edge:nth-of-type(3) {
-  display: block;
   bottom: 4%;
   left: -0.7%;
 }

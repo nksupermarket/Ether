@@ -1,10 +1,17 @@
+import { z } from "zod";
 import { StringKeyObj } from "../types/interfaces";
 import { EMPTY_LINK } from "./CONSTANTS";
-import { DEFAULT_LINKS, LinkGroupDetails } from "./DEFAULTS";
+import { DEFAULT_LINKS } from "./DEFAULT_LINKS";
+import { LinkGroupDetails } from "./Links";
 
 type KeyBind = {
   [key: string]: string;
 };
+
+const KeybindSchema = z.record(
+  z.string().length(1, "Keybinds must be one key"),
+  z.string().url("A keybind is attached to an invalid url")
+);
 
 export function getKeyBinds(): KeyBind {
   const lsItem = localStorage.getItem("keybinds");
@@ -48,4 +55,20 @@ export function generateKeybinds(links: LinkGroupDetails[]): StringKeyObj {
     if (!(key in acc)) acc[key] = curr.href;
     return acc;
   }, {} as StringKeyObj);
+}
+
+export function refreshKeybinds() {
+  updateKeybinds(getKeyBinds());
+}
+
+export function validateKeybinds(
+  data: any
+): data is z.infer<typeof KeybindSchema> {
+  KeybindSchema.parse(data);
+  return true;
+}
+
+export function saveKeybinds(data: any) {
+  validateKeybinds(data);
+  localStorage.setItem("keybinds", JSON.stringify(data));
 }

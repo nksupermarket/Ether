@@ -24,6 +24,7 @@ body {
   min-height: 100%;
   font-size: 10px;
   font-family: "Roboto Mono", monospace;
+  overflow: hidden;
 }
 @media screen and (min-width: 996px) {
   body {
@@ -112,14 +113,16 @@ button {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-top: 4.15%;
+  padding-top: 3%;
   padding-right: 6.7%;
 }
 
 .top-section {
   display: flex;
-  margin-left: 2.45%;
+  padding-left: 2.45%;
+  padding-top: 2.45%;
   width: 100%;
+  background: rgb(var(--main-bg-color));
 }
 
 .search-form {
@@ -265,4 +268,39 @@ input:placeholder-shown {
 }
 .underline-link {
   text-decoration: underline;
+}
+
+.error {
+  outline: 2px solid red;
+}
+
+.triangle {
+  aspect-ratio: 1/1;
+  position: absolute;
+  top: 50%;
+  left: -9%;
+  right: 0;
+  bottom: 0;
+  clip-path: polygon(100% 0, 0 15%, 68% 100%);
+  width: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+}
+
+.triangle:after {
+  opacity: 0.5;
+  background-size: 1em 1em;
+  background-image: linear-gradient(
+      to right,
+      rgb(var(--main-fg-color)) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(var(--main-fg-color)) 1px, transparent 1px);
+  aspect-ratio: 1/1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
 }

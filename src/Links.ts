@@ -1,6 +1,51 @@
+import { z } from "zod";
 import { EMPTY_LINK } from "./CONSTANTS";
-import { LinkGroupDetails } from "./DEFAULTS";
+import { DEFAULT_LINKS } from "./DEFAULT_LINKS";
 import DomRender from "./DomRender";
+
+export type Link = {
+  "display text": string;
+  href: string;
+};
+export type LinkGroupDetails = {
+  title: string;
+  links: [Link, Link, Link, Link];
+};
+const LinkSchema = z.object({
+  "display text": z.string(),
+  href: z.union([z.string().url("Invalid href"), z.literal("")]),
+});
+
+const LinkGroupSchema = z
+  .object({
+    title: z.string(),
+    links: z.array(LinkSchema).length(4, "each link group must have 4 links"),
+  })
+  .strict();
+
+const LinksSchema = z
+  .array(LinkGroupSchema)
+  .length(4, "4 link groups are required");
+
+const linkSections = document.querySelectorAll(
+  ".collection-links-wrapper"
+) as NodeListOf<HTMLElement>;
+
+export function getLinks(): LinkGroupDetails[] {
+  const lsItem = localStorage.getItem("links");
+  if (lsItem) {
+    const allLinks = JSON.parse(lsItem) as LinkGroupDetails[];
+    return allLinks.map((linkGroup) => {
+      linkGroup.links = linkGroup.links.map((link) => {
+        if (!link.href) link["display text"] = EMPTY_LINK;
+        return link;
+      }) as [Link, Link, Link, Link];
+      return linkGroup;
+    });
+  }
+  localStorage.setItem("links", JSON.stringify(DEFAULT_LINKS));
+  return DEFAULT_LINKS;
+}
 
 export function displayLinkSection(
   wrapper: HTMLElement,
@@ -55,4 +100,25 @@ export function updateLinkSection(
     if (linkGroupDetails.links[i]["display text"] === EMPTY_LINK)
       linkElements[i].parentElement?.classList.add("inactive");
   });
+}
+
+let firstRender = true;
+export function setLinks(links: LinkGroupDetails[]) {
+  const fn = firstRender ? displayLinkSection : updateLinkSection;
+  firstRender = false;
+  links.forEach((link, i) => fn(linkSections[i], link));
+}
+
+export function refreshLinks() {
+  setLinks(getLinks());
+}
+
+export function saveLinks(data: any) {
+  validateLinks(data);
+  localStorage.setItem("links", JSON.stringify(data));
+}
+
+export function validateLinks(data: any): data is LinkGroupDetails[] {
+  LinksSchema.parse(data);
+  return true;
 }

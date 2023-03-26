@@ -30,14 +30,13 @@ afterEach(() => {
 
 test("rendering an instance of SettingsSection updates inputs + labels to have the appropriate names, ids, etc", () => {
   // arrange
-  const component = new SettingsSection(
-    "test-title",
-    {
+  const component = new SettingsSection({
+    title: "test-title",
+    state: {
       "test-input": TEST_VALUE,
     },
-
-    section
-  );
+    sectionEl: section,
+  });
 
   component.render();
   const label = section.querySelector("label");
@@ -50,13 +49,13 @@ test("rendering an instance of SettingsSection updates inputs + labels to have t
 
 test("updateState updates the state when an input element changes", () => {
   // arrange
-  const component = new SettingsSection(
-    "test-title",
-    {
+  const component = new SettingsSection({
+    title: "test-title",
+    state: {
       "test-input": TEST_VALUE,
     },
-    section
-  );
+    sectionEl: section,
+  });
   component.render();
   const event = new Event("input");
   const input = section.querySelector(`#${TEST_KEY}`) as HTMLInputElement;

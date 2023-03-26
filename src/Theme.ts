@@ -1,4 +1,5 @@
 import { convertCssRgbToHex, hexToRgb } from "./colors";
+import { z } from "zod";
 
 export type Theme = {
   "fg color": string;
@@ -9,6 +10,21 @@ export type Theme = {
   "accent 3": string;
   "accent 4": string;
 };
+
+const hex = z.custom((val) => {
+  return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(val as string);
+}, "Encounted invalid hex code");
+const ThemeSchema = z
+  .object({
+    "fg color": hex,
+    "bg color": hex,
+    "main accent": hex,
+    "accent 1": hex,
+    "accent 2": hex,
+    "accent 3": hex,
+    "accent 4": hex,
+  })
+  .strict("Encounted unknown theme variable");
 
 export function getTheme(): Theme {
   const lsItem = localStorage.getItem("theme");
@@ -34,11 +50,16 @@ export function getTheme(): Theme {
   localStorage.setItem("theme", JSON.stringify(defaultTheme));
   return defaultTheme;
 }
+
+export function saveTheme(data: any): void {
+  validateTheme(data);
+  localStorage.setItem("theme", JSON.stringify(data));
+}
+
 export function setTheme(theme: Theme): void {
   const entries = Object.entries(theme);
 
   for (const [key, value] of entries) {
-    console.log(key);
     switch (key) {
       case "bg color": {
         document.documentElement.style.setProperty(
@@ -111,4 +132,13 @@ export function setTheme(theme: Theme): void {
       }
     }
   }
+}
+
+export function refreshTheme() {
+  setTheme(getTheme());
+}
+
+export function validateTheme(data: any): data is Theme {
+  ThemeSchema.parse(data);
+  return true;
 }
