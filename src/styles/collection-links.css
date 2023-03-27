@@ -58,7 +58,7 @@
   z-index: 2;
   position: relative;
   box-sizing: border-box;
-  padding-bottom: 2.5%;
+  padding-bottom: 1%;
 }
 
 .collection-links-wrapper {
@@ -87,6 +87,9 @@
 .collection-links-wrapper:nth-of-type(4) .collection-title {
   color: rgb(var(--accent-4));
 }
+.collection-links-wrapper:nth-of-type(5) .collection-title {
+  color: rgb(var(--accent-5));
+}
 
 .links-container {
   display: flex;
@@ -111,6 +114,9 @@
 }
 .collection-links-wrapper:nth-of-type(4) .links-container:before {
   border-left: 3px solid rgb(var(--accent-4));
+}
+.collection-links-wrapper:nth-of-type(5) .links-container:before {
+  border-left: 3px solid rgb(var(--accent-5));
 }
 
 .link-wrapper.inactive {

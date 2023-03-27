@@ -37,9 +37,9 @@ export default function initJsonSettings() {
       });
     },
     rerender: function () {
-      const wrapperEl = document.querySelector("#misc-settings form-wrapper");
+      const wrapperEl = document.querySelector("#json-settings");
       const textarea = wrapperEl?.querySelector(
-        ".form[name='import json'] textarea"
+        "form[name='import json'] textarea"
       ) as HTMLTextAreaElement;
       textarea.value = jsonSettings.state;
     },

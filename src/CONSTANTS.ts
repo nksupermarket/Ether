@@ -1,1 +1,1 @@
-export const EMPTY_LINK = "----";
+export const EMPTY_ITEM = "----";

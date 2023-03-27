@@ -12,7 +12,7 @@
 
 #settings {
   width: 80%;
-  height: 80%;
+  height: 95%;
   backdrop-filter: blur(70px);
   background: rgba(var(--main-bg-color), 0.8);
   border: var(--border);
@@ -91,7 +91,7 @@
 }
 
 .settings-section:last-of-type {
-  padding-bottom: 25vh;
+  margin-bottom: 25vh;
 }
 
 .settings-section form {

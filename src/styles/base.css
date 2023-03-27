@@ -6,6 +6,7 @@
   --accent-2: 230, 126, 128;
   --accent-3: 127, 187, 179;
   --accent-4: 214, 153, 182;
+  --accent-5: 219, 188, 127;
   --border: 1px solid rgb(var(--main-fg-color));
 }
 html,
@@ -289,7 +290,7 @@ input:placeholder-shown {
   right: 0;
   bottom: 0;
   clip-path: polygon(100% 0, 0 15%, 68% 100%);
-  width: 80%;
+  width: 68%;
   transform: translateY(-50%);
   margin: 0 auto;
 }
@@ -298,7 +299,7 @@ input:placeholder-shown {
   left: -20%;
   opacity: 0.25;
   left: -40%;
-  width: 70%;
+  width: 55%;
 }
 
 .triangle:after {

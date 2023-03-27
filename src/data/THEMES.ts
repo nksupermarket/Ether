@@ -7,6 +7,7 @@ const everforest_dark = {
     "accent 2": "#e67e80",
     "accent 3": "#7fbbb3",
     "accent 4": "#d699b6",
+    "accent 5": "#dbbc7f",
     "panel opacity": 0.45,
   },
   image: {
@@ -25,6 +26,7 @@ const everforest_light = {
     "accent 2": "#e66868",
     "accent 3": "#dfa000",
     "accent 4": "#35a77c",
+    "accent 5": "#df69ba",
     "panel opacity": 0.9,
   },
   image: {
@@ -33,6 +35,7 @@ const everforest_light = {
     "position y": "0%",
   },
 };
+
 const bw = {
   theme: {
     "bg color": "#000000",
@@ -42,6 +45,7 @@ const bw = {
     "accent 2": "#e67e80",
     "accent 3": "#7fbbb3",
     "accent 4": "#d699b6",
+    "accent 5": "#c6a0f6",
     "panel opacity": 0.3,
   },
   image: {
@@ -60,6 +64,7 @@ const gruvbox = {
     "accent 2": "#f28534",
     "accent 3": "#80aa9e",
     "accent 4": "#d3869b",
+    "accent 5": "#8bba7f",
     "panel opacity": 0.8,
   },
   image: {
@@ -78,6 +83,7 @@ const nord = {
     "accent 2": "#a3be8c",
     "accent 3": "#d08770",
     "accent 4": "#ebcb8b",
+    "accent 5": "#8fbcbb",
     "panel opacity": 0.8,
   },
   image: {
@@ -96,6 +102,7 @@ const catppuccin = {
     "accent 2": "#8bd5ca",
     "accent 3": "#f5a97f",
     "accent 4": "#c6a0f6",
+    "accent 5": "#a6da95",
     "panel opacity": 0.9,
   },
   image: {
@@ -105,10 +112,30 @@ const catppuccin = {
   },
 };
 
+const dracula = {
+  theme: {
+    "bg color": "#282a36",
+    "fg color": "#f8f8f2",
+    "main accent": "#bd93f9",
+    "accent 1": "#8be9fd",
+    "accent 2": "#ffb86c",
+    "accent 3": "#ff79c6",
+    "accent 4": "#f1fa8c",
+    "accent 5": "#ff555",
+    "panel opacity": 0.9,
+  },
+  image: {
+    image: "url(/samurai.jpg)",
+    "position x": "50%",
+    "position y": "50%",
+  },
+};
+
 export default {
   everforest_dark,
   everforest_light,
   catppuccin,
+  dracula,
   gruvbox,
   nord,
   bw,

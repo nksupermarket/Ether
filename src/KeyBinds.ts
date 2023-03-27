@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { StringKeyObj } from "../types/interfaces";
-import { EMPTY_LINK } from "./CONSTANTS";
+import { EMPTY_ITEM } from "./CONSTANTS";
 import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
-import { LinkGroupDetails } from "./Links";
+import { LinkGroupDetails, LinkGroups } from "./Links";
 
 export type KeyBind = {
   [key: string]: string;
@@ -41,10 +41,11 @@ export function updateKeybinds(keybinds: KeyBind) {
   window.addEventListener("keydown", eventFn);
 }
 
-export function generateKeybinds(links: LinkGroupDetails[]): StringKeyObj {
-  const allLinks = links.map((group) => group.links).flat();
+export function generateKeybinds(links: LinkGroups): StringKeyObj {
+  const allLinks = links.map((group) => group?.links || []).flat();
   return allLinks.reduce((acc, curr) => {
-    if (!curr["display text"] || curr["display text"] === EMPTY_LINK)
+    if (!curr) return acc;
+    if (!curr["display text"] || curr["display text"] === EMPTY_ITEM)
       return acc;
     let i = 0;
     let key = curr["display text"][i].toLowerCase();

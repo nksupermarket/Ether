@@ -46,6 +46,11 @@ export default function (theme: Theme) {
           "#theme-settings .input-group"
         ) as HTMLElement,
         updateState: (e: Event) => {
+          const selectEl = document.querySelector(
+            "#theme-settings select"
+          ) as HTMLSelectElement;
+          selectEl.value = "custom";
+
           const target = e.target as HTMLInputElement;
           const key = target.name as keyof Theme;
           if (key === "panel opacity")

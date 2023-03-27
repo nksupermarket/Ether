@@ -1,56 +1,95 @@
 import { z } from "zod";
-import { EMPTY_LINK } from "./CONSTANTS";
+import { EMPTY_ITEM } from "./CONSTANTS";
 import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import DomRender from "./DomRender";
 
-export type Link = {
-  "display text": string;
-  href: string;
-};
-export type LinkGroupDetails = {
-  title: string;
-  links: [Link, Link, Link, Link];
-};
 const LinkSchema = z.object({
-  "display text": z.string(),
+  "display text": z.string({
+    required_error: "Display text is required",
+  }),
   href: z.union([z.string().url("Invalid href"), z.literal("")]),
 });
 
+export const LINK_COUNT = 6 as const;
 const LinkGroupSchema = z
   .object({
     title: z.string(),
-    links: z.array(LinkSchema).length(4, "each link group must have 4 links"),
+    links: z
+      .array(LinkSchema)
+      .max(LINK_COUNT, "Each link group can only have 6 links."),
   })
   .strict();
 
-const LinksSchema = z
+export const LINK_GROUP_COUNT = 5;
+const AllLinkGroupsSchema = z
   .array(LinkGroupSchema)
-  .length(4, "4 link groups are required");
+  .max(LINK_GROUP_COUNT, "There may only be 5 link groups.");
 
 const linkSections = document.querySelectorAll(
   ".collection-links-wrapper"
 ) as NodeListOf<HTMLElement>;
 
-export function getLinks(): LinkGroupDetails[] {
-  const lsItem = localStorage.getItem("links");
-  if (lsItem) {
-    const allLinks = JSON.parse(lsItem) as LinkGroupDetails[];
-    return allLinks.map((linkGroup) => {
-      linkGroup.links = linkGroup.links.map((link) => {
-        if (!link.href) link["display text"] = EMPTY_LINK;
-        return link;
-      }) as [Link, Link, Link, Link];
-      return linkGroup;
-    });
+class Link {
+  "display text": string;
+  href: string;
+  constructor() {
+    (this["display text"] = EMPTY_ITEM), (this.href = "");
   }
-  localStorage.setItem("links", JSON.stringify(DEFAULT_LINKS));
-  return DEFAULT_LINKS;
 }
 
+type Links = [Link, Link, Link, Link, Link, Link];
+
+export class LinkGroup {
+  title: string;
+  links: Links;
+  constructor() {
+    (this.title = EMPTY_ITEM),
+      (this.links = Array(LINK_COUNT)
+        .fill(undefined)
+        .map(() => new Link()) as Links);
+  }
+}
+
+export type LinkGroups = [
+  LinkGroup,
+  LinkGroup,
+  LinkGroup,
+  LinkGroup,
+  LinkGroup
+];
+
+export function getLinks(): LinkGroups {
+  const lsItem = localStorage.getItem("links");
+  let linkGroups = lsItem ? JSON.parse(lsItem) : DEFAULT_LINKS;
+  linkGroups = linkGroups.filter((g: LinkGroup | undefined) => !!g);
+  while (linkGroups.length < LINK_GROUP_COUNT) {
+    linkGroups.push(new LinkGroup());
+  }
+  linkGroups.forEach((group: LinkGroup) => {
+    while (group.links.length < LINK_COUNT) {
+      group.links.push(new Link());
+    }
+  });
+  if (!lsItem) saveLinks(linkGroups);
+  return linkGroups;
+}
+
+function checkEmptyLinks(links: Links): boolean {
+  return links.every((l) => {
+    return !l?.href;
+  });
+}
 export function displayLinkSection(
   wrapper: HTMLElement,
-  linkGroupDetails: LinkGroupDetails
+  linkGroupDetails: LinkGroup
 ) {
+  if (
+    !linkGroupDetails.links.length ||
+    checkEmptyLinks(linkGroupDetails.links)
+  ) {
+    wrapper.classList.add("hide");
+    return;
+  }
   const titleElement = wrapper.querySelector(
     ".collection-title"
   ) as HTMLElement;
@@ -59,54 +98,61 @@ export function displayLinkSection(
   const linkElements = wrapper.querySelectorAll(
     ".link"
   ) as NodeListOf<HTMLLinkElement>;
-  if (linkElements.length != linkGroupDetails.links.length)
-    throw new Error("missing link element or link data");
 
   for (let i = 0; i < linkElements.length; i++) {
-    linkElements[i].href = linkGroupDetails.links[i].href;
+    const link = linkGroupDetails.links[i];
+    if (!link || !link.href) continue;
+    linkElements[i].href = link.href;
     linkElements[i].append(
       DomRender.textNode({
-        text: linkGroupDetails.links[i]["display text"],
+        text: link["display text"],
         classes: ["link-text"],
       })
     );
-
-    if (linkGroupDetails.links[i]["display text"] === EMPTY_LINK)
-      linkElements[i].parentElement?.classList.add("inactive");
   }
 }
 
-export function updateLinkSection(
-  wrapper: HTMLElement,
-  linkGroupDetails: LinkGroupDetails
-) {
+export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
+  if (!linkGroup.links.length) {
+    wrapper.classList.add("hide");
+    return;
+  }
+  wrapper.classList.remove("hide");
   const titleElement = wrapper.querySelector(
     ".collection-title"
   ) as HTMLElement;
-  titleElement.textContent = linkGroupDetails.title;
+  titleElement.textContent = linkGroup.title;
 
   const linkElements = wrapper.querySelectorAll(
     ".link"
   ) as NodeListOf<HTMLLinkElement>;
-  if (linkElements.length != linkGroupDetails.links.length)
-    throw new Error("missing link element or link data");
+
   linkElements.forEach((el, i) => {
-    el.href = linkGroupDetails.links[i].href;
+    const link = linkGroup.links[i];
+    if (!link || !link.href) {
+      el.classList.add("hide");
+      return;
+    }
+    el.classList.remove("hide");
+    el.href = link.href;
 
     const textNode = el.querySelector(".link-text");
     if (!textNode) throw new Error("something went wrong rendering your link");
-    textNode.textContent = linkGroupDetails.links[i]["display text"];
-
-    if (linkGroupDetails.links[i]["display text"] === EMPTY_LINK)
-      linkElements[i].parentElement?.classList.add("inactive");
+    textNode.textContent = link["display text"];
   });
 }
 
 let firstRender = true;
-export function setLinks(links: LinkGroupDetails[]) {
+export function setLinks(linkGroups: LinkGroups) {
   const fn = firstRender ? displayLinkSection : updateLinkSection;
   firstRender = false;
-  links.forEach((link, i) => fn(linkSections[i], link));
+  linkGroups.forEach((linkGroup, i) => {
+    if (checkEmptyLinks(linkGroup.links)) {
+      linkSections[i].classList.add("hide");
+      return;
+    }
+    fn(linkSections[i], linkGroup);
+  });
 }
 
 export function refreshLinks() {
@@ -115,10 +161,11 @@ export function refreshLinks() {
 
 export function saveLinks(data: any) {
   validateLinks(data);
+  console.log(data);
   localStorage.setItem("links", JSON.stringify(data));
 }
 
-export function validateLinks(data: any): data is LinkGroupDetails[] {
-  LinksSchema.parse(data);
+export function validateLinks(data: any): data is LinkGroups {
+  AllLinkGroupsSchema.parse(data);
   return true;
 }

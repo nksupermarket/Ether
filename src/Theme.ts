@@ -9,6 +9,7 @@ export type Theme = {
   "accent 2": string;
   "accent 3": string;
   "accent 4": string;
+  "accent 5": string;
   "panel opacity": number;
 };
 
@@ -24,6 +25,7 @@ const ThemeSchema = z
     "accent 2": hex,
     "accent 3": hex,
     "accent 4": hex,
+    "accent 5": hex,
     "panel opacity": z
       .number()
       .min(0, "Panel opacity must be between 0 and 1.")
@@ -50,6 +52,7 @@ export function getTheme(): Theme {
     "accent 2": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-2")),
     "accent 3": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-3")),
     "accent 4": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-4")),
+    "accent 5": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-5")),
     "panel opacity": 0.3,
   };
 
@@ -129,6 +132,13 @@ export function setTheme(theme: Theme): void {
       case "accent 4": {
         document.documentElement.style.setProperty(
           "--accent-4",
+          hexToRgb(value as string)
+        );
+        break;
+      }
+      case "accent 5": {
+        document.documentElement.style.setProperty(
+          "--accent-5",
           hexToRgb(value as string)
         );
         break;
