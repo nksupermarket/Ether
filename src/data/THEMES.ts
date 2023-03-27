@@ -60,11 +60,11 @@ const gruvbox = {
     "bg color": "#282828",
     "fg color": "#e2cca9",
     "main accent": "#db4740",
-    "accent 1": "#b0b846",
+    "accent 1": "#8bba7f",
     "accent 2": "#f28534",
     "accent 3": "#80aa9e",
     "accent 4": "#d3869b",
-    "accent 5": "#8bba7f",
+    "accent 5": "#b0b846",
     "panel opacity": 0.8,
   },
   image: {
@@ -121,7 +121,7 @@ const dracula = {
     "accent 2": "#ffb86c",
     "accent 3": "#ff79c6",
     "accent 4": "#f1fa8c",
-    "accent 5": "#ff555",
+    "accent 5": "#ff5555",
     "panel opacity": 0.9,
   },
   image: {

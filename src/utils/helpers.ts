@@ -1,4 +1,4 @@
-import { StringKeyObj } from "../types/interfaces";
+import { StringKeyObj } from "../../types/interfaces";
 
 export function isObject(objValue: any): objValue is StringKeyObj {
   return (

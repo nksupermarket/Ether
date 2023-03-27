@@ -1,12 +1,13 @@
 import {
   Link,
-  LinkGroupDetails,
+  AllLinkGroups,
   LINK_COUNT,
   LINK_GROUP_COUNT,
   refreshLinks,
   saveLinks,
+  LinkGroup,
 } from "../Links";
-import LinkGroup from "./LinkGroup";
+import LinkEditorGroup from "./LinkGroup";
 import { SettingsSectionWithChildren } from "./SettingsSection";
 
 function getEnoughNodesForData(
@@ -17,7 +18,6 @@ function getEnoughNodesForData(
   let els = wrapperEl.querySelectorAll(
     selectorToCount
   ) as NodeListOf<HTMLElement>;
-  console.log(els);
   if (els.length === dataCount) return;
 
   while (els.length != dataCount) {
@@ -34,7 +34,7 @@ function getEnoughNodesForData(
     ) as NodeListOf<HTMLElement>;
   }
 }
-export default function initLinksSettings(links: LinkGroupDetails[]) {
+export default function initLinksSettings(links: AllLinkGroups) {
   getEnoughNodesForData(
     LINK_GROUP_COUNT,
     "form[name='links'] > ul .link-group"
@@ -66,12 +66,10 @@ export default function initLinksSettings(links: LinkGroupDetails[]) {
         document.querySelectorAll("#link-settings .link-group")
       ).map(
         (el, i) =>
-          new LinkGroup({
+          new LinkEditorGroup({
             wrapperEl: el as HTMLElement,
             updateLink: (e: Event, elIndex: number) => {
               const target = e.target as HTMLInputElement;
-              if (!linkSection.state[i])
-                linkSection.state[i] = { title: "", links: [] };
               linkSection.state[i].links[elIndex]![target.name as keyof Link] =
                 target.value;
             },
@@ -79,7 +77,7 @@ export default function initLinksSettings(links: LinkGroupDetails[]) {
               const target = e.target as HTMLInputElement;
               links[i].title = target.value;
             },
-            getState: (): LinkGroupDetails => linkSection.state[i],
+            getState: (): LinkGroup => linkSection.state[i],
             id: "group-" + i.toString(),
           })
       ),

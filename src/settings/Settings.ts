@@ -4,19 +4,8 @@ import initKeybindsSettings from "./KeybindsSettings";
 import initImageSettings from "./ImageSettings";
 import initJsonSettings from "./JsonSettings";
 import initMiscSettings from "./MiscSettings";
-import { LinkGroupDetails } from "../Links";
-import { Theme } from "../Theme";
-import { StringKeyObj } from "../../types/interfaces";
-import { ImageState } from "../Image";
-import { SearchEngine } from "../Search";
-
-export type InitSettingsProps = {
-  links: LinkGroupDetails[];
-  theme: Theme;
-  keybinds: StringKeyObj;
-  imageState: ImageState;
-  search: SearchEngine;
-};
+import { InitSettingsProps } from "../Modal";
+import "../styles/settings.css";
 
 export default function init({
   links,

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { EMPTY_ITEM } from "./CONSTANTS";
+import { EMPTY_ITEM } from "./data/CONSTANTS";
 import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import DomRender from "./DomRender";
 
@@ -29,7 +29,7 @@ const linkSections = document.querySelectorAll(
   ".collection-links-wrapper"
 ) as NodeListOf<HTMLElement>;
 
-class Link {
+export class Link {
   "display text": string;
   href: string;
   constructor() {
@@ -37,20 +37,20 @@ class Link {
   }
 }
 
-type Links = [Link, Link, Link, Link, Link, Link];
+type AllLinks = [Link, Link, Link, Link, Link, Link];
 
 export class LinkGroup {
   title: string;
-  links: Links;
+  links: AllLinks;
   constructor() {
     (this.title = EMPTY_ITEM),
       (this.links = Array(LINK_COUNT)
         .fill(undefined)
-        .map(() => new Link()) as Links);
+        .map(() => new Link()) as AllLinks);
   }
 }
 
-export type LinkGroups = [
+export type AllLinkGroups = [
   LinkGroup,
   LinkGroup,
   LinkGroup,
@@ -58,7 +58,7 @@ export type LinkGroups = [
   LinkGroup
 ];
 
-export function getLinks(): LinkGroups {
+export function getLinks(): AllLinkGroups {
   const lsItem = localStorage.getItem("links");
   let linkGroups = lsItem ? JSON.parse(lsItem) : DEFAULT_LINKS;
   linkGroups = linkGroups.filter((g: LinkGroup | undefined) => !!g);
@@ -74,7 +74,7 @@ export function getLinks(): LinkGroups {
   return linkGroups;
 }
 
-function checkEmptyLinks(links: Links): boolean {
+function checkEmptyLinks(links: AllLinks): boolean {
   return links.every((l) => {
     return !l?.href;
   });
@@ -143,7 +143,7 @@ export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
 }
 
 let firstRender = true;
-export function setLinks(linkGroups: LinkGroups) {
+export function setLinks(linkGroups: AllLinkGroups) {
   const fn = firstRender ? displayLinkSection : updateLinkSection;
   firstRender = false;
   linkGroups.forEach((linkGroup, i) => {
@@ -165,7 +165,7 @@ export function saveLinks(data: any) {
   localStorage.setItem("links", JSON.stringify(data));
 }
 
-export function validateLinks(data: any): data is LinkGroups {
+export function validateLinks(data: any): data is AllLinkGroups {
   AllLinkGroupsSchema.parse(data);
   return true;
 }

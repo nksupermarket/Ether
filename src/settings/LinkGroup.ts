@@ -1,4 +1,4 @@
-import { LinkGroupDetails } from "../Links";
+import { LinkGroup } from "../Links";
 import InputGroup from "./InputGroup";
 import { Component } from "./settingsTypes";
 
@@ -6,15 +6,15 @@ type LinkGroupProps = {
   wrapperEl: HTMLElement;
   updateTitle: (e: Event) => void;
   updateLink: (e: Event, elIndex: number) => void;
-  getState: () => LinkGroupDetails;
+  getState: () => LinkGroup;
   id: string;
 };
-export default class LinkGroup implements Component {
+export default class LinkEditorGroup implements Component {
   wrapperEl: HTMLElement;
   updateTitle: (e: Event) => void;
   updateLink: (e: Event, elIndex: number) => void;
   children: InputGroup[];
-  getState: () => LinkGroupDetails;
+  getState: () => LinkGroup;
   id: string;
 
   constructor({

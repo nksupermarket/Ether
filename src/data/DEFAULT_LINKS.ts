@@ -1,5 +1,5 @@
-import { EMPTY_ITEM } from "../CONSTANTS";
-import { LinkGroup, LinkGroups } from "../Links";
+import { LinkGroup, AllLinkGroups } from "../Links";
+import { EMPTY_ITEM } from "./CONSTANTS";
 
 const SOCIAL_LINKS: LinkGroup = {
   title: "Socials",
@@ -150,7 +150,7 @@ const MEDIA_LINKS: LinkGroup = {
   ],
 };
 
-export const DEFAULT_LINKS: LinkGroups = [
+export const DEFAULT_LINKS: AllLinkGroups = [
   SOCIAL_LINKS,
   REDDIT_LINKS,
   TOOLS_LINKS,

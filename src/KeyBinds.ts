@@ -1,8 +1,10 @@
 import { z } from "zod";
 import { StringKeyObj } from "../types/interfaces";
-import { EMPTY_ITEM } from "./CONSTANTS";
+import { EMPTY_ITEM } from "./data/CONSTANTS";
 import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
-import { LinkGroupDetails, LinkGroups } from "./Links";
+import { AllLinkGroups } from "./Links";
+import { isModalOpen } from "./Modal";
+import { focusSearch } from "./Search";
 
 export type KeyBind = {
   [key: string]: string;
@@ -24,9 +26,13 @@ export function getKeyBinds(): KeyBind {
 function generateKeybindEvent(keybinds: KeyBind): (e: KeyboardEvent) => void {
   const keys = Object.keys(keybinds);
   return (e) => {
-    if (!keys.includes(e.key)) return;
     const target = e.target as HTMLElement;
     if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
+    if (e.key === "Shift" && !isModalOpen()) {
+      focusSearch();
+    }
+
+    if (!keys.includes(e.key)) return;
     window.location.assign(keybinds[e.key]);
   };
 }
@@ -41,7 +47,7 @@ export function updateKeybinds(keybinds: KeyBind) {
   window.addEventListener("keydown", eventFn);
 }
 
-export function generateKeybinds(links: LinkGroups): StringKeyObj {
+export function generateKeybinds(links: AllLinkGroups): StringKeyObj {
   const allLinks = links.map((group) => group?.links || []).flat();
   return allLinks.reduce((acc, curr) => {
     if (!curr) return acc;

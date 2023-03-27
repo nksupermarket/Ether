@@ -8,7 +8,7 @@ const searchEngines = Object.freeze({
 export type SearchEngine = keyof typeof searchEngines;
 
 const SearchEngineSchema = z.enum(["duckduckgo", "google"]);
-
+const searchEl = document.querySelector(".search-form");
 export function saveSearch(data: any) {
   const se = data.toLowerCase();
   validateSearch(se);
@@ -16,7 +16,6 @@ export function saveSearch(data: any) {
 }
 
 export function setSearch(engine: SearchEngine): void {
-  const searchEl = document.querySelector(".search-form");
   searchEl?.setAttribute("action", searchEngines[engine]);
   const icons = searchEl?.querySelectorAll("svg");
   icons?.forEach((icon) => {
@@ -49,4 +48,8 @@ export function validateSearch(data: any): data is SearchEngine {
     },
   });
   return true;
+}
+
+export function focusSearch() {
+  searchEl?.querySelector("input")?.focus();
 }
