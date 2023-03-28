@@ -47,13 +47,17 @@ The import json option allows you to import your settings piece-by-piece ( ie. i
 
 ### The easy way
 
+---
+
 Download the new tab override extension for your browser, and in your extension settings point it at https://www.lookingcoolonavespa.com/Ether.
 
 ### For a creamy, buttery experience
 
+---
+
 This is a bit more time-consuming but for those of you looking for creamy, buttery, velvety experience, this is what you want to do.
 
-#### Getting the files
+#### **Getting the files**
 
 Download the code via the "<> Code" and extract it somewhere
 or if you're comfortable with the terminal, you can run `git clone`.
@@ -62,7 +66,7 @@ Remember where you store it because we're going to come back to it later.
 
 If you want to build it yourself, you can run `npm run build`.
 
-#### Setting up nginx
+#### **Setting up nginx**
 
 (courtesy of ChatGPT)
 
@@ -90,7 +94,7 @@ This tells Nginx to listen on port 8000 and serve files from the "dist" folder o
 
 That's it! You now have Nginx serving your site locally on your machine. You can stop the Nginx service by running sudo systemctl stop nginx, and you can restart it by running sudo systemctl restart nginx. If you need to make changes to your site files or Nginx configuration, you'll need to restart the Nginx service for the changes to take effect.
 
-#### Setting up your browser
+#### **Setting up your browser**
 
 1. Create a file called local-settings.js.
 
@@ -133,3 +137,9 @@ try {
 5. Place this file in your firefox directory.
 
 There you go. Now you're set up for the creamy, smooth, velvety, super silky experience that you deserve.
+
+## Resources/Inspiration
+
+[Hero Patterns by Steve Schoger](www.heropatterns.com)
+[Fludity start page by PrettyCoffee](https://github.com/PrettyCoffee/fluidity/tree/main/src)
+[Startpage by voxie12](https://github.com/voxie12/voxie12.github.io)
