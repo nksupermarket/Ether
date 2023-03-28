@@ -1,12 +1,17 @@
 import { StringKeyObj } from "../../types/interfaces";
 import THEMES from "../data/THEMES";
 import DomRender from "../DomRender";
-import { refreshImage, saveImageState } from "../Image";
+import { ImageState, refreshImage, saveImageState } from "../Image";
 import { refreshTheme, saveTheme, Theme } from "../Theme";
 import InputGroup from "./InputGroup";
-import { SettingsSectionWithChildren } from "./SettingsSection";
+import SettingsSection, {
+  SettingsSectionWithChildren,
+} from "./SettingsSection";
 
-export default function (theme: Theme) {
+export default function (
+  theme: Theme,
+  imageSection: SettingsSection<ImageState>
+) {
   const themeSection = new SettingsSectionWithChildren({
     title: "theme",
     state: theme,
@@ -35,7 +40,9 @@ export default function (theme: Theme) {
               refreshImage();
               refreshTheme();
               themeSection.state = selectedTheme.theme;
+              imageSection.state = selectedTheme.image;
               themeSection.rerender();
+              imageSection.rerender();
             });
           }
         },

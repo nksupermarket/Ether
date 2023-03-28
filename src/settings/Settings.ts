@@ -14,10 +14,10 @@ export default function init({
   imageState,
   search,
 }: InitSettingsProps) {
-  const themeSection = initThemeSettings(theme);
   const linkSection = initLinksSettings(links);
   const keybindSection = initKeybindsSettings(keybinds);
   const imageSection = initImageSettings(imageState);
+  const themeSection = initThemeSettings(theme, imageSection);
   const miscSection = initMiscSettings(search);
   const jsonSection = initJsonSettings();
 

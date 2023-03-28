@@ -28,7 +28,6 @@
   right: 20em;
 }
 .image {
-  background-image: url(/main-image.jpg);
   background-size: auto;
   aspect-ratio: 69/100;
   z-index: 2;
