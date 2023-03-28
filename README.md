@@ -64,7 +64,7 @@ This is a bit more time-consuming but for those of you looking for an extra crea
 
 1. **Getting the files**
 
-Download the code via the "<> Code" and extract it somewhere
+Download the code via the "<> Code" button and extract it somewhere
 or if you're comfortable with the terminal, you can run `gh repo clone lookingcoolonavespa/Ether`.
 
 Remember where you store it because we're going to come back to it later.
