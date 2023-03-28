@@ -60,6 +60,7 @@ Download the new tab override extension for your browser, and in your extension 
 
 ---
 
+[For firefox users as that's the only browser I have experience with, sorry guys]
 This is a bit more time-consuming but for those of you looking for an extra creamy, buttery, velvety experience, this is what you want to do.
 
 1. **Getting the files**
