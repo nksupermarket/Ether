@@ -9,7 +9,6 @@ import { getLinks, setLinks } from "./Links";
 
 function init() {
   const theme = getTheme();
-  console.log(theme);
   setTheme(theme);
   const links = getLinks();
   setLinks(links);

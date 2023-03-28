@@ -130,8 +130,6 @@ const dracula = {
     "position y": "50%",
   },
 };
-console.log(import.meta.env.MODE);
-console.log(import.meta.env.BASE_URL);
 
 export default {
   everforest_dark,

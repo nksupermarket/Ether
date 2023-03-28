@@ -1,4 +1,5 @@
 import { z } from "zod";
+import THEMES from "./data/THEMES";
 
 export interface ImageState {
   image: string | null;
@@ -20,13 +21,7 @@ export function getImage(): ImageState {
   const lsItem = localStorage.getItem("image");
   if (lsItem) return JSON.parse(lsItem);
 
-  const imageStyle = window.getComputedStyle(imageEl);
-  const imageState = {
-    image: imageStyle.backgroundImage,
-    ["position x"]: imageStyle.backgroundPositionX,
-    ["position y"]: imageStyle.backgroundPositionY,
-  };
-
+  const imageState = THEMES.everforest_dark.image;
   localStorage.setItem("image", JSON.stringify(imageState));
   return imageState;
 }

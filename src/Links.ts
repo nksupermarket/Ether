@@ -161,7 +161,6 @@ export function refreshLinks() {
 
 export function saveLinks(data: any) {
   validateLinks(data);
-  console.log(data);
   localStorage.setItem("links", JSON.stringify(data));
 }
 
