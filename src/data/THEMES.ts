@@ -11,7 +11,7 @@ const everforest_dark = {
     "panel opacity": 0.45,
   },
   image: {
-    image: "url(/main-image.jpg)",
+    image: `url(${import.meta.env.BASE_URL}main-image.jpg)`,
     "position x": "50%",
     "position y": "50%",
   },
@@ -30,7 +30,7 @@ const everforest_light = {
     "panel opacity": 0.9,
   },
   image: {
-    image: "url(/wallhaven-5gz6l3.jpg)",
+    image: `url(${import.meta.env.BASE_URL}wallhaven-5gz6l3.jpg)`,
     "position x": "50%",
     "position y": "0%",
   },
@@ -49,7 +49,7 @@ const bw = {
     "panel opacity": 0.3,
   },
   image: {
-    image: "url(/akira-explosion.jpg)",
+    image: `url(${import.meta.env.BASE_URL}akira-explosion.jpg)`,
     "position x": "52%",
     "position y": "50%",
   },
@@ -68,7 +68,7 @@ const gruvbox = {
     "panel opacity": 0.8,
   },
   image: {
-    image: "url(/gruvbox_image31.png)",
+    image: `url(${import.meta.env.BASE_URL}gruvbox_image31.png)`,
     "position x": "30%",
     "position y": "50%",
   },
@@ -87,7 +87,7 @@ const nord = {
     "panel opacity": 0.8,
   },
   image: {
-    image: "url(/astero-20210517a.jpg)",
+    image: `url(${import.meta.env.BASE_URL}astero-20210517a.jpg)`,
     "position x": "35%",
     "position y": "50%",
   },
@@ -106,7 +106,7 @@ const catppuccin = {
     "panel opacity": 0.9,
   },
   image: {
-    image: "url(/ilya-kuvshinov-untitled-1.jpg)",
+    image: `url(${import.meta.env.BASE_URL}ilya-kuvshinov-untitled-1.jpg)`,
     "position x": "50%",
     "position y": "50%",
   },
@@ -125,11 +125,13 @@ const dracula = {
     "panel opacity": 0.9,
   },
   image: {
-    image: "url(/samurai.jpg)",
+    image: `url(${import.meta.env.BASE_URL}samurai.jpg)`,
     "position x": "50%",
     "position y": "50%",
   },
 };
+console.log(import.meta.env.MODE);
+console.log(import.meta.env.BASE_URL);
 
 export default {
   everforest_dark,

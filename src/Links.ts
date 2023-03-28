@@ -43,10 +43,10 @@ export class LinkGroup {
   title: string;
   links: AllLinks;
   constructor() {
-    (this.title = EMPTY_ITEM),
-      (this.links = Array(LINK_COUNT)
-        .fill(undefined)
-        .map(() => new Link()) as AllLinks);
+    this.title = EMPTY_ITEM;
+    this.links = Array(LINK_COUNT)
+      .fill(undefined)
+      .map(() => new Link()) as AllLinks;
   }
 }
 
