@@ -52,6 +52,10 @@ The import json option allows you to import your settings piece-by-piece ( ie. i
 
 Download the new tab override extension for your browser, and in your extension settings point it at https://www.lookingcoolonavespa.com/Ether.
 
+[Chrome extension](https://chrome.google.com/webstore/detail/new-tab-redirect/icpgjfneehieebagbmdbhnlpiopdcmna)
+
+[Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/)
+
 ### For a creamier, buttery experience
 
 ---
