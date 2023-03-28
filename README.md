@@ -51,22 +51,22 @@ The import json option allows you to import your settings piece-by-piece ( ie. i
 
 Download the new tab override extension for your browser, and in your extension settings point it at https://www.lookingcoolonavespa.com/Ether.
 
-### For a creamy, buttery experience
+### For a creamier, buttery experience
 
 ---
 
-This is a bit more time-consuming but for those of you looking for creamy, buttery, velvety experience, this is what you want to do.
+This is a bit more time-consuming but for those of you looking for an extra creamy, buttery, velvety experience, this is what you want to do.
 
-#### **Getting the files**
+**Getting the files**
 
 Download the code via the "<> Code" and extract it somewhere
-or if you're comfortable with the terminal, you can run `git clone`.
+or if you're comfortable with the terminal, you can run `gh repo clone lookingcoolonavespa/Ether`.
 
 Remember where you store it because we're going to come back to it later.
 
-If you want to build it yourself, you can run `npm run build`.
+If you want to build it yourself, the build command is `npm run build`.
 
-#### **Setting up nginx**
+**Setting up nginx**
 
 (courtesy of ChatGPT)
 
@@ -86,15 +86,15 @@ This tells Nginx to listen on port 8000 and serve files from the "dist" folder o
 
 3. Start Nginx: Once you've configured Nginx, you can start it by running the following command:
 
-   sudo systemctl start nginx
+   `sudo systemctl start nginx`
 
-   This will start the Nginx service in the background.
+This will start the Nginx service in the background.
 
-   Verify that your site is working: Open a web browser and navigate to http://localhost:8000. You should see your site's content (in this case, the "Hello, world!" message we added in step 3).
+Verify that your site is working: Open a web browser and navigate to http://localhost:8000. You should see your site's content (in this case, the "Hello, world!" message we added in step 3).
 
-That's it! You now have Nginx serving your site locally on your machine. You can stop the Nginx service by running sudo systemctl stop nginx, and you can restart it by running sudo systemctl restart nginx. If you need to make changes to your site files or Nginx configuration, you'll need to restart the Nginx service for the changes to take effect.
+That's it! You now have Nginx serving your site locally on your machine. You can stop the Nginx service by running sudo systemctl stop nginx, and you can restart it by running `sudo systemctl restart nginx`. If you need to make changes to your site files or Nginx configuration, you'll need to restart the Nginx service for the changes to take effect.
 
-#### **Setting up your browser**
+**Setting up your browser**
 
 1. Create a file called local-settings.js.
 
