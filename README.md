@@ -5,6 +5,8 @@ Navigate to your favorite sites with just a keypress or start a search with the 
 
 It's not mobile friendly as it was designed for use on a laptop/desktop.
 
+[Live Demo](https://lookingcoolonavespa.github.io/Ether/)
+
 ## Pre-configured themes
 
 Swap out the colors or the image if they're not to your liking. Here are some pre-configured themes to get you started.
