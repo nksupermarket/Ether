@@ -3,6 +3,8 @@
 I was tired of having to press so many buttons to get to where I wanted to go so I built this start page.
 Navigate to your favorite sites with just a keypress or start a search with the Shift key.
 
+It's not mobile friendly as it was designed for use on a laptop/desktop.
+
 ## Pre-configured themes
 
 Swap out the colors or the image if they're not to your liking. Here are some pre-configured themes to get you started.
@@ -60,11 +62,12 @@ Download the new tab override extension for your browser, and in your extension 
 
 ---
 
+[For firefox users as that's the only browser I have experience with, sorry guys]
 This is a bit more time-consuming but for those of you looking for an extra creamy, buttery, velvety experience, this is what you want to do.
 
 1. **Getting the files**
 
-Download the code via the "<> Code" and extract it somewhere
+Download the code via the "<> Code" button and extract it somewhere
 or if you're comfortable with the terminal, you can run `gh repo clone lookingcoolonavespa/Ether`.
 
 Remember where you store it because we're going to come back to it later.
@@ -75,7 +78,7 @@ If you want to build it yourself, the build command is `npm run build`.
 
    1. Install Nginx: If you haven't already, you'll need to install Nginx on your machine. You can do this using your package manager or by downloading the latest version from the Nginx website.
 
-   2. Serving your site: Next, you'll need to configure Nginx to serve your site files. Open the Nginx configuration file (usually located at /etc/nginx/nginx.conf) in a text editor, and add the following code inside the http block:
+   2. Serving your site: Next, you'll need to configure Nginx to serve your site files. Open the Nginx configuration file (usually located at /etc/nginx/nginx.conf if you're using linux) in a text editor, and add the following code inside the http block:
 
    ```
        server {
