@@ -83,7 +83,7 @@ If you want to build it yourself, the build command is `npm run build`.
 
    This tells Nginx to listen on port 8000 and serve files from the "dist" folder of your code directory. The "dist" folder is where the build is located. The "index" directive tells Nginx to look for an index.html file by default when serving the site.
 
-   3. Adding a cache: To give your server that coconut butter you want to add a cahce. Add the following code:
+   3. Adding a cache: To give your server that coconut butter you want to add a cache. Add the following code:
 
    ```
         proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=my_cache:10m inactive=2d;
