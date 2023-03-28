@@ -3,6 +3,8 @@
 I was tired of having to press so many buttons to get to where I wanted to go so I built this start page.
 Navigate to your favorite sites with just a keypress or start a search with the Shift key.
 
+It's not mobile friendly as it was designed for use on a laptop/desktop.
+
 ## Pre-configured themes
 
 Swap out the colors or the image if they're not to your liking. Here are some pre-configured themes to get you started.
