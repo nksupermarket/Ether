@@ -43,7 +43,7 @@ You can download your configuration as JSON if you want to store it somewhere.
 
 ![Ether settings - import json](https://i.postimg.cc/XYtzwZ8p/ether-settings.jpg)
 
-To quickly get you up to speed, there's an option to import json vs configurating everything in the menu.
+To quickly get you up to speed, there's an option to import json.
 The import json option allows you to import your settings piece-by-piece ( ie. importing only links and theme ) or all at once.
 
 ## Setting it up as your new tab page
