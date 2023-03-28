@@ -66,7 +66,7 @@ Remember where you store it because we're going to come back to it later.
 
 If you want to build it yourself, the build command is `npm run build`.
 
-**Setting up nginx**
+1. **Setting up nginx**
 
 (courtesy of ChatGPT)
 
@@ -94,11 +94,11 @@ Verify that your site is working: Open a web browser and navigate to http://loca
 
 That's it! You now have Nginx serving your site locally on your machine. You can stop the Nginx service by running sudo systemctl stop nginx, and you can restart it by running `sudo systemctl restart nginx`. If you need to make changes to your site files or Nginx configuration, you'll need to restart the Nginx service for the changes to take effect.
 
-**Setting up your browser**
+2. **Setting up your browser**
 
 1. Create a file called local-settings.js.
 
-2. In this file, paste the following lines:
+1. In this file, paste the following lines:
 
 ```
 // The file must begin with a comment
