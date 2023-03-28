@@ -35,6 +35,7 @@ B&W
 - keybinds
 - image
   - image position (if your image is cropped, this sets where the image crop happens)
+- search engine (only google and ddg for now)
 
 You can download your configuration as JSON if you want to store it somewhere.
 
@@ -68,31 +69,31 @@ If you want to build it yourself, the build command is `npm run build`.
 
 2. **Setting up nginx**
 
-(courtesy of ChatGPT)
+   1. Install Nginx: If you haven't already, you'll need to install Nginx on your machine. You can do this using your package manager or by downloading the latest version from the Nginx website.
 
-    1. Install Nginx: If you haven't already, you'll need to install Nginx on your machine. You can do this using your package manager or by downloading the latest version from the Nginx website.
+   2. Configure Nginx: Next, you'll need to configure Nginx to serve your site files. Open the Nginx configuration file (usually located at /etc/nginx/nginx.conf) in a text editor, and add the following code inside the http block:
 
-    2. Configure Nginx: Next, you'll need to configure Nginx to serve your site files. Open the Nginx configuration file (usually located at /etc/nginx/nginx.conf) in a text editor, and add the following code inside the http block:
+   ```
+       server {
+           listen 8000;
+           root PATH_TO_THE_CODE/dist;
+           index index.html;
+       }
+   ```
 
-    ```
-        server {
-            listen 8000;
-            root PATH_TO_THE_CODE/dist;
-            index index.html;
-        }
-    ```
+   This tells Nginx to listen on port 8000 and serve files from the "dist" folder of your code directory. The "dist" folder is where the build is located. The "index" directive tells Nginx to look for an index.html file by default when serving the site.
 
-    This tells Nginx to listen on port 8000 and serve files from the "dist" folder of your code directory. The "dist" folder is where the build is located. The "index" directive tells Nginx to look for an index.html file by default when serving the site.
+   3. Start Nginx: Once you've configured Nginx, you can start it by running the following command:
 
-    3. Start Nginx: Once you've configured Nginx, you can start it by running the following command:
+   `sudo systemctl start nginx`
 
-    `sudo systemctl start nginx`
+   This will start the Nginx service in the background.
 
-    This will start the Nginx service in the background.
+   Verify that your site is working: Open a web browser and navigate to http://localhost:8000. You should see your site's content (in this case, the "Hello, world!" message we added in step 3).
 
-    Verify that your site is working: Open a web browser and navigate to http://localhost:8000. You should see your site's content (in this case, the "Hello, world!" message we added in step 3).
+   That's it! You now have Nginx serving your site locally on your machine. You can stop the Nginx service by running sudo systemctl stop nginx, and you can restart it by running `sudo systemctl restart nginx`. If you need to make changes to your site files or Nginx configuration, you'll need to restart the Nginx service for the changes to take effect.
 
-    That's it! You now have Nginx serving your site locally on your machine. You can stop the Nginx service by running sudo systemctl stop nginx, and you can restart it by running `sudo systemctl restart nginx`. If you need to make changes to your site files or Nginx configuration, you'll need to restart the Nginx service for the changes to take effect.
+   (courtesy of ChatGPT)
 
 3. **Setting up your browser**
 
@@ -107,7 +108,7 @@ If you want to build it yourself, the build command is `npm run build`.
    pref("general.config.sandbox_enabled", false);
    ```
 
-   3. Find your firefox directory and place local-settings.js in /default/pref/
+   3. Find your firefox directory and place local-settings.js in /YOUR_FIREFOX_DIR/default/pref/
 
    4. Create another file called mozilla.cfg and paste the following lines:
 
