@@ -49,10 +49,10 @@ export class LinkGroup {
   title: string;
   links: AllLinks;
   constructor() {
-    (this.title = EMPTY_ITEM),
-      (this.links = Array(LINK_COUNT)
-        .fill(undefined)
-        .map(() => new Link()) as AllLinks);
+    this.title = EMPTY_ITEM;
+    this.links = Array(LINK_COUNT)
+      .fill(undefined)
+      .map(() => new Link()) as AllLinks;
   }
 }
 
@@ -81,13 +81,11 @@ export function displayLinkSection(
   wrapper: HTMLElement,
   linkGroupDetails: LinkGroup
 ) {
-  if (
-    !linkGroupDetails.links.length ||
-    checkEmptyLinks(linkGroupDetails.links)
-  ) {
+  if (checkEmptyLinks(linkGroupDetails.links)) {
     wrapper.classList.add("hide");
     return;
   }
+
   const titleElement = wrapper.querySelector(
     ".collection-title"
   ) as HTMLElement;
@@ -99,19 +97,18 @@ export function displayLinkSection(
 
   for (let i = 0; i < linkElements.length; i++) {
     const link = linkGroupDetails.links[i];
-    if (!link || !link.href) continue;
     linkElements[i].href = link.href;
-    linkElements[i].append(
-      DomRender.textNode({
-        text: link["display text"],
-        classes: ["link-text"],
-      })
-    );
+    const textNode = DomRender.textNode({
+      text: link["display text"],
+      classes: ["link-text"],
+    });
+    linkElements[i].append(textNode);
+    if (!link.href) linkElements[i].classList.add("hide");
   }
 }
 
 export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
-  if (!linkGroup.links.length) {
+  if (checkEmptyLinks(linkGroup.links)) {
     wrapper.classList.add("hide");
     return;
   }
@@ -128,20 +125,17 @@ export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
   linkElements.forEach((el, i) => {
     el.classList.remove("hide");
     const link = linkGroup.links[i];
-    if (!link || !link.href) {
+    if (!link.href) {
       el.classList.add("hide");
       return;
     }
     el.href = link.href;
 
     let textNode = el.querySelector(".link-text");
-    if (!textNode) {
-      textNode = DomRender.textNode({
-        text: link["display text"],
-        classes: ["link-text"],
-      });
-      el.append(textNode);
-    }
+    if (!textNode)
+      throw new Error(
+        "Something went wrong. Please refresh to see your changes."
+      );
     textNode.textContent = link["display text"];
   });
 }
@@ -151,10 +145,6 @@ export function setLinks(linkGroups: AllLinkGroups) {
   const fn = firstRender ? displayLinkSection : updateLinkSection;
   firstRender = false;
   linkGroups.forEach((linkGroup, i) => {
-    if (checkEmptyLinks(linkGroup.links)) {
-      linkSections[i].classList.add("hide");
-      return;
-    }
     fn(linkSections[i], linkGroup);
   });
 }
