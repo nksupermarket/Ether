@@ -37,7 +37,7 @@ export class Link {
   }
 }
 
-type Links = [Link, Link, Link, Link, Link, Link];
+type AllLinks = [Link, Link, Link, Link, Link, Link];
 export type AllLinkGroups = [
   LinkGroup,
   LinkGroup,
@@ -47,12 +47,12 @@ export type AllLinkGroups = [
 ];
 export class LinkGroup {
   title: string;
-  links: Links;
+  links: AllLinks;
   constructor() {
     (this.title = EMPTY_ITEM),
       (this.links = Array(LINK_COUNT)
         .fill(undefined)
-        .map(() => new Link()) as Links);
+        .map(() => new Link()) as AllLinks);
   }
 }
 
@@ -71,7 +71,7 @@ export function getLinks(): AllLinkGroups {
   return linkGroups;
 }
 
-function checkEmptyLinks(links: Links): boolean {
+function checkEmptyLinks(links: AllLinks): boolean {
   return links.every((l) => {
     return !l?.href;
   });
