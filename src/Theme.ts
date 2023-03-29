@@ -1,4 +1,4 @@
-import { hexToRgb } from "./utils/colors";
+import { convertCssRgbToHex, hexToRgb } from "./utils/colors";
 import { z } from "zod";
 
 export type Theme = {
@@ -35,17 +35,26 @@ const ThemeSchema = z
 
 export function getTheme(): Theme {
   const lsItem = localStorage.getItem("theme");
+  console.log({ lsItem });
   if (lsItem) return JSON.parse(lsItem);
 
+  const cssVariables = window.getComputedStyle(document.documentElement);
+  console.log(cssVariables.getPropertyValue("--main-bg-color"));
   const defaultTheme = {
-    "bg color": "#2d353b",
-    "fg color": "#d3c6aa",
-    "main accent": "#8A2C2A",
-    "accent 1": "#a7c080",
-    "accent 2": "#e67e80",
-    "accent 3": "#7fbbb3",
-    "accent 4": "#d699b6",
-    "accent 5": "#dbbc7f",
+    "bg color": convertCssRgbToHex(
+      cssVariables.getPropertyValue("--main-bg-color")
+    ),
+    "fg color": convertCssRgbToHex(
+      cssVariables.getPropertyValue("--main-fg-color")
+    ),
+    "main accent": convertCssRgbToHex(
+      cssVariables.getPropertyValue("--main-accent")
+    ),
+    "accent 1": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-1")),
+    "accent 2": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-2")),
+    "accent 3": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-3")),
+    "accent 4": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-4")),
+    "accent 5": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-5")),
     "panel opacity": 0.3,
   };
 
