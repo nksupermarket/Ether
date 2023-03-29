@@ -37,19 +37,7 @@ export class Link {
   }
 }
 
-type AllLinks = [Link, Link, Link, Link, Link, Link];
-
-export class LinkGroup {
-  title: string;
-  links: AllLinks;
-  constructor() {
-    this.title = EMPTY_ITEM;
-    this.links = Array(LINK_COUNT)
-      .fill(undefined)
-      .map(() => new Link()) as AllLinks;
-  }
-}
-
+type Links = [Link, Link, Link, Link, Link, Link];
 export type AllLinkGroups = [
   LinkGroup,
   LinkGroup,
@@ -57,11 +45,20 @@ export type AllLinkGroups = [
   LinkGroup,
   LinkGroup
 ];
+export class LinkGroup {
+  title: string;
+  links: Links;
+  constructor() {
+    (this.title = EMPTY_ITEM),
+      (this.links = Array(LINK_COUNT)
+        .fill(undefined)
+        .map(() => new Link()) as Links);
+  }
+}
 
 export function getLinks(): AllLinkGroups {
   const lsItem = localStorage.getItem("links");
   let linkGroups = lsItem ? JSON.parse(lsItem) : DEFAULT_LINKS;
-  linkGroups = linkGroups.filter((g: LinkGroup | undefined) => !!g);
   while (linkGroups.length < LINK_GROUP_COUNT) {
     linkGroups.push(new LinkGroup());
   }
@@ -74,7 +71,7 @@ export function getLinks(): AllLinkGroups {
   return linkGroups;
 }
 
-function checkEmptyLinks(links: AllLinks): boolean {
+function checkEmptyLinks(links: Links): boolean {
   return links.every((l) => {
     return !l?.href;
   });
@@ -101,7 +98,7 @@ export function displayLinkSection(
 
   for (let i = 0; i < linkElements.length; i++) {
     const link = linkGroupDetails.links[i];
-    if (!link || !link.href) continue;
+    if (!link || !link.href) return;
     linkElements[i].href = link.href;
     linkElements[i].append(
       DomRender.textNode({
@@ -128,16 +125,19 @@ export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
   ) as NodeListOf<HTMLLinkElement>;
 
   linkElements.forEach((el, i) => {
-    const link = linkGroup.links[i];
-    if (!link || !link.href) {
-      el.classList.add("hide");
-      return;
-    }
     el.classList.remove("hide");
+    const link = linkGroup.links[i];
+    if (!link || !link.href) return;
     el.href = link.href;
 
-    const textNode = el.querySelector(".link-text");
-    if (!textNode) throw new Error("something went wrong rendering your link");
+    let textNode = el.querySelector(".link-text");
+    if (!textNode) {
+      textNode = DomRender.textNode({
+        text: link["display text"],
+        classes: ["link-text"],
+      });
+      el.append(textNode);
+    }
     textNode.textContent = link["display text"];
   });
 }
@@ -147,7 +147,7 @@ export function setLinks(linkGroups: AllLinkGroups) {
   const fn = firstRender ? displayLinkSection : updateLinkSection;
   firstRender = false;
   linkGroups.forEach((linkGroup, i) => {
-    if (checkEmptyLinks(linkGroup.links)) {
+    if (!linkGroup) {
       linkSections[i].classList.add("hide");
       return;
     }
