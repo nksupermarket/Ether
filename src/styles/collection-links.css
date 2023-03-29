@@ -50,6 +50,10 @@
   bottom: 4%;
   left: -0.7%;
 }
+.links-section .edge:nth-of-type(4) {
+  top: -3.9%;
+  right: -3.1%;
+}
 .collection-links-container {
   display: flex;
   justify-content: space-evenly;
