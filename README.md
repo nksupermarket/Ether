@@ -124,11 +124,11 @@ If you want to build it yourself, the build command is `npm run build`.
 
    This will start the Nginx service in the background.
 
-   Verify that your site is working: Open a web browser and navigate to http://localhost:8000. You should see your site's content (in this case, the "Hello, world!" message we added in step 3).
+   Verify that your site is working: Open a web browser and navigate to http://localhost:8000. You should see your site's content.
 
    That's it! You now have Nginx serving your site locally on your machine. You can stop the Nginx service by running sudo systemctl stop nginx, and you can restart it by running `sudo systemctl restart nginx`. If you need to make changes to your site files or Nginx configuration, you'll need to restart the Nginx service for the changes to take effect.
 
-   (with help from ChatGPT)
+   (written with help from ChatGPT)
 
 3. **Setting up your browser**
 
