@@ -129,7 +129,7 @@ const MEDIA_LINKS: LinkGroup = {
     },
     {
       "display text": "YT Music",
-      href: "https://www.music.youtube.com",
+      href: "https://music.youtube.com",
     },
     {
       "display text": EMPTY_ITEM,
