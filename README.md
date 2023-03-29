@@ -5,6 +5,8 @@ Navigate to your favorite sites with just a keypress or start a search with the 
 
 It's not mobile friendly as it was designed for use on a laptop/desktop.
 
+[Live Demo](https://lookingcoolonavespa.github.io/Ether/)
+
 ## Pre-configured themes
 
 Swap out the colors or the image if they're not to your liking. Here are some pre-configured themes to get you started.
@@ -43,7 +45,7 @@ You can download your configuration as JSON if you want to store it somewhere.
 
 ![Ether settings - import json](https://i.postimg.cc/XYtzwZ8p/ether-settings.jpg)
 
-To quickly get you up to speed, there's an option to import json vs configurating everything in the menu.
+To quickly get you up to speed, there's an option to import json.
 The import json option allows you to import your settings piece-by-piece ( ie. importing only links and theme ) or all at once.
 
 ## Setting it up as your new tab page
@@ -63,7 +65,8 @@ Download the new tab override extension for your browser, and in your extension 
 ---
 
 [For firefox users as that's the only browser I have experience with, sorry guys]
-This is a bit more time-consuming but for those of you looking for an extra creamy, buttery, velvety experience, this is what you want to do.
+
+This is a bit more time-consuming but for those of you looking for an extra creamy, buttery, velvety experience this is what you want to do.
 
 1. **Getting the files**
 
