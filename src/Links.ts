@@ -59,6 +59,7 @@ export class LinkGroup {
 export function getLinks(): AllLinkGroups {
   const lsItem = localStorage.getItem("links");
   let linkGroups = lsItem ? JSON.parse(lsItem) : DEFAULT_LINKS;
+  linkGroups = linkGroups.filter((g: LinkGroup | undefined) => !!g);
   while (linkGroups.length < LINK_GROUP_COUNT) {
     linkGroups.push(new LinkGroup());
   }
@@ -73,7 +74,7 @@ export function getLinks(): AllLinkGroups {
 
 function checkEmptyLinks(links: AllLinks): boolean {
   return links.every((l) => {
-    return !l?.href;
+    return !l.href;
   });
 }
 export function displayLinkSection(
@@ -98,7 +99,7 @@ export function displayLinkSection(
 
   for (let i = 0; i < linkElements.length; i++) {
     const link = linkGroupDetails.links[i];
-    if (!link || !link.href) return;
+    if (!link || !link.href) continue;
     linkElements[i].href = link.href;
     linkElements[i].append(
       DomRender.textNode({
@@ -127,7 +128,10 @@ export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
   linkElements.forEach((el, i) => {
     el.classList.remove("hide");
     const link = linkGroup.links[i];
-    if (!link || !link.href) return;
+    if (!link || !link.href) {
+      el.classList.add("hide");
+      return;
+    }
     el.href = link.href;
 
     let textNode = el.querySelector(".link-text");
@@ -147,7 +151,7 @@ export function setLinks(linkGroups: AllLinkGroups) {
   const fn = firstRender ? displayLinkSection : updateLinkSection;
   firstRender = false;
   linkGroups.forEach((linkGroup, i) => {
-    if (!linkGroup) {
+    if (checkEmptyLinks(linkGroup.links)) {
       linkSections[i].classList.add("hide");
       return;
     }
