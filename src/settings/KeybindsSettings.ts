@@ -48,7 +48,7 @@ export default function initKeybindsSettings(keybinds: KeyBind) {
           const textarea = document.querySelector(
             "#keybind-settings textarea"
           ) as HTMLTextAreaElement;
-          textarea.value = JSON.stringify(keybinds, null, 2);
+          textarea.value = JSON.stringify(keybindSection.state, null, 2);
         },
       },
     ],
