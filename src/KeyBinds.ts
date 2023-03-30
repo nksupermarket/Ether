@@ -48,18 +48,78 @@ export function updateKeybinds(keybinds: KeyBind) {
 }
 
 export function generateKeybinds(links: AllLinkGroups): StringKeyObj {
+  const existingKeybinds = Object.entries(getKeyBinds());
   const allLinks = links.map((group) => group?.links || []).flat();
   return allLinks.reduce((acc, curr) => {
     if (!curr) return acc;
-    if (!curr["display text"] || curr["display text"] === EMPTY_ITEM)
+    if (
+      !curr["display text"] ||
+      curr["display text"] === EMPTY_ITEM ||
+      !curr.href
+    )
       return acc;
-    let i = 0;
-    let key = curr["display text"][i].toLowerCase();
-    while (key in acc && i < curr["display text"].length - 1) {
-      i++;
-      key = curr["display text"][i].toLowerCase();
+
+    for (const [key, value] of existingKeybinds) {
+      if (value === curr.href) {
+        acc[key] = value;
+        return acc;
+      }
     }
+
+    function getRandomVal(from: string[] | string): string {
+      let i = 0;
+      let val = from[i];
+      while (val in acc && i < from.length - 1) {
+        i++;
+        val = from[i];
+      }
+      return val;
+    }
+
+    let key = getRandomVal(curr["display text"].toLowerCase());
     if (!(key in acc)) acc[key] = curr.href;
+    else {
+      const alphaNumericArray = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+      ];
+      key = getRandomVal(alphaNumericArray);
+      if (!(key in acc)) acc[key] = curr.href;
+    }
     return acc;
   }, {} as StringKeyObj);
 }

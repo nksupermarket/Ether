@@ -4,6 +4,7 @@ import {
   refreshKeybinds,
   saveKeybinds,
 } from "../KeyBinds";
+import { getLinks } from "../Links";
 import { SettingsSectionWithChildren } from "./SettingsSection";
 import { Component } from "./settingsTypes";
 
@@ -37,7 +38,7 @@ export default function initKeybindsSettings(keybinds: KeyBind) {
           sectionEl
             .querySelector("button[data-role='generate keybinds']")
             ?.addEventListener("click", () => {
-              const links = JSON.parse(localStorage.getItem("links") || "");
+              const links = getLinks();
               if (!links) return;
               const keybinds = generateKeybinds(links);
               keybindSection.state = keybinds;
