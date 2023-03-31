@@ -1,7 +1,7 @@
 # Ether - an aesthetic, functional startpage
 
 I was tired of having to press so many buttons to get to where I wanted to go so I built this start page.
-Navigate to your favorite sites with just a keypress or start a search with the Shift key.
+Navigate to your favorite sites with just a keypress or start a search with the Shift key. To navigate to a site, hit the "Ctrl" key before typing the address.
 
 It's not mobile friendly as it was designed for use on a laptop/desktop.
 
