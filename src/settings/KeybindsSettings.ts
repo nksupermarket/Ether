@@ -3,6 +3,7 @@ import {
   generateKeybinds,
   refreshKeybinds,
   saveKeybinds,
+  getKeyBinds,
 } from "../KeyBinds";
 import { getLinks } from "../Links";
 import { SettingsSectionWithChildren } from "./SettingsSection";
@@ -40,7 +41,7 @@ export default function initKeybindsSettings(keybinds: KeyBind) {
             ?.addEventListener("click", () => {
               const links = getLinks();
               if (!links) return;
-              const keybinds = generateKeybinds(links);
+              const keybinds = generateKeybinds(links, getKeyBinds());
               keybindSection.state = keybinds;
               this.rerender();
             });

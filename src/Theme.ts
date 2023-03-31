@@ -38,7 +38,6 @@ export function getTheme(): Theme {
   if (lsItem) return JSON.parse(lsItem);
 
   const cssVariables = window.getComputedStyle(document.documentElement);
-  console.log(cssVariables.getPropertyValue("--main-bg-color"));
   const defaultTheme = {
     "bg color": convertCssRgbToHex(
       cssVariables.getPropertyValue("--main-bg-color")

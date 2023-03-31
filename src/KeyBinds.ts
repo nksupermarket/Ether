@@ -17,7 +17,7 @@ export function getKeyBinds(): KeyBind {
   const lsItem = localStorage.getItem("keybinds");
   if (lsItem) return JSON.parse(lsItem);
 
-  const defaultKeybinds = generateKeybinds(DEFAULT_LINKS);
+  const defaultKeybinds = generateKeybinds(DEFAULT_LINKS, {});
   localStorage.setItem("keybinds", JSON.stringify(defaultKeybinds));
   return defaultKeybinds;
 }
@@ -42,8 +42,11 @@ export function updateKeybinds(keybinds: KeyBind) {
   window.addEventListener("keydown", eventFn);
 }
 
-export function generateKeybinds(links: AllLinkGroups): StringKeyObj {
-  const existingKeybinds = Object.entries(getKeyBinds());
+export function generateKeybinds(
+  links: AllLinkGroups,
+  existingKeybinds: KeyBind
+): StringKeyObj {
+  const existingKeybindsEntries = Object.entries(existingKeybinds);
   const allLinks = links.map((group) => group?.links || []).flat();
   return allLinks.reduce((acc, curr) => {
     if (!curr) return acc;
@@ -54,7 +57,7 @@ export function generateKeybinds(links: AllLinkGroups): StringKeyObj {
     )
       return acc;
 
-    for (const [key, value] of existingKeybinds) {
+    for (const [key, value] of existingKeybindsEntries) {
       if (value === curr.href) {
         acc[key] = value;
         return acc;
