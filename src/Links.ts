@@ -82,7 +82,7 @@ export function displayLinkSection(
   linkGroupDetails: LinkGroup
 ) {
   if (checkEmptyLinks(linkGroupDetails.links)) {
-    wrapper.classList.add("hide");
+    wrapper.classList.add("removed");
     return;
   }
 
@@ -103,16 +103,16 @@ export function displayLinkSection(
       classes: ["link-text"],
     });
     linkElements[i].append(textNode);
-    if (!link.href) linkElements[i].classList.add("hide");
+    if (!link.href) linkElements[i].classList.add("removed");
   }
 }
 
 export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
   if (checkEmptyLinks(linkGroup.links)) {
-    wrapper.classList.add("hide");
+    wrapper.classList.add("removed");
     return;
   }
-  wrapper.classList.remove("hide");
+  wrapper.classList.remove("removed");
   const titleElement = wrapper.querySelector(
     ".collection-title"
   ) as HTMLElement;
@@ -123,10 +123,10 @@ export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
   ) as NodeListOf<HTMLLinkElement>;
 
   linkElements.forEach((el, i) => {
-    el.classList.remove("hide");
+    el.classList.remove("removed");
     const link = linkGroup.links[i];
     if (!link.href) {
-      el.classList.add("hide");
+      el.classList.add("removed");
       return;
     }
     el.href = link.href;
