@@ -3,8 +3,6 @@ import { StringKeyObj } from "../types/interfaces";
 import { EMPTY_ITEM } from "./data/CONSTANTS";
 import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import { AllLinkGroups } from "./Links";
-import { isModalOpen } from "./Modal";
-import { focusSearch } from "./Search";
 
 export type KeyBind = {
   [key: string]: string;
@@ -28,9 +26,6 @@ function generateKeybindEvent(keybinds: KeyBind): (e: KeyboardEvent) => void {
   return (e) => {
     const target = e.target as HTMLElement;
     if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
-    if (e.key === "Shift" && !isModalOpen()) {
-      focusSearch();
-    }
 
     if (!keys.includes(e.key)) return;
     window.location.assign(keybinds[e.key]);

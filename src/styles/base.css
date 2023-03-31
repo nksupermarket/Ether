@@ -133,24 +133,29 @@ button {
   background: rgb(var(--main-bg-color));
 }
 
-.search-form {
+.form-container {
   width: 100%;
   margin-bottom: 1.7%;
   margin-left: 5%;
-  width: 100%;
   border-bottom: 1px solid rgb(var(--main-fg-color));
+  position: relative;
+  opacity: 0.5;
+  padding-bottom: 1.3%;
+  display: flex;
+}
+.search-form,
+.url-form {
+  width: 100%;
   position: relative;
   display: flex;
   column-gap: 1em;
   align-items: end;
-  opacity: 0.5;
-  padding-bottom: 1.3%;
 }
-.search-form:focus-within {
+.form-container:focus-within {
   opacity: 1;
 }
 
-.search-form input {
+.form-container input {
   bottom: 0;
   width: 100%;
   padding: 0;

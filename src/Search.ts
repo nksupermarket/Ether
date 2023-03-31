@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isModalOpen } from "./Modal";
 
 const searchEngines = Object.freeze({
   duckduckgo: "https://www.duckduckgo.com/search",
@@ -8,7 +9,17 @@ const searchEngines = Object.freeze({
 export type SearchEngine = keyof typeof searchEngines;
 
 const SearchEngineSchema = z.enum(["duckduckgo", "google"]);
-const searchEl = document.querySelector(".search-form");
+const searchForm = document.querySelector(".search-form");
+const urlForm = document.querySelector(".url-form");
+const urlInput = urlForm?.querySelector("input") as HTMLInputElement;
+
+export function onNavigate(e: Event) {
+  e.preventDefault();
+  const location = urlInput.value;
+  console.log("hi");
+  window.location.assign(location);
+}
+
 export function saveSearch(data: any) {
   const se = data.toLowerCase();
   validateSearch(se);
@@ -16,8 +27,8 @@ export function saveSearch(data: any) {
 }
 
 export function setSearch(engine: SearchEngine): void {
-  searchEl?.setAttribute("action", searchEngines[engine]);
-  const icons = searchEl?.querySelectorAll("svg");
+  searchForm?.setAttribute("action", searchEngines[engine]);
+  const icons = searchForm?.querySelectorAll("svg");
   icons?.forEach((icon) => {
     if (icon.dataset.search != engine) icon.classList.add("removed");
     else icon.classList.remove("removed");
@@ -50,6 +61,32 @@ export function validateSearch(data: any): data is SearchEngine {
   return true;
 }
 
-export function focusSearch() {
-  searchEl?.querySelector("input")?.focus();
+function focusSearch() {
+  searchForm?.classList.remove("removed");
+  urlForm?.classList.add("removed");
+  searchForm?.querySelector("input")?.focus();
+}
+
+function focusUrl() {
+  searchForm?.classList.add("removed");
+  urlForm?.classList.remove("removed");
+  urlInput.focus();
+  const val = urlInput.value;
+  urlInput.value = "";
+  urlInput.value = val;
+}
+
+export function initSearchBar() {
+  urlForm?.addEventListener("submit", onNavigate);
+
+  window.addEventListener("keydown", (e) => {
+    const target = e.target as HTMLElement;
+    if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
+    if (e.key === "Shift" && !isModalOpen()) {
+      focusSearch();
+    }
+    if (e.key === "Control" && !isModalOpen()) {
+      focusUrl();
+    }
+  });
 }

@@ -4,7 +4,7 @@ import initModal from "./Modal";
 import "./styles/style.css";
 import { getTheme, setTheme } from "./Theme";
 import { getImage, updateImage } from "./Image";
-import { getSearch, setSearch } from "./Search";
+import { initSearchBar, getSearch, setSearch } from "./Search";
 import { getLinks, setLinks } from "./Links";
 
 function init() {
@@ -26,6 +26,8 @@ function init() {
     imageState,
     search,
   });
+
+  initSearchBar();
 }
 
 init();

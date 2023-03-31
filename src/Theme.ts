@@ -35,7 +35,6 @@ const ThemeSchema = z
 
 export function getTheme(): Theme {
   const lsItem = localStorage.getItem("theme");
-  console.log({ lsItem });
   if (lsItem) return JSON.parse(lsItem);
 
   const cssVariables = window.getComputedStyle(document.documentElement);
