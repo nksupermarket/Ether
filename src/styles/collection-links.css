@@ -49,7 +49,7 @@
   padding-left: 0.7em;
   overflow: hidden;
   flex-direction: column;
-  row-gap: 0.7em;
+  row-gap: 0.5em;
 }
 
 .collection-title {
