@@ -131,6 +131,7 @@ button {
   padding-top: 2.45%;
   width: 100%;
   background: rgb(var(--main-bg-color));
+  box-sizing: border-box;
 }
 
 .form-container {
@@ -179,12 +180,6 @@ button {
   100% {
     transform: translate(5em, 5em) rotate(45deg);
   }
-}
-
-.edge {
-  z-index: 20;
-  border-top: var(--border);
-  position: absolute;
 }
 
 .hide {
