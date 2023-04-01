@@ -36,20 +36,3 @@
   background-position-y: 50%;
   background-size: cover;
 }
-
-.image-wrapper .edge {
-  width: 9%;
-  transform: rotate(-52deg);
-}
-.image-wrapper .edge:nth-of-type(4) {
-  bottom: -2.5%;
-  left: -7.5%;
-}
-.image-wrapper .edge:nth-of-type(2) {
-  bottom: -2.5%;
-  right: -1%;
-}
-.image-wrapper .edge:nth-of-type(3) {
-  top: 2.5%;
-  left: -7.9%;
-}

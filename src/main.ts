@@ -8,6 +8,8 @@ import { initSearchBar, getSearch, setSearch } from "./Search";
 import { getLinks, setLinks } from "./Links";
 
 function init() {
+  const imageState = getImage();
+  updateImage(imageState);
   const theme = getTheme();
   setTheme(theme);
   const links = getLinks();
@@ -15,8 +17,6 @@ function init() {
   runClock();
   const keybinds = getKeyBinds();
   initKeyBinds(keybinds);
-  const imageState = getImage();
-  updateImage(imageState);
   const search = getSearch();
   setSearch(search);
   initModal({
