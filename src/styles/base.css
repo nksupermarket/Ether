@@ -304,7 +304,7 @@ input:placeholder-shown {
 
 .triangle:after {
   opacity: 0.4;
-  background-size: 1.5em 1.5em;
+  background-size: 1em;
   background-image: linear-gradient(
       to right,
       rgb(var(--main-fg-color)) 1px,
