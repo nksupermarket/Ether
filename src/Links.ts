@@ -103,7 +103,7 @@ export function displayLinkSection(
       classes: ["link-text"],
     });
     linkElements[i].append(textNode);
-    if (!link.href) linkElements[i].classList.add("removed");
+    if (!link.href) linkElements[i].parentElement?.classList.add("removed");
   }
 }
 
