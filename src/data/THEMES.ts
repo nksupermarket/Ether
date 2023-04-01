@@ -8,7 +8,7 @@ const everforest_dark = {
     "accent 3": "#7fbbb3",
     "accent 4": "#d699b6",
     "accent 5": "#dbbc7f",
-    "panel opacity": 0.75,
+    "panel opacity": 0.5,
   },
   image: {
     image: `url(${import.meta.env.BASE_URL}main-image.jpg)`,
