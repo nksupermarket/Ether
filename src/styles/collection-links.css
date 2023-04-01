@@ -10,8 +10,7 @@
   width: 100%;
   background: rgba(var(--main-bg-color), var(--panel-opacity));
   position: relative;
-  border: 1px solid rgba(var(--main-accent), 0.5);
-  /* border: var(--border); */
+  border: var(--border);
   z-index: 1;
 }
 .links-section .bg {
@@ -80,7 +79,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  row-gap: 0.4em;
+  row-gap: 0.3em;
 }
 .links-container:before {
   position: absolute;
