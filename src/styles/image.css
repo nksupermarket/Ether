@@ -19,6 +19,7 @@
   border: var(--border);
   z-index: 1;
   overflow: hidden;
+  opacity: max(0.5, calc(1 - var(--panel-opacity)));
 }
 
 .image-border .squiggly {

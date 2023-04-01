@@ -8,7 +8,7 @@
 .links-section .border {
   height: 100%;
   width: 100%;
-  background: rgba(var(--main-bg-color), 0.3);
+  background: rgba(var(--main-bg-color), var(--panel-opacity));
   position: relative;
   border: var(--border);
   z-index: 1;

@@ -17,25 +17,6 @@ const everforest_dark = {
   },
 };
 
-const everforest_light = {
-  theme: {
-    "bg color": "#fdf6e3",
-    "fg color": "#5c6a72",
-    "main accent": "#3a94c5",
-    "accent 1": "#93b259",
-    "accent 2": "#e66868",
-    "accent 3": "#dfa000",
-    "accent 4": "#35a77c",
-    "accent 5": "#df69ba",
-    "panel opacity": 0.9,
-  },
-  image: {
-    image: `url(${import.meta.env.BASE_URL}wallhaven-5gz6l3.jpg)`,
-    "position x": "50%",
-    "position y": "0%",
-  },
-};
-
 const bw = {
   theme: {
     "bg color": "#000000",
@@ -122,7 +103,7 @@ const dracula = {
     "accent 3": "#ff79c6",
     "accent 4": "#f1fa8c",
     "accent 5": "#ff5555",
-    "panel opacity": 0.9,
+    "panel opacity": 0.8,
   },
   image: {
     image: `url(${import.meta.env.BASE_URL}samurai.jpg)`,
@@ -133,7 +114,6 @@ const dracula = {
 
 export default {
   everforest_dark,
-  everforest_light,
   catppuccin,
   dracula,
   gruvbox,

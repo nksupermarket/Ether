@@ -8,6 +8,7 @@
   --accent-4: 214, 153, 182;
   --accent-5: 219, 188, 127;
   --border: 1px solid rgba(var(--main-fg-color), 0.6);
+  --panel-opacity: 0.5;
 }
 html,
 body {

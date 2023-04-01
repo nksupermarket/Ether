@@ -69,6 +69,7 @@ export function setTheme(theme: Theme): void {
   const entries = Object.entries(theme);
 
   for (const [key, value] of entries) {
+    if (!value) continue;
     switch (key) {
       case "bg color": {
         document.documentElement.style.setProperty(
@@ -144,12 +145,9 @@ export function setTheme(theme: Theme): void {
         break;
       }
       case "panel opacity": {
-        const panel = document.querySelector(
-          ".links-section .border"
-        ) as HTMLElement;
-        panel?.style.setProperty(
-          "background",
-          `rgba(var(--main-bg-color), ${value})`
+        document.documentElement.style.setProperty(
+          "--panel-opacity",
+          value as string
         );
       }
     }
