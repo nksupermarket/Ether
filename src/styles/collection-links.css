@@ -11,6 +11,8 @@
   background: rgba(var(--main-bg-color), var(--panel-opacity));
   position: relative;
   border: var(--border);
+  border-left: none;
+  border-right: none;
   z-index: 1;
 }
 .links-section .bg {
