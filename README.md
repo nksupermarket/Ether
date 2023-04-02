@@ -12,25 +12,22 @@ It's not mobile friendly as it was designed for use on a laptop/desktop.
 Swap out the colors or the image if they're not to your liking. Here are some pre-configured themes to get you started.
 
 Everforest dark
-![Ether - Everforest dark theme](https://i.postimg.cc/dQ6sSBZM/ether-everforest-dark.jpg)
-
-Everforest light
-![Ether - Everforest light theme](https://i.postimg.cc/Y9k7dGpq/ether-everforest-light.jpg)
+![Ether - Everforest dark theme](https://i.postimg.cc/jjggsXtx/everforest-dark.jpg)
 
 Catppuccin
-![Ether - Catppuccin theme](https://i.postimg.cc/Z5G4ys2N/ether-catppuccin.jpg)
+![Ether - Catppuccin theme](https://i.postimg.cc/zGNPpvxr/catppuccin.jpg)
 
 Dracula
-![Ether - Dracula theme](https://i.postimg.cc/t4Z9JGSy/ether-dracula.jpg)
+![Ether - Dracula theme](https://i.postimg.cc/q7MDVYfD/dracula.jpg)
 
 Gruvbox
-![Ether - Gruvbox theme](https://i.postimg.cc/Kj82y6k6/ether-gruvbox.jpg)
+![Ether - Gruvbox theme](https://i.postimg.cc/bJZ6dtwQ/gruvbox.jpg)
 
 Nord
-![Ether - Nord theme](https://i.postimg.cc/Pq1hbznR/ether-nord.jpg)
+![Ether - Nord theme](https://i.postimg.cc/kgyYHCHt/nord.jpg)
 
 B&W
-![Ether - B&W theme](https://i.postimg.cc/pTZH4WTQ/ether-b-w.jpg)
+![Ether - B&W theme](https://i.postimg.cc/28hK4hFG/b-w.jpg)
 
 ## Configuration Options
 
