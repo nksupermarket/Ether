@@ -16,7 +16,6 @@ const urlInput = urlForm?.querySelector("input") as HTMLInputElement;
 export function onNavigate(e: Event) {
   e.preventDefault();
   const location = urlInput.value;
-  console.log("hi");
   window.location.assign(location);
 }
 
