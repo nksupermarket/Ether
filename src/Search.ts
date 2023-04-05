@@ -2,7 +2,7 @@ import { z } from "zod";
 import { isModalOpen } from "./Modal";
 
 const searchEngines = Object.freeze({
-  duckduckgo: "https://www.duckduckgo.com/search",
+  duckduckgo: "https://www.duckduckgo.com/",
   google: "https://www.google.com/search",
 } as const);
 
