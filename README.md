@@ -1,7 +1,8 @@
 # Ether - an aesthetic, functional startpage
 
-I was tired of having to press so many buttons to get to where I wanted to go so I built this start page.
 Navigate to your favorite sites with just a keypress or start a search with the Shift key. To navigate to a site, hit the "Ctrl" key before typing the address.
+
+Tab through your links with either the `Tab` key or your arrow keys.
 
 It's not mobile friendly as it was designed for use on a laptop/desktop.
 
@@ -36,7 +37,8 @@ B&W
 - keybinds
 - image
   - image position (if your image is cropped, this sets where the image crop happens)
-- search engine (only google and ddg for now)
+- search engine (google, ddg, + 1 custom search engine)
+  - to enter a custom search engine, you need to find the query url for the search engine eg. for google it is https://www.google.com/search
 
 You can download your configuration as JSON if you want to store it somewhere.
 
