@@ -1,6 +1,8 @@
 import { z } from "zod";
 import THEMES from "./data/THEMES";
 
+export const IMAGE_LS_KEY = "image";
+
 export interface ImageState {
   image: string | null;
   "position x": string;
@@ -18,11 +20,11 @@ const ImageStateSchema = z.object({
 
 const imageEl = document.querySelector(".image") as HTMLElement;
 export function getImage(): ImageState {
-  const lsItem = localStorage.getItem("image");
+  const lsItem = localStorage.getItem(IMAGE_LS_KEY);
   if (lsItem) return JSON.parse(lsItem);
 
   const imageState = THEMES.everforest_dark.image;
-  localStorage.setItem("image", JSON.stringify(imageState));
+  localStorage.setItem(IMAGE_LS_KEY, JSON.stringify(imageState));
   return imageState;
 }
 
@@ -43,5 +45,5 @@ export function validateImageState(data: any): data is ImageState {
 
 export function saveImageState(data: any) {
   validateImageState(data);
-  localStorage.setItem("image", JSON.stringify(data));
+  localStorage.setItem(IMAGE_LS_KEY, JSON.stringify(data));
 }

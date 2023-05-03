@@ -13,7 +13,7 @@ const searchEngines = {
 const SearchEngineSchema = z.enum(["duckduckgo", "google", "custom"]);
 const CustomSearchSchema = z.object({
   name: z.string(),
-  "query url": z.string().url("Not a valid url"),
+  "query url": z.string().url("Custom search query url is not a valid url"),
 });
 
 export type SearchEngine = z.infer<typeof SearchEngineSchema>;

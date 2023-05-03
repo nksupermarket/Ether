@@ -1,8 +1,14 @@
-import { refreshImage, saveImageState } from "../Image";
-import { refreshKeybinds, saveKeybinds } from "../KeyBinds";
-import { refreshLinks, saveLinks } from "../Links";
-import { refreshSearch, saveSearchEngine } from "../Search";
-import { refreshTheme, saveTheme } from "../Theme";
+import { IMAGE_LS_KEY, refreshImage, saveImageState } from "../Image";
+import { KEYBINDS_LS_KEY, refreshKeybinds, saveKeybinds } from "../KeyBinds";
+import { LINKS_LS_KEY, refreshLinks, saveLinks } from "../Links";
+import {
+  CUSTOM_SEARCH_DETAILS_LS_KEY,
+  refreshSearch,
+  saveCustomSearch,
+  saveSearchEngine,
+  SEARCH_LS_KEY,
+} from "../Search";
+import { refreshTheme, saveTheme, THEME_LS_KEY } from "../Theme";
 import SettingsSection from "./SettingsSection";
 
 export default function initJsonSettings() {
@@ -48,31 +54,37 @@ export default function initJsonSettings() {
       const configObj = JSON.parse(jsonStrWithoutNewlines);
       for (const [key, value] of Object.entries(configObj)) {
         switch (key) {
-          case "theme": {
+          case THEME_LS_KEY: {
             saveTheme(value);
             refreshTheme();
             break;
           }
-          case "links": {
+          case LINKS_LS_KEY: {
             saveLinks(value);
             refreshLinks();
             break;
           }
-          case "image": {
+          case IMAGE_LS_KEY: {
             saveImageState(value);
             refreshImage();
             break;
           }
-          case "keybinds": {
+          case KEYBINDS_LS_KEY: {
             saveKeybinds(value);
             refreshKeybinds();
             break;
           }
-          case "search": {
+          case SEARCH_LS_KEY: {
             saveSearchEngine(value);
             refreshSearch();
             break;
           }
+          case CUSTOM_SEARCH_DETAILS_LS_KEY: {
+            saveCustomSearch(value);
+            refreshSearch();
+            break;
+          }
+
           default: {
             throw new Error(`${key} is an invalid option`);
           }

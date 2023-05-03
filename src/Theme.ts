@@ -1,6 +1,8 @@
 import { convertCssRgbToHex, hexToRgb } from "./utils/colors";
 import { z } from "zod";
 
+export const THEME_LS_KEY = "theme";
+
 export type Theme = {
   "fg color": string;
   "bg color": string;
@@ -34,7 +36,7 @@ const ThemeSchema = z
   .strict("Encounted unknown theme variable");
 
 export function getTheme(): Theme {
-  const lsItem = localStorage.getItem("theme");
+  const lsItem = localStorage.getItem(THEME_LS_KEY);
   if (lsItem) return JSON.parse(lsItem);
 
   const cssVariables = window.getComputedStyle(document.documentElement);
@@ -56,13 +58,13 @@ export function getTheme(): Theme {
     "panel opacity": 0.3,
   };
 
-  localStorage.setItem("theme", JSON.stringify(defaultTheme));
+  localStorage.setItem(THEME_LS_KEY, JSON.stringify(defaultTheme));
   return defaultTheme;
 }
 
 export function saveTheme(data: any): void {
   validateTheme(data);
-  localStorage.setItem("theme", JSON.stringify(data));
+  localStorage.setItem(THEME_LS_KEY, JSON.stringify(data));
 }
 
 export function setTheme(theme: Theme): void {

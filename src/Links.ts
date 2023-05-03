@@ -3,6 +3,8 @@ import { EMPTY_ITEM } from "./data/CONSTANTS";
 import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import DomRender from "./DomRender";
 
+export const LINKS_LS_KEY = "links";
+
 const LinkSchema = z.object({
   "display text": z.string(),
   href: z.union([z.string().url("Invalid href"), z.literal("")]),
@@ -55,7 +57,7 @@ export class LinkGroup {
 }
 
 export function getLinks(): AllLinkGroups {
-  const lsItem = localStorage.getItem("links");
+  const lsItem = localStorage.getItem(LINKS_LS_KEY);
   let linkGroups = lsItem ? JSON.parse(lsItem) : DEFAULT_LINKS;
   linkGroups = linkGroups.filter((g: LinkGroup | undefined) => !!g);
   while (linkGroups.length < LINK_GROUP_COUNT) {
@@ -156,7 +158,7 @@ export function refreshLinks() {
 
 export function saveLinks(data: any) {
   validateLinks(data);
-  localStorage.setItem("links", JSON.stringify(data));
+  localStorage.setItem(LINKS_LS_KEY, JSON.stringify(data));
 }
 
 export function validateLinks(data: any): data is AllLinkGroups {
@@ -164,9 +166,10 @@ export function validateLinks(data: any): data is AllLinkGroups {
   return true;
 }
 
-let linkSectionFocusIndex = 0;
-let linkFocusIndex = 0;
 export function initLinkSectionKeybinds(): void {
+  let linkSectionFocusIndex = 0;
+  let linkFocusIndex = 0;
+
   window.addEventListener("keydown", (e) => {
     if ((e.target as Element).tagName === "INPUT") return;
     if (e.key != "Tab" && !e.key.includes("Arrow")) return;

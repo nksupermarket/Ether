@@ -4,6 +4,7 @@ import {
   refreshKeybinds,
   saveKeybinds,
   getKeyBinds,
+  KEYBINDS_LS_KEY,
 } from "../KeyBinds";
 import { getLinks } from "../Links";
 import { SettingsSectionWithChildren } from "./SettingsSection";
@@ -11,7 +12,7 @@ import { Component } from "./settingsTypes";
 
 export default function initKeybindsSettings(keybinds: KeyBind) {
   const keybindSection = new SettingsSectionWithChildren({
-    title: "keybinds",
+    title: KEYBINDS_LS_KEY,
     state: keybinds,
     sectionEl: document.getElementById("keybind-settings") as HTMLElement,
     children: [

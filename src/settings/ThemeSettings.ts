@@ -2,7 +2,7 @@ import { StringKeyObj } from "../../types/interfaces";
 import THEMES from "../data/THEMES";
 import DomRender from "../DomRender";
 import { ImageState, refreshImage, saveImageState } from "../Image";
-import { refreshTheme, saveTheme, Theme } from "../Theme";
+import { refreshTheme, saveTheme, Theme, THEME_LS_KEY } from "../Theme";
 import InputGroup from "./InputGroup";
 import SettingsSection, {
   SettingsSectionWithChildren,
@@ -13,7 +13,7 @@ export default function (
   imageSection: SettingsSection<ImageState>
 ) {
   const themeSection = new SettingsSectionWithChildren({
-    title: "theme",
+    title: THEME_LS_KEY,
     state: theme,
     sectionEl: document.getElementById("theme-settings") as HTMLElement,
     children: [
@@ -65,7 +65,7 @@ export default function (
           else themeSection.state[key] = target.value;
         },
         getState: (): StringKeyObj => themeSection.state,
-        id: "theme",
+        id: THEME_LS_KEY,
       }),
     ],
     onSave: () => {

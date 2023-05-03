@@ -6,6 +6,7 @@ import {
   refreshLinks,
   saveLinks,
   LinkGroup,
+  LINKS_LS_KEY,
 } from "../Links";
 import LinkEditorGroup from "./LinkGroup";
 import { SettingsSectionWithChildren } from "./SettingsSection";
@@ -58,7 +59,7 @@ export default function initLinksSettings(links: AllLinkGroups) {
       })
     );
   const linkSection = new SettingsSectionWithChildren({
-    title: "links",
+    title: LINKS_LS_KEY,
     state: links,
     sectionEl: document.getElementById("link-settings") as HTMLElement,
     children: [

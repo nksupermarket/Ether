@@ -1,12 +1,17 @@
 import { Optional } from "../../types/types";
-import { ImageState, refreshImage, saveImageState } from "../Image";
+import {
+  ImageState,
+  IMAGE_LS_KEY,
+  refreshImage,
+  saveImageState,
+} from "../Image";
 import InputGroup from "./InputGroup";
 import { SettingsSectionWithChildren } from "./SettingsSection";
 import { Component } from "./settingsTypes";
 
 export default function initImageSettings(imageState: ImageState) {
   const imageSection = new SettingsSectionWithChildren<ImageState>({
-    title: "image",
+    title: IMAGE_LS_KEY,
     state: imageState,
     sectionEl: document.getElementById("image-settings") as HTMLElement,
     children: [
@@ -78,11 +83,11 @@ export default function initImageSettings(imageState: ImageState) {
         updateState: (e: Event) => {
           const target = e.target as HTMLInputElement;
           const key = target.name as keyof ImageState;
-          if (key === "image") return;
+          if (key === IMAGE_LS_KEY) return;
           imageSection.state[key] = target.value;
         },
-        getState: (): Omit<ImageState, "image"> => {
-          const state: Optional<ImageState, "image"> = {
+        getState: (): Omit<ImageState, typeof IMAGE_LS_KEY> => {
+          const state: Optional<ImageState, typeof IMAGE_LS_KEY> = {
             ...imageSection.state,
           };
           delete state.image;

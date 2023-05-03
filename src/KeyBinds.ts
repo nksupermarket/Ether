@@ -4,6 +4,8 @@ import { EMPTY_ITEM } from "./data/CONSTANTS";
 import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import { AllLinkGroups } from "./Links";
 
+export const KEYBINDS_LS_KEY = "keybinds";
+
 export type KeyBind = {
   [key: string]: string;
 };
@@ -14,11 +16,11 @@ const KeybindSchema = z.record(
 );
 
 export function getKeyBinds(): KeyBind {
-  const lsItem = localStorage.getItem("keybinds");
+  const lsItem = localStorage.getItem(KEYBINDS_LS_KEY);
   if (lsItem) return JSON.parse(lsItem);
 
   const defaultKeybinds = generateKeybinds(DEFAULT_LINKS, {});
-  localStorage.setItem("keybinds", JSON.stringify(defaultKeybinds));
+  localStorage.setItem(KEYBINDS_LS_KEY, JSON.stringify(defaultKeybinds));
   return defaultKeybinds;
 }
 function generateKeybindEvent(keybinds: KeyBind): (e: KeyboardEvent) => void {
@@ -135,5 +137,5 @@ export function validateKeybinds(
 
 export function saveKeybinds(data: any) {
   validateKeybinds(data);
-  localStorage.setItem("keybinds", JSON.stringify(data));
+  localStorage.setItem(KEYBINDS_LS_KEY, JSON.stringify(data));
 }
