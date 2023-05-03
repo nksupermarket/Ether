@@ -12,18 +12,20 @@ export type InitSettingsProps = {
   search: SearchEngine;
 };
 
-const modal = document.getElementById("modal");
-const closeBtn = modal?.querySelector(".close-button");
+const settingsModal = document.getElementById(
+  "settings-modal"
+) as HTMLDialogElement;
+const closeBtn = settingsModal?.querySelector(".close-button");
 const settingsBtn = document.querySelector("button[name=settings]");
 const settings = document.getElementById("settings");
 
 let isOpen = false;
-function close() {
-  modal?.classList.add("removed");
+function closeSettingsModal() {
+  settingsModal.close();
   isOpen = false;
 }
-function open() {
-  modal?.classList.remove("removed");
+function openSettingsModal() {
+  settingsModal.showModal();
   isOpen = true;
 }
 
@@ -34,10 +36,10 @@ export function isModalOpen() {
 let firstOpen = true;
 export default function init(props: InitSettingsProps) {
   settings?.addEventListener("click", (e) => e.stopPropagation());
-  closeBtn?.addEventListener("click", close);
-  modal?.addEventListener("click", close);
+  closeBtn?.addEventListener("click", closeSettingsModal);
+  settingsModal?.addEventListener("click", closeSettingsModal);
   settingsBtn?.addEventListener("click", async () => {
-    open();
+    openSettingsModal();
     if (firstOpen) {
       const { default: initSettings } = await import("./settings/Settings");
       initSettings(props);

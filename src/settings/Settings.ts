@@ -3,9 +3,11 @@ import initLinksSettings from "./LinksSettings";
 import initKeybindsSettings from "./KeybindsSettings";
 import initImageSettings from "./ImageSettings";
 import initJsonSettings from "./JsonSettings";
-import initMiscSettings from "./MiscSettings";
+import initSearchSettings from "./SearchSettings";
 import { InitSettingsProps } from "../Modal";
 import "../styles/settings.css";
+import initLinkButtons from "./LinkButtons";
+import { getCustomSearchDetails } from "../Search";
 
 export default function init({
   links,
@@ -18,16 +20,21 @@ export default function init({
   const keybindSection = initKeybindsSettings(keybinds);
   const imageSection = initImageSettings(imageState);
   const themeSection = initThemeSettings(theme, imageSection);
-  const miscSection = initMiscSettings(search);
+  const searchSection = initSearchSettings(
+    search,
+    getCustomSearchDetails() || { name: "", "query url": "" }
+  );
   const jsonSection = initJsonSettings();
+  const linkButtonsSection = initLinkButtons();
 
   const sections = [
     themeSection,
     linkSection,
     keybindSection,
     imageSection,
-    miscSection,
+    searchSection,
     jsonSection,
+    linkButtonsSection,
   ];
   sections.forEach((section) => section.render());
 }

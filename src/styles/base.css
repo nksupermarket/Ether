@@ -192,6 +192,11 @@ button {
   display: none !important;
 }
 
+.inactive {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 button[name="settings"] {
   position: absolute;
   bottom: 2vw;

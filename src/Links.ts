@@ -4,9 +4,7 @@ import { DEFAULT_LINKS } from "./data/DEFAULT_LINKS";
 import DomRender from "./DomRender";
 
 const LinkSchema = z.object({
-  "display text": z.string({
-    required_error: "Display text is required",
-  }),
+  "display text": z.string(),
   href: z.union([z.string().url("Invalid href"), z.literal("")]),
 });
 
@@ -78,20 +76,20 @@ function checkEmptyLinks(links: AllLinks): boolean {
   });
 }
 export function displayLinkSection(
-  wrapper: HTMLElement,
+  container: HTMLElement,
   linkGroupDetails: LinkGroup
 ) {
   if (checkEmptyLinks(linkGroupDetails.links)) {
-    wrapper.classList.add("removed");
+    container.classList.add("removed");
     return;
   }
 
-  const titleElement = wrapper.querySelector(
+  const titleElement = container.querySelector(
     ".collection-title"
   ) as HTMLElement;
   titleElement.textContent = linkGroupDetails.title;
 
-  const linkElements = wrapper.querySelectorAll(
+  const linkElements = container.querySelectorAll(
     ".link"
   ) as NodeListOf<HTMLLinkElement>;
 
@@ -107,26 +105,29 @@ export function displayLinkSection(
   }
 }
 
-export function updateLinkSection(wrapper: HTMLElement, linkGroup: LinkGroup) {
+export function updateLinkSection(
+  container: HTMLElement,
+  linkGroup: LinkGroup
+) {
   if (checkEmptyLinks(linkGroup.links)) {
-    wrapper.classList.add("removed");
+    container.classList.add("removed");
     return;
   }
-  wrapper.classList.remove("removed");
-  const titleElement = wrapper.querySelector(
+  container.classList.remove("removed");
+  const titleElement = container.querySelector(
     ".collection-title"
   ) as HTMLElement;
   titleElement.textContent = linkGroup.title;
 
-  const linkElements = wrapper.querySelectorAll(
+  const linkElements = container.querySelectorAll(
     ".link"
   ) as NodeListOf<HTMLLinkElement>;
 
   linkElements.forEach((el, i) => {
-    el.classList.remove("removed");
+    el.parentElement?.classList.remove("removed");
     const link = linkGroup.links[i];
     if (!link.href) {
-      el.classList.add("removed");
+      el.parentElement?.classList.add("removed");
       return;
     }
     el.href = link.href;
@@ -161,4 +162,78 @@ export function saveLinks(data: any) {
 export function validateLinks(data: any): data is AllLinkGroups {
   AllLinkGroupsSchema.parse(data);
   return true;
+}
+
+let linkSectionFocusIndex = 0;
+let linkFocusIndex = 0;
+export function initLinkSectionKeybinds(): void {
+  window.addEventListener("keydown", (e) => {
+    if ((e.target as Element).tagName === "INPUT") return;
+    if (e.key != "Tab" && !e.key.includes("Arrow")) return;
+
+    const visibleSections = Array.from(linkSections).filter((el) => {
+      return !el.classList.contains("removed");
+    });
+
+    function onArrowKey() {
+      const linkElements = linkSections[linkSectionFocusIndex].querySelectorAll(
+        ".link-wrapper"
+      ) as NodeListOf<HTMLLinkElement>;
+
+      const visibleLinks = Array.from(linkElements).filter((el) => {
+        return !el.classList.contains("removed");
+      });
+
+      linkFocusIndex = Math.min(visibleLinks.length - 1, linkFocusIndex);
+      visibleLinks[linkFocusIndex].focus();
+    }
+    switch (e.key) {
+      case "ArrowDown": {
+        linkFocusIndex = Math.min(linkFocusIndex + 1, 5);
+
+        onArrowKey();
+        break;
+      }
+      case "ArrowUp": {
+        linkFocusIndex = Math.max(linkFocusIndex - 1, 0);
+        onArrowKey();
+        break;
+      }
+      case "ArrowLeft": {
+        linkSectionFocusIndex = Math.max(linkSectionFocusIndex - 1, 0);
+        onArrowKey();
+        break;
+      }
+      case "ArrowRight": {
+        linkSectionFocusIndex = Math.min(
+          linkSectionFocusIndex + 1,
+          visibleSections.length - 1
+        );
+        onArrowKey();
+        break;
+      }
+      case "Tab": {
+        const activeLinkSection = visibleSections.findIndex((el, i) => {
+          const linkSectionHoldsActiveElement = Array.from(
+            el.querySelectorAll(".link-wrapper")
+          ).some((el, i) => {
+            if (document.activeElement === el) {
+              linkFocusIndex = i;
+              return true;
+            }
+            return false;
+          });
+
+          if (linkSectionHoldsActiveElement) {
+            linkSectionFocusIndex = i;
+            return true;
+          }
+
+          return false;
+        });
+        linkSectionFocusIndex =
+          activeLinkSection != -1 ? activeLinkSection : linkSectionFocusIndex;
+      }
+    }
+  });
 }

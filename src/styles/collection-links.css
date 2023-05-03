@@ -140,7 +140,7 @@
 .link-wrapper:not(.inactive):hover .link-text:after {
   transform: translateX(0);
 }
-.link-wrapper:not(.inactive) .link:focus-visible {
+.link-wrapper:not(.inactive):focus-visible {
   border: none;
   outline: none;
 }

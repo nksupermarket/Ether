@@ -1,7 +1,7 @@
 import { refreshImage, saveImageState } from "../Image";
 import { refreshKeybinds, saveKeybinds } from "../KeyBinds";
 import { refreshLinks, saveLinks } from "../Links";
-import { refreshSearch, saveSearch } from "../Search";
+import { refreshSearch, saveSearchEngine } from "../Search";
 import { refreshTheme, saveTheme } from "../Theme";
 import SettingsSection from "./SettingsSection";
 
@@ -69,7 +69,7 @@ export default function initJsonSettings() {
             break;
           }
           case "search": {
-            saveSearch(value);
+            saveSearchEngine(value);
             refreshSearch();
             break;
           }

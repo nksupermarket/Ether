@@ -26,14 +26,14 @@ export function getImage(): ImageState {
   return imageState;
 }
 
-export function updateImage(imageState: ImageState) {
+export function setImage(imageState: ImageState) {
   imageEl.style.setProperty("background-image", imageState.image);
   imageEl.style.setProperty("background-position-x", imageState["position x"]);
   imageEl.style.setProperty("background-position-y", imageState["position y"]);
 }
 
 export function refreshImage() {
-  updateImage(getImage());
+  setImage(getImage());
 }
 
 export function validateImageState(data: any): data is ImageState {

@@ -1,21 +1,35 @@
-#modal {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 99;
+dialog {
   background: transparent;
-  display: grid;
-  place-items: center;
-}
-
-#settings {
-  width: 80%;
-  height: 95%;
+  color: inherit;
+  border: none;
   backdrop-filter: blur(70px);
   background: rgba(var(--main-bg-color), 0.8);
   border: var(--border);
+  padding: 0;
+}
+dialog::backdrop {
+  background: transparent;
+}
+
+#settings-modal {
+  height: 95%;
+  width: 80%;
+  z-index: 89;
+}
+
+#confirm-modal {
+  z-index: 99;
+}
+#confirm-modal .content {
+  padding: 2em 3em;
+}
+#confirm-modal::backdrop {
+  backdrop-filter: blur(3px);
+}
+
+#settings {
+  width: 100%;
+  height: 100%;
   position: relative;
   padding: 4em;
   box-sizing: border-box;
@@ -68,7 +82,7 @@
   color: rgb(var(--main-accent));
 }
 
-.settings-content {
+.scroller-wrapper {
   flex-grow: 1;
   position: relative;
   height: 100%;
@@ -94,9 +108,6 @@
   margin-bottom: 25vh;
 }
 
-.settings-section form {
-  margin-bottom: 1.8em;
-}
 .settings-section:not(:first-of-type) {
   margin-top: 3em;
 }
@@ -112,12 +123,14 @@
   margin-bottom: 1.2em;
 }
 
+.input-group-wrapper h4 {
+  margin-top: 0;
+}
 .input-group {
   display: grid;
   grid-template-columns: auto 1fr;
   column-gap: 1em;
   row-gap: 1em;
-  margin-bottom: 1.8em;
 }
 .input-group .input-wrapper {
   display: contents;
@@ -180,12 +193,9 @@
   box-sizing: border-box;
 }
 
-.settings-content button[data-role="generate keybinds"] {
-  margin-bottom: 1.8em;
-}
-
 label[for="file-input"] .button-text {
   padding: 0.6em 0.9em;
+  cursor: pointer;
 }
 form[name="image"] .input-group {
   margin-top: 1.8em;

@@ -1,14 +1,24 @@
 import { z } from "zod";
 import { isModalOpen } from "./Modal";
 
-const searchEngines = Object.freeze({
+export const SEARCH_LS_KEY = "search";
+export const CUSTOM_SEARCH_DETAILS_LS_KEY = "custom search details";
+
+const searchEngines = {
   duckduckgo: "https://www.duckduckgo.com/",
   google: "https://www.google.com/search",
-} as const);
+  custom: "",
+};
 
-export type SearchEngine = keyof typeof searchEngines;
+const SearchEngineSchema = z.enum(["duckduckgo", "google", "custom"]);
+const CustomSearchSchema = z.object({
+  name: z.string(),
+  "query url": z.string().url("Not a valid url"),
+});
 
-const SearchEngineSchema = z.enum(["duckduckgo", "google"]);
+export type SearchEngine = z.infer<typeof SearchEngineSchema>;
+export type CustomSearch = z.infer<typeof CustomSearchSchema>;
+
 const searchForm = document.querySelector(".search-form");
 const urlForm = document.querySelector(".url-form");
 const urlInput = urlForm?.querySelector("input") as HTMLInputElement;
@@ -19,15 +29,37 @@ export function onNavigate(e: Event) {
   window.location.assign(location);
 }
 
-export function saveSearch(data: any) {
-  const se = data.toLowerCase();
-  validateSearch(se);
-  localStorage.setItem("search", JSON.stringify(se));
+export function saveSearchEngine(data: any) {
+  const se = typeof data == "string" ? data.toLowerCase() : "";
+  if (validateSearchEngine(se)) {
+    localStorage.setItem(SEARCH_LS_KEY, JSON.stringify(se));
+  }
+}
+export function saveCustomSearch(data: any) {
+  if (validateCustomSearch(data)) {
+    localStorage.setItem(CUSTOM_SEARCH_DETAILS_LS_KEY, JSON.stringify(data));
+  }
 }
 
 export function setSearch(engine: SearchEngine): void {
+  if (engine === "custom") {
+    const customSearchDetails = getCustomSearchDetails();
+
+    if (customSearchDetails) {
+      searchEngines.custom = customSearchDetails["query url"];
+      let customSearchIcon = document.querySelector(
+        "[data-search='custom']"
+      ) as HTMLElement;
+      customSearchIcon.textContent = customSearchDetails.name;
+    } else {
+      engine = "google";
+    }
+  }
+
   searchForm?.setAttribute("action", searchEngines[engine]);
-  const icons = searchForm?.querySelectorAll("svg");
+  const icons = searchForm?.querySelectorAll(
+    ".search-icon"
+  ) as NodeListOf<HTMLElement>;
   icons?.forEach((icon) => {
     if (icon.dataset.search != engine) icon.classList.add("removed");
     else icon.classList.remove("removed");
@@ -35,17 +67,31 @@ export function setSearch(engine: SearchEngine): void {
 }
 
 export function getSearch(): SearchEngine {
-  const lsItem = localStorage.getItem("search");
-  if (lsItem) return JSON.parse(lsItem) as SearchEngine;
-  saveSearch("google");
+  const lsItem = localStorage.getItem(SEARCH_LS_KEY);
+  if (lsItem) {
+    return JSON.parse(lsItem) as SearchEngine;
+  }
+  saveSearchEngine("google");
   return "google";
+}
+
+export function getCustomSearchDetails(): CustomSearch | null {
+  const lsItem = localStorage.getItem(CUSTOM_SEARCH_DETAILS_LS_KEY);
+  if (lsItem) {
+    return JSON.parse(lsItem) as CustomSearch;
+  }
+  return null;
 }
 
 export function refreshSearch(): void {
   setSearch(getSearch());
 }
 
-export function validateSearch(data: any): data is SearchEngine {
+export function validateCustomSearch(data: unknown): data is CustomSearch {
+  CustomSearchSchema.parse(data);
+  return true;
+}
+export function validateSearchEngine(data: unknown): data is SearchEngine {
   SearchEngineSchema.parse(data, {
     errorMap: (error) => {
       if (error.code === "invalid_enum_value") {
