@@ -1,6 +1,6 @@
 # Ether - an aesthetic, functional startpage
 
-Navigate to your favorite sites with just a keypress or start a search with the Shift key. To navigate to a site, hit the "Ctrl" key before typing the address.
+Navigate to your favorite sites with just a keypress or start a search with the `Shift` key. To navigate to a site, hit the `Ctrl` key before typing the address.
 
 Tab through your links with either the `Tab` key or your arrow keys.
 
