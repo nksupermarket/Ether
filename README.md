@@ -49,7 +49,7 @@ The import json option allows you to import your settings piece-by-piece ( ie. i
 
 ## Setting it up as your new tab page
 
-### The easy way
+### The recommended way
 
 ---
 
@@ -59,9 +59,10 @@ Download the new tab override extension for your browser, and in your extension 
 
 [Firefox extension](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/)
 
-### For a creamier, buttery experience
+### For a creamier, buttery experience (proceed at your own risk)
 
 ---
+This method introduces some known [privacy and security flaws](https://www.mdsec.co.uk/2020/04/abusing-firefox-in-enterprise-environments/). 
 
 [For firefox users as that's the only browser I have experience with, sorry guys]
 
