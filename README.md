@@ -66,8 +66,6 @@ This method introduces some known [privacy and security flaws](https://www.mdsec
 
 [For firefox users as that's the only browser I have experience with, sorry guys]
 
-This is a bit more time-consuming but for those of you looking for an extra creamy, buttery, velvety experience this is what you want to do.
-
 1. **Getting the files**
 
 Download the code via the "<> Code" button and extract it somewhere
