@@ -160,7 +160,7 @@ If you want to build it yourself, the build command is `npm run build`.
 
     // Auto focus new tab content
     try {
-        Cu.import("resource://gre/modules/Services.jsm");
+        Cu.import("resource://gre/modules/Services.jsm"); /* if you're using firefox 117 or above remove this line */
         Cu.import("resource:///modules/BrowserWindowTracker.jsm");
 
         Services.obs.addObserver((event) => {
