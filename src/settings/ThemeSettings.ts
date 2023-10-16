@@ -1,8 +1,14 @@
 import { StringKeyObj } from "../../types/interfaces";
 import THEMES from "../data/THEMES";
 import DomRender from "../DomRender";
-import { ImageState, refreshImage, saveImageState } from "../Image";
-import { refreshTheme, saveTheme, Theme, THEME_LS_KEY } from "../Theme";
+import { getImage, ImageState, refreshImage, saveImageState } from "../Image";
+import {
+  getTheme,
+  refreshTheme,
+  saveTheme,
+  Theme,
+  THEME_LS_KEY,
+} from "../Theme";
 import InputGroup from "./InputGroup";
 import SettingsSection, {
   SettingsSectionWithChildren,
@@ -10,7 +16,7 @@ import SettingsSection, {
 
 export default function (
   theme: Theme,
-  imageSection: SettingsSection<ImageState>
+  imageSection: SettingsSection<ImageState>,
 ) {
   const themeSection = new SettingsSectionWithChildren({
     title: THEME_LS_KEY,
@@ -20,7 +26,7 @@ export default function (
       {
         render: function () {
           const selectEl = document.querySelector(
-            "#theme-settings select"
+            "#theme-settings select",
           ) as HTMLSelectElement;
           selectEl.value = "custom";
 
@@ -34,11 +40,14 @@ export default function (
 
             selectEl.addEventListener("change", () => {
               const selectedTheme =
-                THEMES[selectEl.value as keyof typeof THEMES];
-              saveTheme(selectedTheme.theme);
-              saveImageState(selectedTheme.image);
-              refreshImage();
-              refreshTheme();
+                selectEl.value === "custom"
+                  ? {
+                      theme: getTheme(),
+                      image: getImage(),
+                    }
+                  : THEMES[selectEl.value as keyof typeof THEMES];
+              refreshTheme(selectedTheme.theme);
+              refreshImage(selectedTheme.image);
               themeSection.state = selectedTheme.theme;
               imageSection.state = selectedTheme.image;
               themeSection.rerender();
@@ -50,11 +59,11 @@ export default function (
       },
       new InputGroup({
         wrapperEl: document.querySelector(
-          "#theme-settings .input-group"
+          "#theme-settings .input-group",
         ) as HTMLElement,
         updateState: (e: Event) => {
           const selectEl = document.querySelector(
-            "#theme-settings select"
+            "#theme-settings select",
           ) as HTMLSelectElement;
           selectEl.value = "custom";
 
@@ -70,7 +79,7 @@ export default function (
     ],
     onSave: () => {
       saveTheme(themeSection.state);
-      refreshTheme();
+      saveImageState(imageSection.state);
     },
   });
   return themeSection;

@@ -34,8 +34,8 @@ export function setImage(imageState: ImageState) {
   imageEl.style.setProperty("background-position-y", imageState["position y"]);
 }
 
-export function refreshImage() {
-  setImage(getImage());
+export function refreshImage(image: ImageState) {
+  setImage(image);
 }
 
 export function validateImageState(data: any): data is ImageState {

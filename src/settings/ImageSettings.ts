@@ -19,10 +19,10 @@ export default function initImageSettings(imageState: ImageState) {
         return {
           render: function () {
             const sectionEl = document.getElementById(
-              "image-settings"
+              "image-settings",
             ) as HTMLElement;
             const input = sectionEl.querySelector(
-              "input[type='file']"
+              "input[type='file']",
             ) as HTMLElement;
             input.addEventListener("change", (e) => {
               const target = e.target as HTMLInputElement;
@@ -55,7 +55,7 @@ export default function initImageSettings(imageState: ImageState) {
 
               reader.addEventListener("load", () => {
                 const label = sectionEl.querySelector(
-                  "label .button-text"
+                  "label .button-text",
                 ) as HTMLElement;
                 label.textContent = file.name;
 
@@ -67,10 +67,10 @@ export default function initImageSettings(imageState: ImageState) {
           },
           rerender: function () {
             const sectionEl = document.getElementById(
-              "image-settings"
+              "image-settings",
             ) as HTMLElement;
             const label = sectionEl.querySelector(
-              "label .button-text"
+              "label .button-text",
             ) as HTMLElement;
             label.textContent = "Choose your image";
           },
@@ -78,7 +78,7 @@ export default function initImageSettings(imageState: ImageState) {
       })(),
       new InputGroup({
         wrapperEl: document.querySelector(
-          "#image-settings .input-group"
+          "#image-settings .input-group",
         ) as HTMLElement,
         updateState: (e: Event) => {
           const target = e.target as HTMLInputElement;
@@ -98,7 +98,7 @@ export default function initImageSettings(imageState: ImageState) {
     ],
     onSave: (data: any) => {
       saveImageState(data);
-      refreshImage();
+      refreshImage(data);
     },
   });
   return imageSection;

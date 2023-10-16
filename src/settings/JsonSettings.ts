@@ -1,4 +1,9 @@
-import { IMAGE_LS_KEY, refreshImage, saveImageState } from "../Image";
+import {
+  IMAGE_LS_KEY,
+  ImageState,
+  refreshImage,
+  saveImageState,
+} from "../Image";
 import { KEYBINDS_LS_KEY, refreshKeybinds, saveKeybinds } from "../KeyBinds";
 import { LINKS_LS_KEY, refreshLinks, saveLinks } from "../Links";
 import {
@@ -8,7 +13,7 @@ import {
   saveSearchEngine,
   SEARCH_LS_KEY,
 } from "../Search";
-import { refreshTheme, saveTheme, THEME_LS_KEY } from "../Theme";
+import { refreshTheme, saveTheme, Theme, THEME_LS_KEY } from "../Theme";
 import SettingsSection from "./SettingsSection";
 
 export default function initJsonSettings() {
@@ -19,7 +24,7 @@ export default function initJsonSettings() {
     render: function (this: SettingsSection<string>) {
       const wrapperEl = document.querySelector("#json-settings");
       const textarea = wrapperEl?.querySelector(
-        "form[name='import json'] textarea"
+        "form[name='import json'] textarea",
       ) as HTMLTextAreaElement;
       textarea.value = this.state;
       textarea?.addEventListener("input", (e) => {
@@ -35,7 +40,7 @@ export default function initJsonSettings() {
         });
 
       const resetButton = this.sectionEl.querySelector(
-        "button[aria-label='reset']"
+        "button[aria-label='reset']",
       );
       resetButton?.addEventListener("click", () => {
         this.reset();
@@ -45,7 +50,7 @@ export default function initJsonSettings() {
     rerender: function () {
       const wrapperEl = document.querySelector("#json-settings");
       const textarea = wrapperEl?.querySelector(
-        "form[name='import json'] textarea"
+        "form[name='import json'] textarea",
       ) as HTMLTextAreaElement;
       textarea.value = jsonSettings.state;
     },
@@ -56,7 +61,7 @@ export default function initJsonSettings() {
         switch (key) {
           case THEME_LS_KEY: {
             saveTheme(value);
-            refreshTheme();
+            refreshTheme(value as Theme);
             break;
           }
           case LINKS_LS_KEY: {
@@ -66,7 +71,7 @@ export default function initJsonSettings() {
           }
           case IMAGE_LS_KEY: {
             saveImageState(value);
-            refreshImage();
+            refreshImage(value as ImageState);
             break;
           }
           case KEYBINDS_LS_KEY: {

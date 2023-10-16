@@ -26,3 +26,15 @@ const LocalStorage = {
   },
 };
 export default LocalStorage;
+
+// const config = [
+//   "keybinds",
+//   "links",
+//   "theme",
+//   "image",
+//   "search",
+//   "custom search details",
+// ].reduce((acc, curr) => {
+//   return { ...acc, [curr]: JSON.parse(localStorage.getItem(curr)) };
+// }, {});
+// JSON.stringify(config, null, 0);

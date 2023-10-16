@@ -42,13 +42,13 @@ export function getTheme(): Theme {
   const cssVariables = window.getComputedStyle(document.documentElement);
   const defaultTheme = {
     "bg color": convertCssRgbToHex(
-      cssVariables.getPropertyValue("--main-bg-color")
+      cssVariables.getPropertyValue("--main-bg-color"),
     ),
     "fg color": convertCssRgbToHex(
-      cssVariables.getPropertyValue("--main-fg-color")
+      cssVariables.getPropertyValue("--main-fg-color"),
     ),
     "main accent": convertCssRgbToHex(
-      cssVariables.getPropertyValue("--main-accent")
+      cssVariables.getPropertyValue("--main-accent"),
     ),
     "accent 1": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-1")),
     "accent 2": convertCssRgbToHex(cssVariables.getPropertyValue("--accent-2")),
@@ -76,17 +76,17 @@ export function setTheme(theme: Theme): void {
       case "bg color": {
         document.documentElement.style.setProperty(
           "--main-bg-color",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         break;
       }
       case "fg color": {
         document.documentElement.style.setProperty(
           "--main-fg-color",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         const imageBoxBg = document.querySelector(
-          ".image-border .squiggly"
+          ".image-border .squiggly",
         ) as HTMLElement;
         const url = window.getComputedStyle(imageBoxBg).backgroundImage;
         const hex = value as string;
@@ -98,10 +98,10 @@ export function setTheme(theme: Theme): void {
       case "main accent": {
         document.documentElement.style.setProperty(
           "--main-accent",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         const linkBoxBg = document.querySelector(
-          ".links-section .squiggly"
+          ".links-section .squiggly",
         ) as HTMLElement;
         const url = window.getComputedStyle(linkBoxBg).backgroundImage;
         const hex = value as string;
@@ -114,50 +114,50 @@ export function setTheme(theme: Theme): void {
       case "accent 1": {
         document.documentElement.style.setProperty(
           "--accent-1",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         break;
       }
       case "accent 2": {
         document.documentElement.style.setProperty(
           "--accent-2",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         break;
       }
       case "accent 3": {
         document.documentElement.style.setProperty(
           "--accent-3",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         break;
       }
       case "accent 4": {
         document.documentElement.style.setProperty(
           "--accent-4",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         break;
       }
       case "accent 5": {
         document.documentElement.style.setProperty(
           "--accent-5",
-          hexToRgb(value as string)
+          hexToRgb(value as string),
         );
         break;
       }
       case "panel opacity": {
         document.documentElement.style.setProperty(
           "--panel-opacity",
-          value as string
+          value as string,
         );
       }
     }
   }
 }
 
-export function refreshTheme() {
-  setTheme(getTheme());
+export function refreshTheme(theme: Theme) {
+  setTheme(theme);
 }
 
 export function validateTheme(data: any): data is Theme {

@@ -48,7 +48,7 @@ export function setSearch(engine: SearchEngine): void {
     if (customSearchDetails) {
       searchEngines.custom = customSearchDetails["query url"];
       let customSearchIcon = document.querySelector(
-        "[data-search='custom']"
+        "[data-search='custom']",
       ) as HTMLElement;
       customSearchIcon.textContent = customSearchDetails.name;
     } else {
@@ -58,7 +58,7 @@ export function setSearch(engine: SearchEngine): void {
 
   searchForm?.setAttribute("action", searchEngines[engine]);
   const icons = searchForm?.querySelectorAll(
-    ".search-icon"
+    ".search-icon",
   ) as NodeListOf<HTMLElement>;
   icons?.forEach((icon) => {
     if (icon.dataset.search != engine) icon.classList.add("removed");
@@ -88,6 +88,7 @@ export function refreshSearch(): void {
 }
 
 export function validateCustomSearch(data: unknown): data is CustomSearch {
+  if (data == null) return true;
   CustomSearchSchema.parse(data);
   return true;
 }
