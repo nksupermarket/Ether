@@ -6,7 +6,7 @@ Tab through your links with either the `Tab` key or your arrow keys.
 
 It's not mobile friendly as it was designed for use on a laptop/desktop.
 
-[Live Demo](https://lookingcoolonavespa.github.io/Ether/)
+[Live Demo](https://nksupermarket.github.io/Ether/)
 
 ## Pre-configured themes
 
