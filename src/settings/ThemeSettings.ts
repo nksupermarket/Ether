@@ -80,6 +80,7 @@ export default function (
     onSave: () => {
       saveTheme(themeSection.state);
       saveImageState(imageSection.state);
+      refreshTheme(themeSection.state);
     },
   });
   return themeSection;
